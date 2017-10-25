@@ -1,0 +1,92 @@
+html,body{
+    width: 100%;
+    height: 100%;
+    font-family: "microsoft yahei";
+    font-size: 14px;
+  }
+
+/*map--legend*/
+.mapLegend{
+  position: absolute;
+  right: 20px;
+  bottom:350px;
+  ul{
+    li{
+      border-radius: 5px;
+      width: 55px;
+      height: 55px;
+      text-align: center;
+      margin-bottom: 10px;
+      cursor: pointer;
+      img{
+        margin-top: 6px;
+      }
+      div{
+        margin-top: -3px;
+      }
+      &.red{
+        border:1px solid #e60569;
+        color: #e60569;
+      }
+      &.green{
+        border:1px solid #2ac37a;
+        color: #2ac37a;
+      }
+      &.purple{
+        border:1px solid #a523fc;
+        color: #a523fc;
+      }
+      &.lengActive{
+        background-color: #2ac37a;
+        color: #fff;
+      }
+    }
+  }
+}
+
+/*mapFoot-*/
+.mapFoot{
+  .footDateil{
+    .table{
+      table{
+        width: 90%;
+        margin: 0 auto;
+        tr{
+          td{
+            height: 40px !important;
+            line-height: 40px !important;;
+          }
+          .org{
+            color: #ff9806;
+          }
+          .blue{
+            color: #0fbbfb;
+          }
+        }
+      }
+    }
+    .footRight{
+      &>div{
+       float: left;
+       height: 224px;
+        border-right: 2px solid #112e6b;
+        padding-top: 20px;
+        &#swiperBox1{
+          width: 64.6%;
+          .swiper-pagination-bullet{
+            width: 33.3%
+          }
+        }
+        &#swiperBox2{
+          width: 35%;
+          .swiper-pagination-bullet{
+            width:33.3%
+          }
+        }
+      }
+    }
+  }
+}
+
+
+

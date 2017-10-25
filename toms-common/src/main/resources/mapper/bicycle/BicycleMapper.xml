@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--自行车-->
+<mapper namespace="com.linkcld.toms.common.dao.IBicycleMapper">
+
+
+    <select id="selectAll" resultType="com.linkcld.toms.common.bean.Bicycle" parameterType="com.linkcld.toms.common.bean.Bicycle">
+        select
+        a.id,a.xcode,a.mc name,a.y,a.x,b.capacity,  b.KJL availbikeRate,
+        b.availbike,
+        (b.CAPACITY-b.AVAILBIKE) unavailbike,
+        NVL(a.DZJGJZJL,0.0) distance,
+        b.KHL unavailbikeRate,a.dz address,to_char(b.EXCHANGE_TIME,'YYYY-MM-DD HH24:MI:SS')createtime
+        from S_SP_ZXCTKD@bgis a left join
+        (select * from T_C_BICYCLE_SITE_DAY where tjsj_d=to_char(sysdate,'yyyymmdd'))b on
+        a.id=b.id1 where b.tjsj_d=to_char(sysdate,'yyyymmdd')
+        <if test="id!=null and id!=''">
+            and b.id1=#{id}
+        </if>
+        <if test="xcode!=null and xcode!=''">
+            and a.xcode=#{xcode}
+        </if>
+    </select>
+    <select id="selectOne" resultType="com.linkcld.toms.common.bean.Bicycle" parameterType="com.linkcld.toms.common.bean.Bicycle">
+
+        select
+        a.id,a.xcode,a.mc name,a.y,a.x,b.capacity,  b.KJL availbikeRate,
+        b.availbike,
+        b.USABLE_NUM unavailbike,
+        a.DZJGJZJL distance,
+        b.KHL unavailbikeRate,a.dz address,to_char(b.EXCHANGE_TIME,'YYYY-MM-DD HH24:MI:SS')createtime
+        from  S_SP_ZXCTKD@bgis a left join T_C_BICYCLE_SITE_DAY b on
+        a.id=b.id where b.tjsj_d=to_char(sysdate,'yyyymmdd')
+        <if test="id!=null and id!=''">
+            and b.id=#{id}
+        </if>
+        <if test="xcode!=null and xcode!=''">
+            and a.xcode=#{xcode}
+        </if>
+
+    </select>
+
+    <select id="bicycleIndexByDay" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select  SITE_NUM zs,--站点总数
+        SEAT_NUM cws,--车位总数
+        KJS kjs, --可借车辆数
+        KHS khs,--可还数
+        SYL_NUM syl, --使用率
+        RJCL rjcl --日借车量
+        from T_C_BICYCLE_DAY  where tjsj_d=#{dateType}
+    </select>
+
+    <select id="bicycleIndexByMonth" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select  SITE_NUM zs,--站点总数
+        SEAT_NUM cws,--车位总数
+        KJS kjs, --可借车辆数
+        KHS khs,--可还数
+        SYL_NUM syl --使用率
+        from T_C_BICYCLE_DAY  where tjsj_d=#{dateType}
+    </select>
+
+    <select id="bicycleIndexByYear" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select  SITE_NUM zs,--站点总数
+        SEAT_NUM cws,--车位总数
+        KJS kjs, --可借车辆数
+        KHS khs,--可还数
+        SYL_NUM syl --使用率
+        from T_C_BICYCLE_DAY  where tjsj_d=#{dateType}
+    </select>
+
+    <select id="bicycleTopByYear" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select * from (SELECT TJSJ_Y,SITE_NAME,USABLE_NUM FROM T_C_BICYCLE_SITE_YEAR
+        where TJSJ_Y=#{dateType}
+        order by usable_num ASC ) where rownum &lt;=10
+    </select>
+    <select id="bicycleTopByMonth" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select * from (SELECT TJSJ_M,SITE_NAME,USABLE_NUM FROM T_C_BICYCLE_SITE_MONTH
+        where TJSJ_M=#{dateType}
+        order by usable_num ASC ) where rownum &lt;=10
+    </select>
+    <select id="bicycleTopByDay" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select * from (SELECT TJSJ_D,SITE_NAME,USABLE_NUM FROM T_C_BICYCLE_SITE_DAY
+        where TJSJ_D=#{dateType}
+        order by usable_num  ASC ) where rownum &lt;=10
+    </select>
+
+    <select id="bicycleTopByYear1" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select * from (SELECT TJSJ_Y,SITE_NAME,USABLE_NUM FROM T_C_BICYCLE_SITE_YEAR
+        where TJSJ_Y=#{dateType}
+        order by usable_num desc ) where rownum &lt;=10
+    </select>
+    <select id="bicycleTopByMonth1" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select * from (SELECT TJSJ_M,SITE_NAME,USABLE_NUM FROM T_C_BICYCLE_SITE_MONTH
+        where TJSJ_M=#{dateType}
+        order by usable_num desc ) where rownum &lt;=10
+    </select>
+    <select id="bicycleTopByDay1" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select * from (SELECT TJSJ_D,SITE_NAME,USABLE_NUM FROM T_C_BICYCLE_SITE_DAY
+        where TJSJ_D=#{dateType}
+        order by usable_num  desc ) where rownum &lt;=10
+    </select>
+
+    <select id="bicycleUseRateByDay" parameterType="java.util.Map" resultType="java.util.HashMap">
+        SELECT SYL_NUM,
+         substr(TJSJ_D,7,2) TJSJ_D
+         FROM T_C_BICYCLE_DAY
+        where TJSJ_D LIKE #{dateType}||'%'
+        order by TJSJ_D
+    </select>
+
+    <select id="bicycleUseRateByMonth" parameterType="java.util.Map" resultType="java.util.HashMap">
+        SELECT SYL_NUM,
+         substr(TJSJ_M,5,2) TJSJ_M
+         FROM T_C_BICYCLE_MONTH
+        where TJSJ_M LIKE #{dateType}||'%'
+        order by TJSJ_M
+    </select>
+    <!--自行车日使用率-->
+    <select id="bicycleUseRateByDay2" parameterType="java.util.Map" resultType="java.util.HashMap">
+        SELECT TJSJ_D dayTime,
+                NVL(SUM(SYL_NUM)/count(SYL_NUM),0) syl
+        FROM T_C_BICYCLE_DAY
+        WHERE TJSJ_D = #{dateType}
+        GROUP BY TJSJ_D
+    </select>
+</mapper>

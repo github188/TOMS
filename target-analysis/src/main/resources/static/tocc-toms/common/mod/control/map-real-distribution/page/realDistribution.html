@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit"/>
+	<meta http-equiv="x-ua-Compatible" content="IE=edge,chrome=1"/>
+	<meta name="viewport" content="width=device-width,initial-scale=1"/>
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+	<meta content="telephone=no" name="format-detection"/>
+	<meta content="email=no" name="format-detection"/>
+	<title>Title</title>
+	<link rel="stylesheet" type="text/css" href="../resource/css/base.css">
+	<link rel="stylesheet" type="text/css" href="../resource/css/widget.css">
+	<link rel="stylesheet" type="text/css" href="../resource/css/theme.css" />
+	<link rel="stylesheet" type="text/css" href="../resource/css/nav.css" />
+	<link rel="stylesheet" type="text/css" href="../resource/css/common.css" />
+	<link rel="stylesheet" type="text/css" href="../resource/css/legend.css" />
+	<link rel="stylesheet" type="text/css" href="../resource/css/font2/iconfont.css" />
+</head>
+<body style="background: #f5f7fa">
+<div class="frame-yxjk" style="height: 100%;">
+	<div id="ptjkMap1" style="width: 100%;height: 100%;"></div>
+	<div id="map-tools">
+	</div>
+
+	<!--左下角图例-->
+	<div id="left-bottom">
+
+	</div>
+
+</div>
+<!--左侧弹出菜单-->
+<script src="../app/utils/httpRequest.js"></script>
+<script src="../../../libs/bmap/utils/events_utils.js"></script>
+<script data-main="../../../main" src="../../../libs/core/requirejs/requirejs.js"></script>
+<script src="../app/utils/tableDownloads.js" type="text/javascript"></script>
+<script type="application/javascript">
+	window.ByEvent.addEvent("mainjsLoaded", function() {
+		var options=request();
+		require(['control/map-real-distribution/app/entrance/mainView'],function(mainView) {
+			var areaName = window.AppConfig.areaName;
+			var indcode = window.AppConfig.insCode['bus'];
+			var real = new mainView().render({indCode: indcode,areaName:areaName,industyType:options.industytype});
+		});
+	});
+</script>
+</body>
+</html>

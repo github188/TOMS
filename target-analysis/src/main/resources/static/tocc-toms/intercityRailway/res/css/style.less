@@ -1,0 +1,111 @@
+html,body{
+    width: 100%;
+    height: 100%;
+    font-family: "microsoft yahei";
+    font-size: 14px;
+  }
+
+/*map--legend*/
+.mapLegend{
+  position: absolute;
+  right: 20px;
+  bottom:350px;
+  ul{
+    li{
+      border-radius: 5px;
+      width: 55px;
+      height: 55px;
+      text-align: center;
+      margin-bottom: 10px;
+      cursor: pointer;
+      img{
+        margin-top: 6px;
+      }
+      div{
+        margin-top: -3px;
+      }
+      &.blue{
+        border:1px solid #2ac3da;
+        color: #2ac3da;
+      }
+      &.org{
+        border:1px solid #cf8015;
+        color: #cf8015;
+      }
+      &.purple{
+        border:1px solid #6f23be;
+        color: #6f23be;
+      }
+      &.lengActive{
+        background-color: #6f23be;
+        color: #fff;
+      }
+    }
+  }
+}
+
+/*mapFoot-*/
+.mapFoot{
+  .railwayTb{
+    border-right: 2px solid #0a1c43;
+    height: 210px;
+    background-color: #06122a;
+    table{
+      width: 100%;
+      margin: 0 auto;
+      tr{
+        &:first-child td{
+          background-color: #0a1b39;
+          color: #8692a4;
+        }
+        td{
+          height: 40px;
+          text-align: center;
+          &:first-child{
+            color: #8692a4;
+          }
+        }
+        .blue{
+          color: #32c1ce;
+          font-size: 15px;
+        }
+      }
+    }
+  }
+  .footRight{
+    height: 250px;
+    &>div{
+      float: left;
+      height: 230px;
+      border-right: 2px solid #112e6b;
+      padding-top: 20px;
+      &#swiperBox1{
+        width: 33%;
+      }
+     
+      &#swiperBox3{
+        width: 33%;
+        .swiper-pagination{
+          .swiper-pagination-bullet{
+            width: 33.3%;
+          }
+        }
+      }
+      &#swiperBox4{
+        width: 33.7%;
+        .swiper-pagination{
+          .swiper-pagination-bullet{
+            width: 33.3%;
+          }
+        }
+      }
+    }
+    &>div:last-child{
+      border-right: none;
+    }
+  }
+}
+
+
+
+

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--班车-->
+<mapper namespace="com.linkcld.toms.common.dao.ShuttlebusMapper">
+
+    <select id="getShiftBySite" resultType="java.util.Map" parameterType="java.util.Map">
+        select  FSL_NUM,ZZL_NUM,SITE_NAME,ON_NUM,OFF_NUM,to_char(EXCHANGE_TIME,'YYYY-MM-DD HH24:MI:SS') EXCHANGE_TIME
+        from T_C_BUS2_SITE_day  where 1=1
+        <if test="dateType != null and dateType != ''">
+            and TJSJ_D=#{dateType}
+        </if>
+        <if test="siteName != null and siteName != ''">
+            and SITE_NAME=#{siteName}
+        </if>
+    </select>
+
+    <!--客运站近7日数据-->
+    <select id="getShiftBySiteBy7Day" resultType="java.util.Map" parameterType="java.util.Map">
+        select
+        FSL_NUM,ZZL_NUM,SITE_NAME,ON_NUM,OFF_NUM,substr(TJSJ_D,5,4) TJSJ_D, EXCHANGE_TIME
+        from (select FSL_NUM,ZZL_NUM,SITE_NAME,ON_NUM,OFF_NUM,TJSJ_D,to_char(EXCHANGE_TIME,'YYYY-MM-DD HH24:MI:SS') EXCHANGE_TIME
+        from T_C_BUS2_SITE_DAY
+        where 1=1
+        <if test="siteName != null and siteName != ''">
+            and SITE_NAME=#{siteName}
+        </if>
+        order by tjsj_d desc)  where rownum &lt;=7 order by tjsj_d asc
+    </select>
+
+    <select id="getShiftBySiteByHour" resultType="java.util.Map" parameterType="java.util.Map">
+        select
+        FSL_NUM,ZZL_NUM,SITE_NAME,ON_NUM,OFF_NUM,substr(TJSJ_H,9,2) TJSJ_H, EXCHANGE_TIME
+        from (select FSL_NUM,ZZL_NUM,SITE_NAME,ON_NUM,OFF_NUM,TJSJ_H,to_char(EXCHANGE_TIME,'YYYY-MM-DD HH24:MI:SS') EXCHANGE_TIME
+        from T_C_BUS2_SITE_HOUR
+
+        where 1=1
+        <if test="dateType != null and dateType != ''">
+            and TJSJ_H LIKE #{dateType}||'%'
+        </if>
+        <if test="siteName != null and siteName != ''">
+            and SITE_NAME=#{siteName}
+        </if>
+        order by TJSJ_H desc) order by TJSJ_H asc
+    </select>
+
+    <select id="getCountByDay" resultType="java.util.Map" parameterType="java.util.Map">
+        select
+        sum(FSL_NUM) FSL_NUM,
+        sum(ZZL_NUM) ZZL_NUM,
+        sum(POST_NUM) post,
+        SITE_NAME
+        from T_C_BUS2_SITE_day
+        where TJSJ_D=#{dateType}
+        group by SITE_NAME
+    </select>
+    <select id="getCountByMonth" resultType="java.util.Map" parameterType="java.util.Map">
+        select
+        sum(FSL_NUM) FSL_NUM,
+        sum(ZZL_NUM) ZZL_NUM,
+        sum(POST_NUM) post,
+        SITE_NAME
+        from T_C_BUS2_SITE_MONTH
+        where TJSJ_M=#{dateType}
+        group by SITE_NAME
+    </select>
+    <select id="getCountByYear" resultType="java.util.Map" parameterType="java.util.Map">
+    select
+    sum(FSL_NUM) FSL_NUM,
+    sum(ZZL_NUM) ZZL_NUM,
+    sum(POST_NUM) post,
+    SITE_NAME
+    from T_C_BUS2_SITE_YEAR
+    where TJSJ_Y=#{dateType}
+    group by SITE_NAME
+</select>
+    <select id="getShuttleFlowByDay" resultType="java.util.Map" parameterType="java.util.Map">
+       select
+        sum(FSL_NUM) KLL
+        from T_C_BUS2_SITE_day
+        where TJSJ_D=#{dateType}
+        group by SITE_NAME
+    </select>
+    <select id="getShuttleFlowByMonth" resultType="java.util.Map" parameterType="java.util.Map">
+        select sum(TICKET) KLL,
+        TJSJ_M
+       from T_C_BUS2_POST_MONTH
+       where TJSJ_M=#{dateType}
+       group by TJSJ_M
+       order by TJSJ_M
+    </select>
+    <select id="getShuttleFlowByYear" resultType="java.util.Map" parameterType="java.util.Map">
+        select sum(TICKET) KLL,
+        TJSJ_Y
+       from T_C_BUS2_POST_YEAR
+       where TJSJ_Y=#{dateType}
+       group by TJSJ_Y
+       order by TJSJ_Y
+    </select>
+
+    <!--按天统计班车客运客流量、周转量、班次总量-->
+    <select id="getShuttleBusDataByDay" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT NVL(SUM(FSL_NUM),0) fsl,
+                NVL(SUM(ZZL_NUM),0) zzl,
+                NVL(SUM(POST_NUM),0) post,
+                NVL(SUM(ON_NUM),0) cfbc,
+                NVL(SUM(OFF_NUM),0) ddbc
+        FROM T_C_BUS2_SITE_DAY
+        WHERE TJSJ_D = #{dateType}
+    </select>
+
+    <!--站点流量TOP5-->
+    <select id="getSiteFlowRateTop5ByMonth" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * FROM
+            (
+            SELECT SITE_NAME siteName,
+                    FSL_NUM fsl
+            FROM T_C_BUS2_SITE_MONTH
+            WHERE TJSJ_M = #{dateType}
+            ORDER BY FSL_NUM DESC
+            )
+        WHERE ROWNUM &lt;=5
+    </select>
+
+    <!--班线流量TOP5-->
+    <select id="getPostFlowRateTop5ByMonth" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * FROM
+        (
+        SELECT ROUTE_NAME busId,
+        TICKET ticket,
+        ROW_NUMBER() OVER(PARTITION BY ROUTE_NAME ORDER BY TICKET DESC) rank
+        FROM T_C_BUS2_POST_MONTH
+        WHERE TJSJ_M = #{dateType}
+        ORDER BY TICKET DESC
+        ) t WHERE t.rank=1 and  ROWNUM &lt;=5
+    </select>
+
+    <!--班线实载率TOP5-->
+    <select id="getPostSzlTop5ByMonth" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * FROM
+        (SELECT ROUTE_NAME busId,round(SUM(TICKET)/SUM(SEAT_NUM)*100,4) szl
+        FROM T_C_BUS2_POST_MONTH
+        WHERE TJSJ_M = #{dateType}
+        GROUP BY ROUTE_NAME
+        ORDER BY szl DESC)
+        WHERE ROWNUM &lt;=5
+    </select>
+
+    <!--月站点客流量/周转量-->
+    <select id="getSiteFslAndZzlByMonth" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT SITE_NAME siteName,
+                ZZL_NUM zzl,
+                FSL_NUM fsl
+        FROM T_C_BUS2_SITE_MONTH
+        WHERE TJSJ_M = #{dateType}
+        ORDER BY ZZL_NUM DESC
+    </select>
+
+    <!--月站点客流量趋势分析-->
+    <select id="getSiteFslAnalysisByMonth" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT SITE_NAME siteName,
+                FSL_TB tb,
+                FSL_HB hb
+        FROM T_C_BUS2_SITE_MONTH
+        WHERE TJSJ_M = #{dateType}
+        ORDER BY ZZL_NUM DESC
+    </select>
+
+    <!--每月客流量-->
+    <select id="getEveryMonthFslByYear" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT SUBSTR(TJSJ_M,5,2) monthTime,
+                SUM(FSL_NUM) fsl
+        FROM T_C_BUS2_SITE_MONTH
+        WHERE 1 = 1
+        <if test="dateTypeYear != null and dateTypeYear != ''">
+            and TJSJ_M LIKE #{dateTypeYear} || '%'
+        </if>
+        <if test="dateTypeMonth != null and dateTypeMonth != ''">
+            and TJSJ_M = #{dateTypeMonth}
+        </if>
+        GROUP BY TJSJ_M
+        ORDER BY TJSJ_M
+    </select>
+
+    <!--区域年旅客客流量-->
+    <select id="getRegionFslByYear" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT REGION_NAME regionName,
+                FSL_NUM fsl
+        FROM T_C_BUS2_REGION_YEAR
+        WHERE TJSJ_Y = #{dateTypeYear}
+        AND REGION_CODE IN('330302','330303','330304','330305','330000')
+    </select>
+
+    <!--查询航站楼当日客流量和班次-->
+    <select id="getAirportTerminalFlow" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT nvl(sum(FSL_NUM),0) FSLNUM,
+        nvl(sum(POST_NUM),0) POSTNUM
+        FROM T_C_HZL_SITE_DAY
+        WHERE TJSJ_D = #{dateType}
+    </select>
+
+    <!--查看航站楼近七日数据-->
+    <select id="getAirportTerminalFlowInSeven" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT
+        nvl(a.FSL_NUM,0) FSLNUM,
+        substr(a.TJSJ_D,5,4) TJSJ_D,
+        a.SITE_NAME SITENAME
+        FROM
+        (SELECT FSL_NUM,
+        TJSJ_D,
+        SITE_NAME
+        FROM T_C_HZL_SITE_DAY
+        WHERE SITE_NAME=#{siteName}
+        ORDER BY TJSJ_D DESC
+        )a
+        WHERE rownum &lt;=7 order by TJSJ_D ASC
+    </select>
+
+    <!--查看航站楼当日各时段数据-->
+    <select id="getAirportTerminalFlowByHour" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT
+        substr(TJSJ_H,9,2) TJSJ_H,
+        nvl(FSL_NUM,0) FSLNUM,
+        SITE_NAME SITENAME
+        FROM T_C_HZL_SITE_HOUR
+        WHERE SITE_NAME=#{siteName} and TJSJ_H like #{dateType}||'%'
+        ORDER BY TJSJ_H DESC
+    </select>
+</mapper>

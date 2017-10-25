@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="x-ua-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="email=no" name="format-detection"/>
+    <title>水陆交通</title>
+    <link rel="stylesheet" type="text/css" href="../../resource/css/base.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/icon/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/css/common.css">
+    <link rel="stylesheet" type="text/css" href="res/css/style.css"/>
+</head>
+<body style="background: #0e2861;">
+
+<!--map容器-->
+<div id="mapContainer" class="mapContainer" style="width: 100%; height: 100%;position: absolute;z-index: 0;"></div>
+
+    <!--<div class="searchBox">
+        <div class="searchInput">
+            <input type="text" class="placeholder" placeholder="搜线路、公交站点、自行车服务点等" />
+            <button>搜索</button>
+        </div>
+    </div>
+-->
+<!--right-mapTool-->
+<div class="mapToolBox">
+    <ul class="mapTool">
+        <li class="wxTool">
+            <span class="icon icon-ic_weixing"></span>
+            <span>卫星</span>
+        </li>
+        <li class="toolLi">
+            <span class="icon icon-ic_tuceng"></span>
+            <span>图层</span>
+        </li>
+        <li class="toolLi">
+            <span class="icon icon-ic_gongju"></span>
+            <span>工具</span>
+        </li>
+        <li class="toolLi">
+            <a href="http://172.19.128.181:8080/ships/pages/main.jsp" target="_blank">
+                <span class="icon icon-ic_weixing"></span>
+                <span>AIS地图</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="mapToolDateil">
+        <!--<ul class="dateil">
+            我是地图工具栏
+        </ul>-->
+        <li class="layerBox">
+            <ul class="layerTab">
+                <li style="width: 100%;">水路图层</li>
+            </ul>
+            <ul class="layerInfo">
+                <li class="active">
+                    <ul >
+                        <li><input type="checkbox" data-type="SP_CBQY" id="cityBusInput" class="regular-checkbox">
+                            <label for="cityBusInput">
+                                <span class="checkCon">
+                                    船舶企业<img src="../common/res/img/layerImg/CBQY.png" />
+                                </span>
+                            </label>
+                        </li>
+                        <li><input type="checkbox" data-type="SP_CBMT" id="cityBusInputs" class="regular-checkbox">
+                            <label for="cityBusInputs">
+                                <span class="checkCon">
+                                    船舶码头<img src="../common/res/img/layerImg/CBMT.png" />
+                                </span>
+                            </label>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="layerBox">
+            <div class="BtnBox">
+                <button type="button" id = "measuringLine">测距</button>
+                <button type="button" id = "measuringSurface">测面</button>
+            </div>
+        </li>
+    </ul>
+
+</div>
+
+  <script src="../../libs/bmap/utils/events_utils.js"></script>
+  <script data-main="../../main" src="../../libs/core/requirejs/requirejs.js"></script>
+  <script>  
+        window.ByEvent.addEvent("mainjsLoaded", function() {
+            require(['./mod/mainView.js'],function(mainView) {
+                new mainView().render();
+            });
+        });
+  </script>
+</body>
+</html>

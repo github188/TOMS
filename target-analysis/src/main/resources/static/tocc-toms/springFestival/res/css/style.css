@@ -1,0 +1,122 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "microsoft yahei";
+  font-size: 14px;
+}
+/*mapFoot-*/
+.mapFoot .footDateil {
+  width: 100%;
+  border-top: 2px solid #1650e5;
+  background-color: #071532;
+  height: 250px;
+  overflow: hidden;
+}
+.mapFoot .footDateil .footLeft {
+  width: 15%;
+  float: left;
+}
+.mapFoot .footDateil .footLeft .title {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 15px;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0D2474), to(#183ACA));
+  border-right: 2px solid #0a1c43;
+}
+.mapFoot .footDateil .footLeft .springFestivalTb {
+  border-right: 2px solid #0a1c43;
+  height: 210px;
+}
+.mapFoot .footDateil .footLeft .springFestivalTb table {
+  margin: 0 auto;
+  width: 100%;
+}
+.mapFoot .footDateil .footLeft .springFestivalTb table tr td {
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  color: #32c1ce;
+}
+.mapFoot .footDateil .footLeft .springFestivalTb table tr td.railway {
+  color: #ae2fb9;
+}
+.mapFoot .footDateil .footLeft .springFestivalTb table tr td.plane {
+  color: #e28f39;
+}
+.mapFoot .footDateil .footLeft .springFestivalTb table tr td.passenger {
+  color: #2db1be;
+}
+.mapFoot .footDateil .footLeft .springFestivalTb table tr td.highSpeed {
+  color: #da2c71;
+}
+.mapFoot .footDateil .footLeft .springFestivalTb table tr td.lightGrey {
+  color: #84abcc;
+}
+.mapFoot .footDateil .footLeft .springFestivalTb table tr.tbTit td {
+  background-color: #0a1b39;
+  color: #91bbde;
+}
+.mapFoot .footDateil .footLeft2 {
+  width: 15%;
+  float: left;
+}
+.mapFoot .footDateil .footLeft2 .title {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 15px;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0D2474), to(#183ACA));
+  border-right: 2px solid #0a1c43;
+}
+.mapFoot .footDateil .footLeft2 .unblockedTb {
+  border-right: 2px solid #0a1c43;
+  height: 210px;
+}
+.mapFoot .footDateil .footLeft2 .unblockedTb table {
+  margin: 0 auto;
+  width: 100%;
+}
+.mapFoot .footDateil .footLeft2 .unblockedTb table tr td {
+  height: 40px;
+  text-align: center;
+}
+.mapFoot .footDateil .footLeft2 .unblockedTb table tr td.rose {
+  color: #ae2fb9;
+}
+.mapFoot .footDateil .footLeft2 .unblockedTb table tr td.org {
+  color: #e28f39;
+}
+.mapFoot .footDateil .footLeft2 .unblockedTb table tr td.green {
+  color: #098d56;
+}
+.mapFoot .footDateil .footLeft2 .unblockedTb table tr td.lightGrey {
+  color: #84abcc;
+}
+.mapFoot .footDateil .footLeft2 .unblockedTb table tr:first-child td {
+  padding-top: 12%;
+}
+.mapFoot .footDateil .footRight {
+  width: 70%;
+  float: left;
+  height: 250px;
+}
+.mapFoot .footDateil .footRight > div {
+  float: left;
+  height: 230px;
+  border-right: 2px solid #112e6b;
+  padding-top: 20px;
+}
+.mapFoot .footDateil .footRight > div#swiperBox1 {
+  width: 33%;
+}
+.mapFoot .footDateil .footRight > div#swiperBox1 .swiper-pagination-bullet {
+  width: 33.3%;
+}
+.mapFoot .footDateil .footRight > div#swiperBox2 {
+  width: 66%;
+}
+.mapFoot .footDateil .footRight > div#swiperBox2 .swiper-pagination-bullet {
+  width: 16.6%;
+}

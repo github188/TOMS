@@ -1,0 +1,128 @@
+<!-- 班车模板 -->
+
+<!--地图上的点的详情-->
+<script type="text/template" id="text-info">
+    <div class="mapDot" style="width: 180px;height: 80px;left: 20%;top: 30%;">
+        <i class="icon icon-arrow-left-copy"></i>
+        <div class="mapDotDateil">
+            <div class="dotTit">温州南</div>
+            <div class="dotDateil">
+                <ul class="tplUl">
+                    <li>离港：<span class="num">32,365</span>人次</li>
+                    <li>到港：<span class="num">8,629</span>人次</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+<!--详情点2-->
+<script type="text/template" id="echarts-info">
+    <div class="mapTpl" style="left: 40%;top: 10%;width: 400px;">
+        <div class="tplHead">
+            <div class="tit"><%-data.MC%>详情</div>
+            <div class="close" data-type="<%-data.layerName%>">✕</div>
+        </div>
+        <div class="tplCon">
+            <div class="conTit">
+                <div class="tit"><%-data.MC%><label class="changData" style="overflow:hidden;">近7日</label>车客流量走势图</div>
+                <div class="tabBut">
+                </div>
+            </div>
+            <div class="conEchart">
+                <div id="showData" style="height: 250px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="indexBottom"><img src="../common/res/img/base/sharp.png" /></div>
+</script>
+
+<!--收费站 详情-->
+<script type="text/template" id="sfzEcharts-info">
+    <div class="mapTpl" style="left: 40%;top: 10%;width: 600px;">
+        <div class="tplHead">
+            <div class="tit"><%-data.MC%>详情</div>
+            <div class="close" data-type="<%-data.layerName%>">✕</div>
+        </div>
+        <div class="tplCon">
+            <div class="conTit">
+                <div class="tit" title="<%-data.directionOne%>"><%-data.MC%><label class="changData">近7日</label>车客流量走势图</div>
+                <div class="tabBut">
+                    <span hide-data="<%-data.MC%>" title="近7日" class="btn btnActive sevenDay" >近7日</span>
+                    <span hide-data="<%-data.MC%>" title="当天各时段" class="btn sameDay" >当天各时段</span>
+                </div>
+            </div>
+            <div class="conEchart">
+                <div id="sevenDay" style="height: 250px;"></div>
+                <div id="sameDay" style="height: 250px;display: none;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="indexBottom"><img src="../common/res/img/base/sharp.png" /></div>
+</script>
+
+<!--客运站 echarts 详情-->
+<script type="text/template" id="kyzEcharts-info">
+    <div class="mapTpl" style="left: 40%;top: 10%;width: 600px;">
+        <div class="tplHead">
+            <div class="tit"><%-data.MC%>客流详情</div>
+            <div class="close" data-type="<%-data.layerName%>">✕</div>
+        </div>
+        <div class="tplCon">
+            <div class="conTit">
+                <div class="tit"><span class="changData">近7日</span>车客流量走势图</div>
+                <div class="tabBut">
+                    <span hide-data="<%-data.MC%>" title="近七天" class="btn btnActive sevenDay">近七天</span>
+                    <span hide-data="<%-data.MC%>" title="当天各时段" class="btn sameDay">当天各时段</span>
+                </div>
+            </div>
+            <div class="conEchart">
+                <div id="sevenDay" style="height: 250px;"></div>
+                <div id="sameDay" style="height: 250px;display: none;"></div>
+            </div>
+            <!--div id="conFoot" class="conFoot">
+                <div class="row">
+                    <div class="box">出发班次：<span class="number">0</span>次</div>
+                    <div class="box">发送量：<span class="number">0</span>人次</div>
+                </div>
+                <div class="row">
+                    <div class="box">周转量：<span class="number">0</span>万人公里</div>
+                    <div class="box">更新时间：<span class="number">2017-8-22 15:14:57</span></div>
+                </div !-->
+        </div>
+    </div>
+    <div class="indexBottom"><img src="../common/res/img/base/sharp.png" /></div>
+</script>
+
+<!--火车站 echarts 详情-->
+<script type="text/template" id="hczEcharts-info">
+    <div class="mapTpl" style="left: 40%;top: 10%;width: 600px;">
+        <div class="tplHead">
+            <div class="tit"><%-data.MC%>详情</div>
+            <div class="close" data-type="<%-data.layerName%>">✕</div>
+        </div>
+        <div class="tplCon">
+            <div class="conTit">
+                <div class="tit"><span class="changData">近7日</span>车客流量走势图</div>
+                <div class="tabBut">
+                    <span hide-data="<%-data.MC%>" title="近七天" class="btn btnActive sevenDay">近七天</span>
+                    <span hide-data="<%-data.MC%>" title="当天各时段" class="btn sameDay">当天各时段</span>
+                </div>
+            </div>
+            <div class="conEchart">
+                <div id="sevenDay" style="height: 250px;width: 80%;margin: 0 auto;;"></div>
+                <div id="sameDay" style="height: 250px;display: none;"></div>
+            </div>
+            <!--<div id="conFoot" class="conFoot">
+                <div class="row">
+                    <div class="box">出发：<span class="number">0</span>人次</div>
+                    <div class="box">晚点车次：<span class="number1">0</span>次</div>
+                </div>
+                 <div class="row">
+                    <div class="box">到达：<span class="number2">0</span>人次</div>
+                    <div class="box">更新时间：<span class="number3">2017-9-27 00:00:00</span></div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+    <div class="indexBottom"><img src="../common/res/img/base/sharp.png" /></div>
+</script>

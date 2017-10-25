@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="x-ua-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="email=no" name="format-detection"/>
+    <title>春运专题</title>
+    <link rel="stylesheet" type="text/css" href="../../resource/css/base.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/icon/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/css/common.css">
+    <link rel="stylesheet" type="text/css" href="res/css/style.css"/>
+</head>
+<body style="background: #0e2861;">
+
+    <!--map容器-->
+    <div id="mapContainer" class="mapContainer" style="width: 100%; height: 100%;position: absolute;z-index: 0;"></div>
+
+    <!--<div class="searchBox">
+        <div class="searchInput">
+            <input type="text" class="placeholder" placeholder="搜线路、公交站点、自行车服务点等" />
+            <button>搜索</button>
+        </div>
+    </div>
+-->
+    <!--地图点位详情-->
+
+    <!--<div class="mapDot" style="width: 180px;height: 80px;left: 10%;top: 30%;">
+        <i class="icon icon-arrow-left-copy"></i>
+        <div class="mapDotDateil">
+            <div class="dotTit">温州南</div>
+            <div class="dotDateil">
+                <ul class="tplUl">
+                    <li>离港：<span class="num">32,365</span>人次</li>
+                    <li>到港：<span class="num">8,629</span>人次</li>
+                </ul>
+            </div>
+        </div>
+    </div>-->
+    <!--点图详情点---->
+   <!-- <div class="mapTpl" style="left: 30%;top: 10%;width: 400px;">
+        <div class="tplHead">
+            <div class="tit">入嘉收费站详情</div>
+            <div class="close">✕</div>
+        </div>
+        <div class="tplCon">
+            <div class="conTit">
+                <div class="tit">永嘉收费站近7日车客流量走势图</div>
+                <div class="tabBut">
+                    <span class="btn btnActive sevenDay">近七天</span>
+                    <span class="btn sameDay">当天各时段</span>
+                </div>
+            </div>
+            <div class="conEchart">
+                <div id="sevenDay" style="height: 250px;"></div>
+                <div id="sameDay" style="height: 250px;display: none;"></div>
+            </div>
+            <div class="conFoot" id="conFoot">
+                <div class="row">
+                    <div class="box">入口：233人次</div>
+                    <div class="box">出口：233人次</div>
+                </div>
+                <div class="row">更新时间：2017-8-22 15:14:57</div>
+            </div>
+        </div>
+    </div>-->
+
+    <!--foot-tab-->
+    <div class="mapFoot">
+        <div class="downArrow">
+          <img src="../../resource/image/common/downArrow.png" data-src="../../resource/image/common/downArrow.png" />
+        </div>
+        <div class="footDateil">
+            <div class="footLeft">
+                <div class="title">客流量指标面板</div>
+                <div class="springFestivalTb">
+                    <table>
+                        <tr class="tbTit">
+                            <td>类别</td>
+                            <td>出发</td>
+                            <td>到达</td>
+                            <td>总流量</td>
+                        </tr>
+                        <tr>
+                            <td class="railway">铁路</td>
+                            <td class="text1"></td>
+                            <td class="text2"></td>
+                            <td class="text3"></td>
+                        </tr>
+                        <tr>
+                            <td class="passenger">客运</td>
+                            <td class="text4"></td>
+                            <td class="text5"></td>
+                            <td class="text6"></td>
+                        </tr>
+                        <tr class="tbTit">
+                            <td>类别</td>
+                            <td>入口</td>
+                            <td>出口</td>
+                            <td>总流量</td>
+                        </tr>
+                        <tr>
+                            <td class="highSpeed">高速</td>
+                            <td class="text7"></td>
+                            <td class="text8"></td>
+                            <td class="text9"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="footLeft2">
+                <div class="title">今日运输畅通情况</div>
+                <div class="unblockedTb">
+                    <table>
+                        <tr>
+                            <td class="lightGrey">公交运行速率</td>
+                            <td class="stateColor"></td>
+                            <td class="colorText1"></td>
+                        </tr>
+                        <tr>
+                            <td class="lightGrey">出租车实载率</td>
+                            <td class="stateColor"></td>
+                            <td class="colorText2"></td>
+                        </tr>
+                        <tr>
+                            <td class="lightGrey">自行车使用率</td>
+                            <td class="stateColor"></td>
+                            <td class="colorText3"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="footRight">
+               <div class="swiper-container mySwiper" id = "swiperBox1">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide main1" data-id = ".main1"></div>
+                        <div class="swiper-slide main2" data-id = ".main2"></div>
+                        <div class="swiper-slide main3" data-id = ".main3"></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+               
+                 <div class="swiper-container mySwiper" id = "swiperBox2">
+                    <div class="swiper-wrapper"> 
+                        <div class="swiper-slide main4" data-id = ".main4"></div>
+                        <div class="swiper-slide main5" data-id = ".main5"></div> 
+                        <div class="swiper-slide main6" data-id = ".main6"></div>
+                        <div class="swiper-slide main7" data-id = ".main7"></div> 
+                        <div class="swiper-slide main8" data-id = ".main8"></div>
+                        <div class="swiper-slide main9" data-id = ".main9"></div> 
+                    
+                       
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <!--right-mapTool-->
+    <div class="mapToolBox">
+        <ul class="mapTool">
+            <li class="wxTool">
+                <span class="icon icon-ic_weixing"></span>
+                <span>卫星</span>
+            </li>
+            <li class="toolLi">
+                <span class="icon icon-ic_tuceng"></span>
+                <span>图层</span>
+            </li>
+            <li class="toolLi">
+                <span class="icon icon-ic_gongju"></span>
+                <span>工具</span>
+            </li>
+        </ul>
+        <ul class="mapToolDateil">
+            <!--<ul class="dateil">
+                我是地图工具栏
+            </ul>-->
+            <li class="layerBox">
+                <ul class="layerTab">
+                    <li style="width: 100%;">图层</li>
+                </ul>
+                <ul class="layerInfo">
+                    <li class="active">
+                        <ul >
+                            <li><input type="checkbox" data-type="SP_KYZ" id="cityBusInput" class="regular-checkbox">
+                                <label for="cityBusInput">
+                                <span class="checkCon">
+                                    客运站<img src="../common/res/img/layerImg/KYZ.png" />
+                                </span>
+                                </label>
+                            </li>
+                            <li><input type="checkbox" data-type="SP_HCZ" id="cityBusInputw" class="regular-checkbox">
+                                <label for="cityBusInputw">
+                                <span class="checkCon">
+                                    火车站<img src="../common/res/img/layerImg/HCZ.png" />
+                                </span>
+                                </label>
+                            </li>
+                            <li><input type="checkbox" data-type="SP_SFZ" id="cityBusInputt" class="regular-checkbox">
+                                <label for="cityBusInputt">
+                                <span class="checkCon">
+                                    收费站<img src="../common/res/img/layerImg/SFZ.png" />
+                                </span>
+                                </label>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="layerBox">
+                <div class="BtnBox">
+                    <button type="button" id = "measuringLine">测距</button>
+                    <button type="button" id = "measuringSurface">测面</button>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+
+  <script src="../../libs/bmap/utils/events_utils.js"></script>
+  <script data-main="../../main" src="../../libs/core/requirejs/requirejs.js"></script>
+  <script>  
+        window.ByEvent.addEvent("mainjsLoaded", function() {
+            require(['./mod/mainView.js'],function(mainView) {
+                new mainView().render();
+            });
+        });
+  </script>
+</body>
+</html>

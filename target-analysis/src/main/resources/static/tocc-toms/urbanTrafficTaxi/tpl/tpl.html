@@ -1,0 +1,40 @@
+<!-- 出租车模板 -->
+
+<!-- 实时出租车车辆 点击 详情数据 -->
+<script type="text/template" id="car-info">
+    <div class="mapTpl">
+        <div class="tplHead">
+            <div class="tit"><%-data.plateNumber || "暂无数据"%></div>
+            <div class="close">&#10005;</div>
+        </div>
+        <div class="tplCon">
+            <table class="tplTable" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <span class="lightBlue">车牌号：</span>
+                        <span><%-data.plateNumber || "暂无数据"%></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="lightBlue">运行状态：</span>
+                        <span><%-data.runState || "暂无数据"%></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="lightBlue">速度：</span>
+                        <span><%-data.gpsSpeed || "0"%>km/h</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="lightBlue">时间：</span>
+                        <span><%-data.time || "暂无数据"%></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="indexBottom"><img src="../common/res/img/base/sharp.png" /></div>
+</script>

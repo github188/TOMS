@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="x-ua-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="email=no" name="format-detection"/>
+    <title>交通路网-高速</title>
+    <link rel="stylesheet" type="text/css" href="../../resource/css/base.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/icon/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/css/common.css">
+    <link rel="stylesheet" type="text/css" href="res/css/style.css"/>
+</head>
+<body style="background: #0e2861;">
+
+<!--map容器-->
+<div id="mapContainer" class="mapContainer" style="width: 100%; height: 100%;position: absolute;z-index: 0;"></div>
+
+    <!--<div class="searchBox">
+        <div class="searchInput">
+            <input type="text" class="placeholder" placeholder="搜线路、公交站点、自行车服务点等" />
+            <button>搜索</button>
+        </div>
+    </div>-->
+
+    <!--&lt;!&ndash;地图点位详情&ndash;&gt;-->
+
+    <!--<div class="mapDot" style="width: 180px;height: 80px;left: 10%;top: 30%;">-->
+        <!--<i class="icon icon-arrow-left-copy"></i>-->
+        <!--<div class="mapDotDateil">-->
+            <!--<div class="dotTit">温州南</div>-->
+            <!--<div class="dotDateil">-->
+                <!--<ul class="tplUl">-->
+                    <!--<li>离港：<span class="num">32,365</span>人次</li>-->
+                    <!--<li>到港：<span class="num">8,629</span>人次</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--&lt;!&ndash;点图详情点&#45;&#45;&ndash;&gt;-->
+    <!--<div class="mapTpl" style="left: 30%;top: 10%;width: 400px;">-->
+        <!--<div class="tplHead">-->
+            <!--<div class="tit">入嘉收费站详情</div>-->
+            <!--<div class="close">✕</div>-->
+        <!--</div>-->
+        <!--<div class="tplCon">-->
+            <!--<div class="conTit">-->
+                <!--<div class="tit">永嘉收费站近7日车客流量走势图</div>-->
+                <!--<div class="tabBut">-->
+                    <!--<span class="btn btnActive sevenDay">近七天</span>-->
+                    <!--<span class="btn sameDay">当天各时段</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="conEchart">-->
+                <!--<div id="sevenDay" style="height: 250px;"></div>-->
+                <!--<div id="sameDay" style="height: 250px;display: none;"></div>-->
+            <!--</div>-->
+            <!--<div class="conFoot" id="conFoot">-->
+                <!--<div class="row">-->
+                    <!--<div class="box">入口：233人次</div>-->
+                    <!--<div class="box">出口：233人次</div>-->
+                <!--</div>-->
+                <!--<div class="row">更新时间：2017-8-22 15:14:57</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--&lt;!&ndash;视频点&ndash;&gt;-->
+    <!--<div class="mapTpl" style="left: 65%;top: 10%;width: 400px;">-->
+        <!--<div class="tplHead">-->
+            <!--<div class="tit">视频点位置</div>-->
+            <!--<div class="close">✕</div>-->
+        <!--</div>-->
+        <!--<div class="tplCon">-->
+            <!--<div class="videoBox">我是视频插件</div>-->
+            <!--<div class="videoDateil">-->
+                <!--<div class="viderHea">-->
+                    <!--<div class="tit">视频点信息</div>-->
+                    <!--<div class="button">-->
+                        <!--<button>修改位置</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<table class="videoTable" cellspacing="0" cellpadding="0">-->
+                    <!--<tr>-->
+                        <!--<td>-->
+                            <!--<span class="lightBlue">名称：</span>-->
+                            <!--<span>瓯浦垟东瓯王墓</span>-->
+                        <!--</td>-->
+                        <!--<td>-->
+                            <!--<span class="lightBlue">IP地址：</span>-->
+                            <!--<span>192.168.100.103</span>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>-->
+                            <!--<span class="lightBlue">IP端口：</span>-->
+                            <!--<span>xxxxxxx</span>-->
+                        <!--</td>-->
+                        <!--<td></td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>-->
+                            <!--<span class="lightBlue">经度：</span>-->
+                            <!--<span>120.555221</span>-->
+                        <!--</td>-->
+                        <!--<td>-->
+                            <!--<span class="lightBlue">纬度：</span>-->
+                            <!--<span>120.555221</span>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>-->
+                            <!--<span class="lightBlue">高速名称：</span>-->
+                            <!--<span>京广高速</span>-->
+                        <!--</td>-->
+                        <!--<td>-->
+                            <!--<span class="lightBlue">线路名称：</span>-->
+                            <!--<span>京广高速</span>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--<tr>-->
+                        <!--<td>-->
+                            <!--<span class="lightBlue">方向：</span>-->
+                            <!--<span>北京</span>-->
+                        <!--</td>-->
+                        <!--<td>-->
+                            <!--<span class="lightBlue">桩号：</span>-->
+                            <!--<span>xxxxx</span>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                <!--</table>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--地图-图例-->
+    <!--<div class="mapLegend">
+        <ul>
+            <a href="../roadNetworkHighSpeed/index.html">
+                <li class="pink lengActive">
+                    <img src="res/img/highSpeed.png" />
+                    <div>高速</div>
+                </li>
+            </a>
+            <a href="../roadNetworkHighway/index.html">
+                <li class="green">
+                    <img src="res/img/highway.png" />
+                    <div>公路</div>
+                </li>
+            </a>
+        </ul>
+    </div>-->
+
+    <!--foot-tab-->
+    <div class="mapFoot">
+        <div class="downArrow">
+           <img src="../../resource/image/common/downArrow.png" data-src="../../resource/image/common/downArrow.png" />
+        </div>
+        <div class="footDateil">
+            <div class="footLeft">
+                <div class="title">车流量指标面板</div>
+                <div class="table">
+                    <table>
+                        <tr>
+                            <td></td>
+                            <td>今日</td>
+                            <td>本月</td>
+                            <td>今年</td>
+                        </tr>
+                        <tr>
+                            <td>入口</td>
+                            <td class="blue dataNumber1"></td>
+                            <td class="blue dataNumber2"></td>
+                            <td class="blue dataNumber3"></td>
+                        </tr>
+                        <tr>
+                            <td>出口</td>
+                            <td class="blue dataNumber4"></td>
+                            <td class="blue dataNumber5"></td>
+                            <td class="blue dataNumber6"></td>
+                        </tr>
+                        <tr>
+                            <td>总流量</td>
+                            <td class="blue dataNumber7"></td>
+                            <td class="blue dataNumber8"></td>
+                            <td class="blue dataNumber9"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="footRight">
+               <div class="swiper-container mySwiper" id = "swiperBox1">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide main1" data-id = ".main1"></div>
+                        <div class="swiper-slide main2" data-id = ".main2"></div>       
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                <div class="swiper-container mySwiper" id = "swiperBox2">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide main3" data-id = ".main3"></div>
+                        <div class="swiper-slide main4" data-id = ".main4"></div>
+                     
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+                 <div class="swiper-container mySwiper" id = "swiperBox3">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide main5" data-id = ".main5"></div>
+                        <div class="swiper-slide main6" data-id = ".main6"></div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--right-mapTool-->
+<div class="mapToolBox">
+    <ul class="mapTool">
+        <li class="wxTool">
+            <span class="icon icon-ic_weixing"></span>
+            <span>卫星</span>
+        </li>
+        <li class="toolLi">
+            <span class="icon icon-ic_tuceng"></span>
+            <span>图层</span>
+        </li>
+        <li class="toolLi">
+            <span class="icon icon-ic_gongju"></span>
+            <span>工具</span>
+        </li>
+    </ul>
+    <ul class="mapToolDateil">
+        <!--<ul class="dateil">
+            我是地图工具栏
+        </ul>-->
+        <li class="layerBox">
+            <ul class="layerTab">
+                <li style="width: 100%;">高速图层</li>
+            </ul>
+            <ul class="layerInfo">
+                <li class="active">
+                    <ul >
+                        <li><input type="checkbox" data-type="SP_CLLJKD" id="cityBusInput" class="regular-checkbox">
+                            <label for="cityBusInput">
+                                <span class="checkCon">
+                                    交调站<img src="../common/res/img/layerImg/CLLJKD.png" />
+                                </span>
+                            </label>
+                        </li>
+                        <li><input type="checkbox" data-type="SP_JYZ" id="cityBusInputq" class="regular-checkbox">
+                            <label for="cityBusInputq">
+                                <span class="checkCon">
+                                    加油站<img src="../common/res/img/layerImg/JYZ.png" />
+                                </span>
+                            </label>
+                        </li>
+                        <li><input type="checkbox" data-type="SP_ZCZ" id="cityBusInputw" class="regular-checkbox">
+                            <label for="cityBusInputw">
+                                <span class="checkCon">
+                                    治超站<img src="../common/res/img/layerImg/ZCZ.png" />
+                                </span>
+                            </label>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li><input type="checkbox" data-type="SP_SD" id="cityBusInpute" class="regular-checkbox">
+                            <label for="cityBusInpute">
+                                <span class="checkCon">
+                                    隧道<img src="../common/res/img/layerImg/SD.png" />
+                                </span>
+                            </label>
+                        </li>
+                        <li><input type="checkbox" data-type="SP_FWQ" id="cityBusInputr" class="regular-checkbox">
+                            <label for="cityBusInputr">
+                                <span class="checkCon">
+                                   服务区<img src="../common/res/img/layerImg/FWQ.png" />
+                                </span>
+                            </label>
+                        </li>
+                        <li><input type="checkbox" data-type="SP_SFZ" id="cityBusInputt" class="regular-checkbox">
+                            <label for="cityBusInputt">
+                                <span class="checkCon">
+                                    收费站<img src="../common/res/img/layerImg/SFZ.png" />
+                                </span>
+                            </label>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li><input type="checkbox" data-type="SP_QBB" id="cityBusInputy" class="regular-checkbox">
+                            <label for="cityBusInputy">
+                                <span class="checkCon">
+                                    情报板<img src="../common/res/img/layerImg/QBB.png" />
+                                </span>
+                            </label>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="layerBox">
+            <div class="BtnBox">
+                <button type="button" id = "measuringLine">测距</button>
+                <button type="button" id = "measuringSurface">测面</button>
+            </div>
+        </li>
+    </ul>
+
+</div>
+
+  <script src="../../libs/bmap/utils/events_utils.js"></script>
+  <script data-main="../../main" src="../../libs/core/requirejs/requirejs.js"></script>
+  <script>  
+        window.ByEvent.addEvent("mainjsLoaded", function() {
+            require(['./mod/mainView.js'],function(mainView) {
+                new mainView().render();
+            });
+        });
+  </script>
+</body>
+</html>

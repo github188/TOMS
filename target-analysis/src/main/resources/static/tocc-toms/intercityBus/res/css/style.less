@@ -1,0 +1,123 @@
+html,body{
+    width: 100%;
+    height: 100%;
+    font-family: "microsoft yahei";
+    font-size: 14px;
+  }
+
+
+
+
+/*map--legend*/
+.mapLegend{
+  position: absolute;
+  right: 20px;
+  bottom:350px;
+  ul{
+    li{
+      border-radius: 5px;
+      width: 55px;
+      height: 55px;
+      text-align: center;
+      margin-bottom: 10px;
+      cursor: pointer;
+      img{
+        margin-top: 6px;
+      }
+      div{
+        margin-top: -3px;
+      }
+      &.blue{
+        border:1px solid #2ac3da;
+        color: #2ac3da;
+      }
+      &.org{
+        border:1px solid #cf8015;
+        color: #cf8015;
+      }
+      &.purple{
+        border:1px solid #6f23be;
+        color: #6f23be;
+      }
+      &.lengActive{
+        background-color: #2ac3da;
+        color: #fff;
+      }
+    }
+  }
+}
+
+/*mapFoot-*/
+.mapFoot{
+  .footDateil{
+    .table{
+      border-right: 2px solid #0a1c43;
+      height: 210px;
+      table{
+        width: 90%;
+        margin: 0 auto;
+        tr{
+          .green{
+            color: #0fbbfb;
+          }
+          .blue{
+            color: #32c1ce;
+            font-size: 18px;
+            font-weight: 600;
+          }
+          .org{
+            font-size: 18px;
+            font-weight: 600;
+          }
+        }
+        tr:first-child td{
+          padding-top: 5%;
+        }
+        tr td:first-child{
+          color: #0fbbfb;
+          font-size: 16px;
+          font-weight: inherit;
+        }
+      }
+    }
+    .footRight{
+      height: 250px;
+      &>div{
+        float: left;
+        height: 230px;
+        border-right: 2px solid #112e6b;
+        padding-top: 20px;
+        &#swiperBox1{
+          width: 49.6%;
+        }
+        &#swiperBox3{
+          width: 50%;
+        }
+      }
+    }
+  }
+}
+
+.mySwiper{
+    &.swiper-container-horizontal {
+            &> .swiper-pagination-bullets{
+                top : 0;
+                .swiper-pagination-bullet{
+                 
+                    height: 40px;
+                    line-height: 40px;
+                    color: #fff;
+                }
+            }
+            
+    }
+    &#swiperBox2,&#swiperBox3>.swiper-pagination-bullets{
+        .swiper-pagination-bullet{
+              width: 50%;
+            
+          }
+      }
+}
+
+
+

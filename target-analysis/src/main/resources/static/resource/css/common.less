@@ -1,0 +1,780 @@
+@titColor:#0eaff2;
+@sapphirine:#57ffff;
+
+.text-left{
+    text-align: left;
+}
+.text-right{
+    text-align: right;
+}
+.text-center{
+    text-align: center;
+}
+.midInBlock{
+    display: inline-block;
+    vertical-align: middle;
+}
+.org{
+        color: #ff9806;
+}
+html,body{
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    font-family: "microsoft yahei";
+    .bodyBgImg{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 0;
+    }
+    .header{
+        position: absolute;
+        width: 100%;
+        height: 50px;
+        .bgNavImg{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 1;
+            background-color: rgba(7,21,62,.6);
+        }
+        .headBox{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 2;
+            color: @titColor;
+            height: 60px;
+            .title{
+                .midInBlock;
+                font-family: "changcheng";
+                font-weight: 600;
+                font-size: 22px;
+                color: @titColor;
+                margin-left: 2%;
+                line-height: 65px;
+                min-width: 306px;
+            }
+            .nav{
+                .midInBlock;
+                height: 60px;
+                position: relative;
+                margin-left: 3.9%;
+                min-width: 764px;
+                .navul{
+                    width: 100%;
+                    li{
+                        float: left;
+                        text-align: center;
+                        line-height: 64px;
+                        padding: 0 20px;
+                        font-size: 13px;
+                        font-weight: bold;
+                        cursor: pointer;
+                    }
+                    li:first-child{
+                        margin-left: 20px;
+                    }
+                    li.navActive{
+                        background: url(../image/index/navactive.png) 100% 100% no-repeat;
+                        color: #fff;
+                        width: 132px;
+                        padding: 0;
+                        margin-left: 0;
+                        span{
+                            margin-right: 20%;
+                        }
+                    }
+                }
+            }
+            .weather{
+                .midInBlock;
+                margin-left: 6%;
+                .weaDataTime{
+                    .midInBlock;
+                    .weaYear{
+                        margin-top: 8px;
+                    }
+                    .weaTime{
+                        font-size: 16px;
+                        font-weight: bold;
+                    }
+                }
+                .weaIcon{
+                    .midInBlock;
+                    margin: 0 15px;
+                    img{
+                        vertical-align: middle;
+                    }
+                    span{
+                        font-family: arial;
+                        font-size: 25px;
+                        vertical-align: middle;
+                        margin-left: 5px;
+                    }
+                }
+                .weaText{
+                    .midInBlock;
+                }
+            }
+            .operation{
+                .midInBlock;
+                margin-left: 7%;
+                padding-top: 5px;
+                img{
+                    cursor: pointer;
+                }
+                img:nth-child(2){
+                    margin: 0 30px;
+                }
+            }
+        }
+    }
+}
+
+
+/*map-seeting*/
+.map{
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    height: 94%;
+    iframe{
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+}
+
+/*map-right-tool*/
+.mapToolBox{
+    top: 2%;
+    right: 2%;
+    position: absolute;
+    color: #fff;
+    width: 390px;
+    z-index: 100;
+    .mapTool{
+        width: 100%;
+        border: 2px solid #164fe5;
+        height: 50px;
+        background-color: rgba(22,80,229,.3);
+        li{
+            width: 25%;
+            float: left;
+            text-align: center;
+            color: #0eaff2;
+            font-size: 16px;
+            height: 50px;
+            line-height: 50px;
+            cursor: pointer;
+            span:first-child{
+                font-size: 22px;
+                &.icon-ic_gongju{
+                    font-size: 18px;
+                }
+                &.icon-lukuang{
+                    font-size: 20px;
+                }
+            }
+            span{
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+        li.toolActive{
+            color: #fff;
+        }
+    }
+    .mapToolDateil{
+        display: none;
+        width: 100%;
+        border: 2px solid #0b3d70;
+        margin-top: 5px;
+        background-color: rgba(22,80,229,.3);
+        &>li{
+            display: none;            
+            &.active{
+                 display: block;
+            }
+            div.BtnBox{
+                padding: 10px;
+                text-align: center;
+                button{
+                        width: 120px;
+                        height: 36px;
+                        margin: 0px 30px;
+                        cursor: pointer;
+                        border-color: transparent;
+                        color: #fff;
+                        background-color: #0eaff2;
+                }
+            }
+        }
+    }
+}
+.layerBox{
+    .layerTab{
+        overflow: hidden;
+        background: -webkit-gradient(linear,0% 41%, 0% 100%, from(#0D2474), to(#1738C2));
+        border-bottom: 1px solid transparent;
+        &>li{
+            text-align: center;
+            width: 50%;
+            line-height: 30px;
+            cursor: pointer;
+            float: left;
+            color: #0eaff2;
+            &.active{
+                border-bottom: 2px solid #d2d5e4;
+                color: #d2d5e4;
+            }
+        }
+
+    }
+    .layerInfo{
+        padding: 10px;
+        &>li{
+            color:#0fbbfb;
+            display: none;
+            &.active{
+                display: block;
+            }
+            li{
+                label{
+                    cursor: pointer;
+                }
+
+                input{
+                    vertical-align:middle;
+                }
+            }
+        }
+        li{
+            ul{
+                margin-top: 5px;
+                li{
+                    padding-bottom: 10px;
+                }
+            }
+        }
+    }
+    .timeChoiceTab{
+        color:#0fbbfb;
+        padding: 10px;
+        .timeChoiceTabHead{
+            overflow: hidden;
+            padding-bottom: 15px;
+            &>ul{
+                &.timeChoiceBtn{
+                    margin-right: 40px;
+                    border: 1px solid #28B8B8;
+                    li{
+                        text-align: center;
+                        cursor: pointer;
+                        width: 45px;
+                        // height: 25px;
+                        // line-height: 25px;
+                        color:#0fbbfb;
+                        &.active{
+                            color: #fff;
+                            background-color: #28B8B8
+                        }
+                    }
+
+                }
+                &.mapImg{
+                    li{
+                        margin-right: 5px;
+                        &:nth-of-type(2){
+                            height: 0px;
+                            width: 25px;
+                            border: 2px solid #1BA46F;
+                            margin-top: 12px;
+                        }
+                        &:nth-of-type(3){
+                            height: 0px;
+                            width: 25px;
+                            border: 2px solid #FF9806;
+                            margin-top: 12px;
+                        }
+                        &:nth-of-type(4){
+                            height: 0px;
+                            width: 25px;
+                            border: 2px solid #EC425E;
+                            margin-top: 12px;
+                        }
+                        &:nth-of-type(5){
+                            height: 0px;
+                            width: 25px;
+                            border: 2px solid #DC1C59;
+                            margin-top: 12px;
+                        }
+                    }
+                }
+                height: 25px;
+                line-height: 25px;
+                overflow: hidden;
+                float: left;
+                li{
+                    float: left;
+                }
+            }
+
+        }
+        .timeChoiceBox{
+            &>div{
+                display: none;
+                &.active{
+                    display: block;
+                }
+            }
+        }
+    }
+    #ECalendarDate{
+        width: 270px;
+        padding: 5px 10px;
+        border-radius: 2px;
+        color: #fff;
+        border: 1px solid rgba(20,146,255,.6);
+        background-color: rgba(20, 71, 219, 0.7);
+    }
+
+}
+/*map-right-button-style*/
+.btn{
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 3px;
+    color: #fff;
+    background-color: #ccc;
+    margin-right: 10px;
+    cursor: pointer;
+    &:last-child{
+        margin-right: 0;
+    }
+    &:active{
+        position: relative;
+        top: 1px;
+    }
+    &.btnRed{
+        background-color: #e13051;
+    }
+    &.btnBlue{
+        background-color: #0099ff;
+    }
+    &.btnLightGreen{
+        background-color: #66cccc;
+    }
+    &.btnGray{
+        background-color: #999999;
+    }
+    &.btnPurple{
+        background-color: #9966ff;
+    }
+    /*自行车-可借btn*/
+    &.borrowBtnRed{
+        background-color: #e13051;
+    }
+    &.borrowBtnOrg{
+        background-color: #daa82f;
+    }
+    &.borrowBtnGreen{
+        background-color: #2fda88;
+    }
+    /*自行车-换乘*/
+    &.transferBtnGreen{
+        background-color: #39caad;
+    }
+    &.transferBtnBlue{
+        background-color: #3399ff;
+    }
+    &.transferBtnPurplishRed{
+        background-color: #aa58ef;
+    }
+    &.transferBtnPurplish{
+        background-color: #7434dc;
+    }
+}
+
+
+//tpl-style
+.mapTpl{
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    min-width: 363px;
+    min-height: 234px;
+    box-shadow:0px 0px 8px #124068;
+    .tplHead{
+        font-size: 16px;
+        color: #f0f0f0;
+        text-align: right;
+        position: relative;
+        height: 40px;
+        overflow: hidden;
+        border: 1px solid #124069;
+        background: -webkit-gradient(linear,0% 41%, 0% 100%, from(#0D2474), to(#1738C2));
+        .tit{
+            font-size: 16px;
+            color: #fff;
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            width: 100%;
+        }
+        .close{
+            color: #04c2d6;
+            font-size: 22px;
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            cursor: pointer;
+        }
+    }
+    .tplCon{
+        background: #15265C;
+        min-height: 194px;
+        width: 100%;
+        color: #31b6fc;
+        font-size: 14px;
+        position: relative;
+        padding-top: 10px;
+        .tplTable{
+            width: 80%;
+            margin: 0 auto;
+            td{
+                height: 35px;
+                line-height: 35px;
+                padding-left: 16px;
+                &.allTr{
+                    width: 100%;
+                }
+                .lightBlue{
+                    color: #789ec6;
+                }
+            }
+        }
+        .tplConFoot{
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 45px;
+            line-height: 45px;
+            border-top: 1px solid #2044bd;
+            text-align: center;
+            
+        }
+        .conTit{
+            flex-wrap: nowrap;
+            display: flex;
+            .tit{
+                color: #fff;
+                display: flex;
+                padding-left: 10px;
+                word-break: keep-all;
+                white-space:nowrap;
+            }
+            .tabBut{
+                display: flex;
+                margin-left: 50px;
+                .btn{
+                    display: inline-block;
+                    vertical-align: middle;
+                    border: 1px solid #31b6fc;
+                    background-color: transparent;
+                    color: #31b6fc;
+                    border-radius: 25px;
+                    text-align: center;
+                    padding: 2px 8px;
+                    cursor: pointer;
+                    margin-right: 5px;
+                    font-size: 13px;
+                    word-break: keep-all;
+                    &.btnActive{
+                        box-shadow:inset 1px 1px 20px #31b6fc;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+        .conEchart{
+            width: 100%;
+            padding: 10px 0;
+        }
+        .conFoot{
+            padding: 0 10px;
+            .row{
+                width: 100%;
+                padding-bottom: 10px;
+                color: #789ec6;
+                .box{
+                    width: 49%;
+                    display: inline-block;
+                }
+            }
+        }
+        .videoBox{
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background-color: #333;
+            color: #fff;
+        }
+        .videoDateil{
+            margin: 10px;
+            .viderHea{
+                padding: 5px 0 10px 10px;
+                border-bottom: 1px solid #324dbe;
+                box-shadow: 0px 2px 0px #091c4a;
+                .tit{
+                    font-size: 16px;
+                    color: #fff;
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 70%;
+                }
+                .button{
+                    display: inline-block;
+                    vertical-align: middle;
+                    width: 28.5%;
+                    text-align: right;
+                    button{
+                        border: 1px solid #31b6fc;
+                        color: #31b6fc;
+                        border-radius: 25px;
+                        text-align: center;
+                        padding: 2px 10px;
+                        cursor: pointer;
+                        background-color: transparent;
+                    }
+                }
+            }
+            .videoTable{
+                width: 95%;
+                margin: 0 auto;
+                td{
+                    height: 35px;
+                    line-height: 35px;
+                    .lightBlue{
+                        color: #789ec6;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.indexBottom{
+    position: absolute;
+    left: 170px;
+    top: 247px;
+}
+
+/*map-poi-dateil*/
+.mapDot{
+    position: relative;
+    i{
+        color: #ba1760;
+        font-size: 30px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .mapDotDateil{
+        background-color: #ba1760;
+        padding:5px 15px 5px 15px;
+        margin-left: -12px;
+        display: inline-block;
+        vertical-align: middle;
+        border-radius: 10px;
+        .dotTit{
+            height: 30px;
+            line-height: 30px;
+            color: #ffa837;
+            font-size:15px;
+            border-bottom: 2px solid #d71f72;
+            box-shadow:0px 2px 0px #9B1350;
+        }
+        .dotDateil{
+            color: #fff;
+            .tplUl{
+                width: 100%;
+                list-style: none;
+                margin: 5px 0;
+                li{
+                    height: 25px;
+                    line-height: 25px;
+                    width: 100%;
+                    .num{
+                        margin: 0 5px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*map-foot*/
+.mapFoot{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    color: #fff;
+    height: 310px;
+    .downArrow{
+        text-align: right;
+        margin-right: 20px;
+        margin-bottom: 5px;
+        cursor: pointer;
+    }
+    .footDateil{
+        width: 100%;
+        border-top: 2px solid #1650e5;
+        background-color: #071532;
+        height: 250px;
+        overflow: hidden;
+        .footLeft{
+            width: 18%;
+            float: left;
+            .title{
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                font-size: 15px;
+                background: -webkit-gradient(linear,0% 0%, 0% 100%, from(#0d2474), to(#1739c7));
+                border-right: 2px solid #112e6b;
+            }
+            .table{
+                border-right: 2px solid #112e6b;
+                height: 210px;
+                overflow: hidden;
+                table{
+                    td{
+                        height: 35px;
+                        line-height: 35px;
+                        .unit{
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
+        }
+        .footRight{
+            width: 82%;
+            float: left;
+        }
+    }
+}
+
+// swiper样式
+// swiper盒子必须有mySwiper的类容器
+.mySwiper{
+    &.swiper-container-horizontal {
+            &> .swiper-pagination-bullets{
+                top :0;
+                height: 40px;
+                overflow: hidden;
+                .swiper-pagination-bullet{
+                    width: 50%;
+                    height: 40px;
+                    border-radius: initial;
+                    color: #fff;
+                    line-height: 40px;
+                    margin: 0;
+                    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#0d2474), to(#1739c7));
+                    opacity: inherit;
+                    &.swiper-pagination-bullet-active {
+                        box-shadow: inset 1px 1px 20px #31b6fc;
+                        color: #fff;
+                    }
+                }
+            }
+    }
+}
+
+/*input-chheckBox-style*/
+.regular-checkbox {
+    display: none;
+    & + label {
+        background-color: transparent;
+        border: 1px solid #0eaff2;
+        padding: 9px;
+        border-radius: 3px;
+        display: inline-block;
+        position: relative;
+        .checkCon{
+            position: absolute;
+            width: 100px;
+            left: 30px;
+            top: -2px;
+            img{
+                top: 0px;
+                position: absolute;
+                margin-left: 5px;
+            }
+        }
+    }
+    & + label:active, .regular-checkbox:checked + label:active {
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05), inset 0px 1px 3px rgba(0,0,0,0.1);
+    }
+    &:checked + label {
+        background-color: transparent;
+        border: 1px solid #0eaff2;
+        color: #0fbbfb;
+    }
+    &:checked + label:after {
+        content: '\2714';
+        font-size: 14px;
+        position: absolute;
+        top: 0px;
+        left: 3px;
+        color: #0eaff2;
+    }
+}
+
+/*searchBox*/
+.searchBox{
+    position: absolute;
+    top:20px;
+    left: 20px;
+    width: 400px;
+    .searchInput{
+        width: 400px;
+        height: 48px;
+        border:2px solid #1769f1;
+        input[type=text]{
+            width: 330px;
+            height: 48px;
+            padding-left: 10px;
+            float: left;
+            border: none;
+            font-size: 15px;
+            background-color: rgba(15,44,114,.8);
+            color: #fff;
+        }
+        & ::-webkit-input-placeholder {
+            color: #3982fa;
+        }
+        button{
+            width: 60px;
+            height: 50px;
+            border: none;
+            text-align: center;
+            color: #fff;
+            background-color: #1769f1;
+            font-family: "microsoft yahei";
+            font-size:16px;
+            cursor: pointer;
+            &:hover{
+                background-color: #2e77e5;
+            }
+        }
+    }
+}
+
+

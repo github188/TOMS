@@ -1,0 +1,856 @@
+<script type="text/template" id="map-tools2">
+    <div id="menu" style="z-index:1000">
+        <ul id="nav">
+            <li class="active"><a href="javascript:;">营运</a></li>
+            <!--<li><a href="javascript:;" class="">营运</a></li>
+            <li><a href="javascript:;" class="">营运</a></li>-->
+            <% if(originIndustyType=='realDistribution2') {%>
+            <li><a href="javascript:;" >静态企业</a></li>
+            <% } %>
+        </ul>
+        <!--二级菜单-->
+        <div id="menu_con">
+            <div class="tag" style="display:block">
+                <ul class="ul_list">
+                    <%_.each(data, function(item) {%>
+                        <% if(item.code.indexOf("SP")==-1) {%>
+                    <li>
+                        <input type="checkbox" class="checked"  data-id="<%=item.code%>"/>
+                        <span class="<%=item.clazz%>"></span>
+                        <span class="label"><%=item.name%></span>
+                    </li>
+                        <% } %>
+                    <%})%>
+                    <li>
+                        <input type="checkbox" class="checked" id="all"/>
+                        <span class="label">全部</span>
+                    </li>
+                </ul>
+            </div>
+            <% if(originIndustyType=='realDistribution2') {%>
+            <div class="tag" style="display:none">
+                <ul class="ul_list">
+                    <%_.each(data, function(item) {%>
+                    <% if(item.code.indexOf("SP")!=-1) {%>
+                    <li>
+                        <input type="checkbox" class="checked"  data-id="<%=item.code%>"/>
+                        <span class="<%=item.clazz%>"></span>
+                        <span class="label"><%=item.name%></span>
+                    </li>
+                    <% } %>
+                    <%})%>
+                </ul>
+            </div>
+            <% } %>
+            <!--<div class="tag" style="display:none">3</div>-->
+        </div>
+    </div>
+
+</script>
+
+
+
+<script type="text/template" id="lk-clcx">
+    <% _.each(list,function(item, index) { %>
+    <div class="info-item"  data-sd="<%-JSON.stringify(item)%>">
+        <div class="items">
+            <span class="car-number" data-color="<%-item.plateColor%>"><%-item.plateNumber %></span>
+            <span class="pop-address"><%-item.areaName %></span>
+            <div  class="btn-group">
+                <%if(item.onLine){%>
+                <%if(item.onLine.onlineStatus == 0){%>
+                <a href="javascript:;" class="selected">离线</a>
+                <%}else if(item.onLine.onlineStatus == 1){%>
+                <a href="javascript:;" >在线</a>
+                <%}%>
+                <%}else{%>
+                <a href="javascript:;" >离线</a>
+                <%}%>
+                <% if(item.attention){%>
+                <%if(item.attention.id && item.attention.isAttention == 1){%>
+                <a href="javascript:;" class="loseAttention selected" data-id="<%-item.attention.id%>" title="取消关注" >取消</a>
+                <%}else if(item.attention.id && item.attention.isAttention == 0){%>
+                <a href="javascript:;" class="attention" data-id="<%-item.attention.id%>">关注</a>
+                <%}else{%>
+                <a href="javascript:;" class="attention" >关注</a>
+                <%}%>
+                <%}else{%>
+                <a href="javascript:;" class="attention">关注</a>
+                <%}%>
+            </div>
+        </div>
+        <div class="items">
+            <!--经营范围？-->
+            <p class="content-s">
+                <!--<%-item.businessScopeName %>-->
+            </p>
+            <div class="icon-group"  >
+                <!--<a href="javascript:;" class="road-icon-1" title="关注"></a>-->
+                <!--<a href="javascript:;" class="road-icon-2" title="群发"></a>-->
+                <a href="javascript:;" class="road-icon-3" title="追踪"></a>
+                <!--<a href="javascript:;" class="road-icon-4" title="拍照"></a>-->
+            </div>
+        </div>
+        <div class="items">
+            <p class="content"><%-item.companyName%></p>
+        </div>
+    </div>
+    <% }) %>
+</script>
+
+
+
+
+<script type="text/template" id="car-detail">
+    <table>
+        <tbody>
+        <tr>
+            <td class="tab-td-1 topspace leftspace">
+                <span class="tab-tit">车辆所属123：</span>
+                <span id="carAreaName"><%-CLSS%></span>
+            </td>
+            <td class="tab-td-2 topspace">
+                <span class="tab-tit">道路运输证号：</span>
+                <span id="carLicenseNum"><%-DLYSZH%></span>
+            </td>
+            <td class="tab-td-3 topspace">
+                <span class="tab-tit">经营业户：</span>
+                <span id="carComName"><%-JYYF%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-1 leftspace">
+                <span class="tab-tit">经营范围：</span>
+                <span id="carBusinessScope"><%-JYFW%></span>
+            </td>
+            <td class="tab-td-2">
+                <span class="tab-tit">联网联控状态：</span>
+                <span id="carOnline"><%-LWLKZT%></span>
+            </td>
+            <td class="tab-td-3">
+                <span class="tab-tit">接入平台：</span>
+                <span id="carPlateForm"><%-JRPT%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-1 leftspace">
+                <span class="tab-tit">车辆类型：</span>
+                <span id="carType"><%-CLLX%></span>
+            </td>
+            <td class="tab-td-2">
+                <span class="tab-tit">营运状态：</span>
+                <span id="carBusinessState"><%-YYZT%></span>
+            </td>
+            <td class="tab-td-3">
+                <span class="tab-tit">经营许可证号：</span>
+                <span id="comLicense"><%-JYXKZH%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-1 leftspace">
+                <span class="tab-tit">道路运输证有效期起：</span>
+                <span id="licenseStart"><%-DLYSZYXQQ%></span>
+            </td>
+            <td class="tab-td-2">
+                <span class="tab-tit">道路运输证有效期止：</span>
+                <span id="licenseEnd"><%-DLYSZYXQZ%></span>
+            </td>
+            <td class="tab-td-3">
+                <span class="tab-tit">业户电话：</span>
+                <span id="comPhoneNum"><%-DHHM%></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</script>
+
+<script type="text/template" id="user-detail">
+    <table>
+        <tbody>
+        <tr>
+            <td class="tab-td-1 topspace leftspace">
+                <span class="tab-tit">经营业户：</span>
+                <span id="companyName"><%-JYYF%></span>
+            </td>
+            <td class="tab-td-2 topspace">
+                <span class="tab-tit">经营许可证号：</span>
+                <span id="comLicense"><%-JYXKZH%></span>
+            </td>
+            <td class="tab-td-3 topspace">
+                <span class="tab-tit">业户所属：</span>
+                <span id="companyAreaName"><%-YHSS%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-1 leftspace">
+                <span class="tab-tit">业户地址：</span>
+                <span id="comAddress"><%-YHDZ%></span>
+            </td>
+            <td class="tab-td-2">
+                <span class="tab-tit">经营负责人：</span>
+                <span id="comPerson"><%-JYFZR%></span>
+            </td>
+            <td class="tab-td-3">
+                <span class="tab-tit">电话号码：</span>
+                <span id="comPhoneNum"><%-DHHM%></span>
+            </td>
+
+        </tr>
+        <tr>
+            <td class="tab-td-1 leftspace">
+                <span class="tab-tit">发证机关：</span>
+                <span id="comAuthName"><%-QFJG%></span>
+            </td>
+            <td class="tab-td-2">
+                <span class="tab-tit">经营许可证有效期起：</span>
+                <span id="comLicenseTimeStart"><%-JYXKZHYXQQ%></span>
+            </td>
+            <td class="tab-td-3">
+                <span class="tab-tit">经营许可证有效期止：</span>
+                <span id="comLicenseTimeEnd"><%-JYXKZHYXQZ%></span>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="tab-td-1 leftspace">
+                <span class="tab-tit">经营状态：</span>
+                <span id="comBusinessState"><%-JYZK%></span>
+            </td>
+            <td class="tab-td-2" colspan="3">
+                <span class="tab-tit">经营范围：</span>
+                <span id="comBusinessScope"><%-JYFW%></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</script>
+
+<script type="text/template" id="car-now">
+    <tr>
+        <td><%-posDate%></td>
+        <td><%-gpsSpeed%></td>
+        <td><%-direction%></td>
+        <td><%-longitude%></td>
+        <td><%-latitude%></td>
+    </tr>
+</script>
+
+<script type="text/template" id="car-history">
+    <tr>
+        <td><%-posDate%></td>
+        <td><%-gpsSpeed%></td>
+        <td><%-direction%></td>
+        <td><%-longitude%></td>
+        <td><%-latitude%></td>
+    </tr>
+</script>
+
+<script type="text/template" id="user-info">
+    <table>
+        <tbody>
+        <tr>
+            <td class="tab-td-1 topspace leftspace">
+                <span class="tab-tit">业户名称：</span>
+                <span id="companyName"><%-JYYF%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-2 topspace">
+                <span class="tab-tit">经营许可证号：</span>
+                <span id="comLicense"><%-JYXKZH%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-3 topspace">
+                <span class="tab-tit">行政区划：</span>
+                <span id="companyAreaName"><%-YHSS%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-2" colspan="3">
+                <span class="tab-tit">经营范围：</span>
+                <span id="comBusinessScope"><%-JYFW%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-1 leftspace">
+                <span class="tab-tit">业户地址：</span>
+                <span id="comAddress"><%-YHDZ%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-2">
+                <span class="tab-tit">经营负责人：</span>
+                <span id="comPerson"><%-JYFZR%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-3">
+                <span class="tab-tit">经营负责人电话：</span>
+                <span id="comPhoneNum"><%-DHHM%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-1 leftspace">
+                <span class="tab-tit">经营状态：</span>
+                <span id="comBusinessState"><%-JYZK%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-2">
+                <span class="tab-tit">经营许可证有效期起止：</span>
+                <span id="comLicenseTimeStart"><%-JYXKZHYXQQ%>——<%-JYXKZHYXQZ%></span>
+            </td>
+        </tr>
+<!--        <tr>
+            <td class="tab-td-3">
+                <span class="tab-tit">经营许可证有效期止：</span>
+                <span id="comLicenseTimeEnd"><%-JYXKZHYXQZ%></span>
+            </td>
+        </tr>-->
+<!--        <tr>
+            <td class="tab-td-1 leftspace">
+                <span class="tab-tit">发证机关：</span>
+                <span id="comAuthName"><%-QFJG%></span>
+            </td>
+        </tr>-->
+        </tbody>
+    </table>
+</script>
+
+<script type="text/template" id="car-info">
+    <table>
+        <tbody>
+        <tr>
+            <td class="tab-td-1 topspace leftspace">
+                <span class="tab-tit">业户名称：</span>
+                <span id="carAreaName"><%-XJYYF%></span>
+            </td>
+            <!--<td class="tab-td-1 topspace leftspace">
+                <span class="tab-tit">车辆所属：</span>
+                <span id="carAreaName"><%-CLSS%></span>
+            </td>-->
+        </tr>
+        <tr>
+            <td class="tab-td-1 leftspace">
+                <span class="tab-tit">经营范围：</span>
+                <span id="carBusinessScope"><%-JYFW%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-1 leftspace">
+                <span class="tab-tit">车辆类型：</span>
+                <span id="carType"><%-CLLX%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-1 leftspace">
+                <span class="tab-tit">行业类别：</span>
+                <span id="carType"><%-INDUSTRY%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-2 topspace">
+                <!--<span class="tab-tit">道路运输证号：</span>-->
+                <span class="tab-tit">营运证号：</span>
+                <span id="carLicenseNum"><%-DLYSZH%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-1 leftspace">
+                <span class="tab-tit">道路运输证有效期起止：</span>
+                <span id="licenseStart"><%-DLYSZYXQQ%>——<%-DLYSZYXQZ%></span>
+            </td>
+        </tr>
+<!--        <tr>
+            <td class="tab-td-2">
+                <span class="tab-tit">联网联控状态：</span>
+                <span id="carOnline"><%-LWLKZT%></span>
+            </td>
+        </tr>-->
+        <tr>
+            <td class="tab-td-2">
+                <span class="tab-tit">营运状态：</span>
+                <span id="carOnline"><%-YYZT%></span>
+            </td>
+        </tr>
+<!--        <tr>
+            <td class="tab-td-3 topspace">
+                <span class="tab-tit">经营业户：</span>
+                <span id="carComName"><%-JYYF%></span>
+            </td>
+        </tr>-->
+        <tr>
+            <td class="tab-td-3 topspace">
+                <span class="tab-tit">行政区划：</span>
+                <span id="companyAreaName"><%-CLSS%></span>
+            </td>
+        </tr>
+        <tr>
+            <td class="tab-td-3">
+                <span class="tab-tit">接入平台：</span>
+                <span id="carPlateForm"><%-JRPT%></span>
+            </td>
+        </tr>
+<!--        <tr>
+            <td class="tab-td-2">
+                <span class="tab-tit">道路运输证有效期止：</span>
+                <span id="licenseEnd"><%-DLYSZYXQZ%></span>
+            </td>
+        </tr>-->
+        <tr>
+            <td class="tab-td-2">
+                <span class="tab-tit">GPS最后上传时间：</span>
+                <span id="licenseEnd"><%-UPDATEDTIME%></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</script>
+
+<script type="text/template" id="info-box">
+    <div class="info-box">
+        <div class="info-box-header">
+            <span class="titL"><%-carNo%></span>
+            <div class="titR">
+                <!--<div class="care titR-care" data-carno="<%-carNo%>" data-color="<%-color%>">-->
+                    <!--<div class="titR-icon titR-care-icon">-->
+                    <!--</div>关注-->
+                <!--</div>-->
+                <div class="care titR-follow" data-carno="<%-carNo%>" data-color="<%-color%>">
+                    <div class="titR-icon titR-follow-icon">
+                    </div>跟踪
+                </div>
+                <i class="iconfont btn-close">&#xe617;</i>
+            </div>
+        </div>
+        <div class="info-body">
+            <!--<ul class="left-nav" id="changeInfo">-->
+            <!--<li class="actived">详情</li>-->
+            <!--<li>消息</li>-->
+            <!--<li>拍照</li>-->
+            <!--<li>监听</li>-->
+            <!--<li>报警</li>-->
+            <!--<li>视频</li>-->
+            <!--</ul>-->
+            <div class="change-box" id="change-box">
+                <div class="info-change-box" style="display: block;">
+                    <ul class="right-nav" id="change-list" style="width: 100%">
+                        <li class="actived" style="width: 22%">车辆信息</li>
+                        <li style="width: 22%">业户</li>
+                        <!--<li style="width: 22%">案情</li>
+                        <li style="width: 22%">投诉</li>-->
+                    </ul>
+                    <div class="info-content" id='change-list-box' style="height: 230px;">
+                        <div style="display: block" class="list-item">
+                            <div id="infoContent" class="infoContent">
+                                加载中……
+                            </div>
+                        </div>
+                        <div class="list-item userContent">
+                            加载中……
+                        </div>
+                        <div class="list-item ">
+                            未实现
+                        </div>
+                        <div class="list-item">
+                            未实现
+                        </div>
+                    </div>
+                </div>
+                <div class="info-change-box">
+                    <div class="info-content" style="padding: 0;width: 368px;height: 267px;" id="video-content">
+                        <!--视频-->
+                    </div>
+                </div>
+                <!--<div class="info-change-box">2</div>
+                <div class="info-change-box">3</div>
+                <div class="info-change-box">4</div>
+                <div class="info-change-box">5</div>
+                <div class="info-change-box">6</div>-->
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="tips"><b></b></div>
+    </div>
+</script>
+
+
+
+<script type="text/javascript-template" id="show-table">
+    <div class="show-table-ssfb">
+        <table class="stb1">
+            <tbody>
+            <tr>
+                <td>
+                    业户名称
+                </td>
+                <td>
+                    <input id="stbcompanyName" type="text"/>
+                </td>
+                <td>
+                    许可证号
+                </td>
+                <td>
+                    <input id="stbcompanyLicenseNumberLike" type="text"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    车牌号码
+                </td>
+                <td>
+                    <input type="text" id="stbplateNumber"/>
+                </td>
+                <td>
+                    车辆运行状态
+                </td>
+                <td>
+                    <select name="runStates" id="runState">
+                        <option value="">全部</option>
+                        <option value="0">5分钟以内</option>
+                        <option value="1">5~10分钟以内</option>
+                        <option value="2">10~30分钟以内</option>
+                        <option value="3">30分钟以内</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    运营商名称
+                </td>
+                <td>
+                    <select name="platformName" id="stbplatformName">
+                        <option value="">全部</option>
+                        <%_.each(drops,function(item,index){ %>
+                        <option value="<%=item.code%>"><%=item.code%></option>
+                        <%})%>
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="btn-group">
+            <button id="tb-output" class="bluebutton">导出</button>
+            <button id="tb-refresh" class="refresh bluebutton">刷新</button>
+            <button id="tb-search" class="bluebutton">查询</button>
+            <button id="tb-reset" class="bluebutton">重置</button>
+        </div>
+    </div>
+    <div class="s-table">
+        <div id="panel_table" style="font-size: 12px;"></div>
+    </div>
+</script>
+<script type="text/javascript-template" id="type-list">
+    <div id="legend">
+        <ul id="nav">
+            <li value="0"><a href="javascript:;" class="active" data-type="status">营运</a></li>
+            <li value="1"><a href="javascript:;" data-type="speed">车速</a></li>
+            <li value="2"><a href="javascript:;" data-type="runState">在线</a></li>
+        </ul>
+        <div id="legend_con">
+            <div class="tag vehicleService" style="display:block">
+                <div class="legend-1">
+                    <ul class="vehicleService">
+                        <li value="1">
+                            <div class="legend-ico ico-1"></div>
+                            <span class="ico-inf">重车</span>
+                        </li>
+                        <li value="0">
+                            <div class="legend-ico ico-2"></div>
+                            <span class="ico-inf">空车</span>
+                        </li>
+                        <li value="2">
+                            <div class="legend-ico ico-3"></div>
+                            <span class="ico-inf">掉线车</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tag vehicleSpeed" style="display:none">
+                <div class="legend-2">
+                    <ul class="vehicleSpeed">
+                        <li value="0">
+                            <div class="legend-ico ico-1"></div>
+                            <span class="ico-inf">80公里以上</span>
+                        </li>
+                        <li value="1">
+                            <div class="legend-ico ico-2"></div>
+                            <span class="ico-inf">50-79公里</span>
+                        </li>
+                        <li value="2">
+                            <div class="legend-ico ico-4"></div>
+                            <span class="ico-inf">20-49公里</span>
+                        </li>
+                        <li value="3">
+                            <div class="legend-ico ico-3"></div>
+                            <span class="ico-inf">0-19公里</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="tag " style="display:none">
+                <div class="legend-2">
+                    <ul class="vehicleRunState">
+                        <li value="0">
+                            <div class="legend-ico ico-1"></div>
+                            <span class="ico-inf">5分钟以内
+                                <a class="green Online_inquiry" data-state="0"><span class="num0"></span>辆</a>
+                            </span>
+                        </li>
+                        <li value="1">
+                            <div class="legend-ico ico-2"></div>
+                            <span class="ico-inf">5-10分钟以内
+                                <a class="green Online_inquiry" data-state="1"><span class="num1"></span>辆</a>
+                            </span>
+                        </li>
+                        <li value="2">
+                            <div class="legend-ico ico-4"></div>
+                            <span class="ico-inf">10-30分钟内
+                                <a class="green Online_inquiry" data-state="2"><span class="num2"></span>辆</a>
+                            </span>
+                        </li>
+                        <li value="3">
+                            <div class="legend-ico ico-3"></div>
+                            <span class="ico-inf">30分钟以内
+                                <a class="green Online_inquiry" data-state="3"><span class="num3"></span>辆</a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+
+
+<script type="text/javascript-template" id="bus2car-type-list">
+    <div id="legend">
+        <ul id="nav1" style="position: relative;
+        top: 110px;
+        left:5px;">
+            <li value="0"><a href="javascript:;" class="active" data-type="status">行业类型</a></li>
+        </ul>
+        <div id="legend_con">
+            <div class="tag vehicleService" style="display:block">
+                <div class="legend-1">
+                    <ul class="vehicleService">
+                        <li value="1">
+                            <div class="legend-ico ico-2"></div>
+                            <span class="ico-inf">班线客运</span>
+                        </li>
+                        <li value="0">
+                            <div class="legend-ico ico-6"></div>
+                            <span class="ico-inf">包车客运</span>
+                        </li>
+                        <li value="2">
+                            <div class="legend-ico ico-5"></div>
+                            <span class="ico-inf">危险品</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="bc-info-box">
+    <div class="info-box">
+        <div class="info-box-header">
+            <span class="titL"><%-carNo%></span>
+            <div class="titR">
+                <!--<div class="care titR-care" data-carno="<%-carNo%>" data-color="<%-color%>">-->
+                <!--<div class="titR-icon titR-care-icon">-->
+                <!--</div>关注-->
+                <!--</div>-->
+                <div class="care titR-follow" data-carno="<%-carNo%>" data-color="<%-color%>">
+                    <div class="titR-icon titR-follow-icon">
+                    </div>跟踪
+                </div>
+                <i class="iconfont btn-close">&#xe617;</i>
+            </div>
+        </div>
+        <div class="info-body">
+            <ul class="left-nav" id="changeInfo">
+                <li class="actived">详情</li>
+                <!--<li>消息</li>-->
+                <!--<li>拍照</li>-->
+                <!--<li>监听</li>-->
+                <!--<li>报警</li>-->
+                <!--<li data-info="video">视频</li>-->
+            </ul>
+            <div class="change-box" id="change-box">
+                <div class="info-change-box" style="display: block;">
+                    <ul class="right-nav" id="change-list">
+                        <li class="actived" style="width: 22%">车辆信息</li>
+                        <li style="width: 22%">业户</li>
+                        <li style="width: 22%">趟次牌信息</li>
+                        <!--<li style="width: 22%">电子路单</li>-->
+                    </ul>
+                    <div class="info-content" id='change-list-box' style="height: 206px;">
+                        <div style="display: block" class="list-item">
+                            <div id="infoContent" class="infoContent">
+                                加载中……
+                            </div>
+                        </div>
+                        <div class="list-item userContent">
+                            加载中……
+                        </div>
+                        <!--<div class="list-item bcqzContent">-->
+                        <!--加载中……-->
+                        <!--</div>-->
+                        <div class="list-item bcdzldContent">
+                            加载中……
+                        </div>
+                    </div>
+                </div>
+                <div class="info-change-box">
+                    <div class="info-content" style="padding: 0;width: 368px;height: 267px;" id="video-content">
+                        <!--视频-->
+                    </div>
+                </div>
+                <!--<div class="info-change-box">3</div>-->
+                <!--<div class="info-change-box">4</div>-->
+                <!--<div class="info-change-box">5</div>-->
+                <!--<div class="info-change-box">6</div>-->
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="tips"><b></b></div>
+    </div>
+</script>
+
+<script type="text/template" id="ky-info-box">
+    <div class="info-box">
+        <div class="info-box-header">
+            <span class="titL"><%-carNo%></span>
+            <div class="titR">
+                <!--<div class="care titR-care" data-carno="<%-carNo%>" data-color="<%-color%>">-->
+                <!--<div class="titR-icon titR-care-icon">-->
+                <!--</div>关注-->
+                <!--</div>-->
+                <div class="care titR-follow" data-carno="<%-carNo%>" data-color="<%-color%>">
+                    <div class="titR-icon titR-follow-icon">
+                    </div>跟踪
+                </div>
+                <i class="iconfont btn-close">&#xe617;</i>
+            </div>
+        </div>
+        <div class="info-body">
+            <ul class="left-nav" id="changeInfo">
+                <li class="actived">详情</li>
+                <!--<li>消息</li>-->
+                <!--<li>拍照</li>-->
+                <!--<li>监听</li>-->
+                <!--<li>报警</li>-->
+                <!--<li data-info="video">视频</li>-->
+            </ul>
+            <div class="change-box" id="change-box">
+                <div class="info-change-box" style="display: block;">
+                    <ul class="right-nav" id="change-list">
+                        <li class="actived" style="width: 22%">车辆信息</li>
+                        <li style="width: 22%">业户</li>
+                        <!--<li style="width: 22%">躺次信息</li>-->
+                        <li style="width: 22%">线路信息</li>
+                    </ul>
+                    <div class="info-content" id='change-list-box' style="height: 206px;">
+                        <div style="display: block" class="list-item">
+                            <div id="infoContent" class="infoContent">
+                                加载中……
+                            </div>
+                        </div>
+                        <div class="list-item userContent">
+                            加载中……
+                        </div>
+                        <div class="list-item kydzldContent">
+                            加载中……
+                        </div>
+                        <!--<div class="list-item bcdzldContent">-->
+                        <!--加载中……-->
+                        <!--</div>-->
+                    </div>
+                </div>
+                <div class="info-change-box">
+                    <div class="info-content" style="padding: 0;width: 368px;height: 267px;" id="video-content">
+                        <!--视频-->
+                    </div>
+                </div>
+                <!--<div class="info-change-box">3</div>-->
+                <!--<div class="info-change-box">4</div>-->
+                <!--<div class="info-change-box">5</div>-->
+                <!--<div class="info-change-box">6</div>-->
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="tips"><b></b></div>
+    </div>
+</script>
+
+
+<script type="text/template" id="wxp-info-box">
+    <div class="info-box">
+        <div class="info-box-header">
+            <span class="titL"><%-carNo%></span>
+            <div class="titR">
+                <!--<div class="care titR-care" data-carno="<%-carNo%>" data-color="<%-color%>">-->
+                <!--<div class="titR-icon titR-care-icon">-->
+                <!--</div>关注-->
+                <!--</div>-->
+                <div class="care titR-follow" data-carno="<%-carNo%>" data-color="<%-color%>">
+                    <div class="titR-icon titR-follow-icon">
+                    </div>跟踪
+                </div>
+                <i class="iconfont btn-close">&#xe617;</i>
+            </div>
+        </div>
+        <div class="info-body">
+            <ul class="left-nav" id="changeInfo">
+                <li class="actived">详情</li>
+                <!--<li>消息</li>-->
+                <!--<li>拍照</li>-->
+                <!--<li>监听</li>-->
+                <!--<li>报警</li>-->
+                <!--<li data-info="video">视频</li>-->
+            </ul>
+            <div class="change-box" id="change-box">
+                <div class="info-change-box" style="display: block;">
+                    <ul class="right-nav" id="change-list">
+                        <li class="actived" style="width: 22%">车辆信息</li>
+                        <li style="width: 22%">业户</li>
+                        <!--<li style="width: 22%">躺次信息</li>-->
+                        <li style="width: 22%">电子路单</li>
+                    </ul>
+                    <div class="info-content" id='change-list-box' style="height: 206px;">
+                        <div style="display: block" class="list-item">
+                            <div id="infoContent" class="infoContent">
+                                加载中……
+                            </div>
+                        </div>
+                        <div class="list-item userContent">
+                            加载中……
+                        </div>
+                        <div class="list-item wxpdzldContent">
+                            加载中……
+                        </div>
+                        <!--<div class="list-item bcdzldContent">-->
+                        <!--加载中……-->
+                        <!--</div>-->
+                    </div>
+                </div>
+                <div class="info-change-box">
+                    <div class="info-content" style="padding: 0;width: 368px;height: 267px;" id="video-content">
+                        <!--视频-->
+                    </div>
+                </div>
+                <!--<div class="info-change-box">3</div>-->
+                <!--<div class="info-change-box">4</div>-->
+                <!--<div class="info-change-box">5</div>-->
+                <!--<div class="info-change-box">6</div>-->
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="tips"><b></b></div>
+    </div>
+</script>

@@ -1,0 +1,204 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "microsoft yahei";
+  font-size: 14px;
+}
+/*map--legend*/
+.mapLegend {
+  position: absolute;
+  right: 20px;
+  bottom: 350px;
+}
+.mapLegend ul li {
+  border-radius: 5px;
+  width: 55px;
+  height: 55px;
+  text-align: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.mapLegend ul li img {
+  margin-top: 6px;
+}
+.mapLegend ul li div {
+  margin-top: -3px;
+}
+.mapLegend ul li.red {
+  border: 1px solid #e60569;
+  color: #e60569;
+}
+.mapLegend ul li.green {
+  border: 1px solid #2ac37a;
+  color: #2ac37a;
+}
+.mapLegend ul li.write {
+  border: 1px solid #a523fc;
+  color: #fff;
+}
+.mapLegend ul li.lengActive {
+  background-color: #a523fc;
+  color: #fff;
+}
+/*mapFoot-*/
+.mapFoot .table table {
+  width: 90%;
+  margin: 0 auto;
+}
+.mapFoot .table table tr td {
+  height: 40px !important;
+  line-height: 40px !important;
+}
+.mapFoot .table table tr .org {
+  color: #ff9806;
+}
+.mapFoot .table table tr .purple {
+  color: #7434DC;
+}
+.mapFoot .table table tr .blue {
+  color: #0fbbfb;
+}
+.mapFoot .footRight > div {
+  float: left;
+  height: 224px;
+  padding-top: 20px;
+  border-right: 2px solid #112e6b;
+}
+.mapFoot .footRight > div#swiperBox1 {
+  width: 30%;
+}
+.mapFoot .footRight > div#swiperBox2 {
+  width: 33%;
+}
+.mapFoot .footRight > div#swiperBox3 {
+  width: 36.5%;
+}
+.layerBox .layerTab {
+  overflow: hidden;
+  background: -webkit-gradient(linear, 0% 41%, 0% 100%, from(#0D2474), to(#1738C2));
+  border-bottom: 1px solid transparent;
+}
+.layerBox .layerTab > li {
+  text-align: center;
+  width: 50%;
+  line-height: 30px;
+  cursor: pointer;
+  float: left;
+  color: #0eaff2;
+}
+.layerBox .layerTab > li.active {
+  border-bottom: 2px solid #d2d5e4;
+  color: #d2d5e4;
+}
+.layerBox .layerInfo {
+  padding: 10px;
+}
+.layerBox .layerInfo > li {
+  color: #0fbbfb;
+  display: none;
+}
+.layerBox .layerInfo > li.active {
+  display: block;
+}
+.layerBox .layerInfo > li li label {
+  cursor: pointer;
+}
+.layerBox .layerInfo > li li input {
+  vertical-align: middle;
+}
+.layerBox .timeChoiceTab {
+  color: #0fbbfb;
+  padding: 10px;
+}
+.layerBox .timeChoiceTab .timeChoiceTabHead {
+  overflow: hidden;
+  padding-bottom: 15px;
+}
+.layerBox .timeChoiceTab .timeChoiceTabHead > ul {
+  height: 25px;
+  line-height: 25px;
+  overflow: hidden;
+  float: left;
+}
+.layerBox .timeChoiceTab .timeChoiceTabHead > ul.timeChoiceBtn {
+  margin-right: 40px;
+  border: 1px solid #28B8B8;
+}
+.layerBox .timeChoiceTab .timeChoiceTabHead > ul.timeChoiceBtn li {
+  text-align: center;
+  cursor: pointer;
+  width: 45px;
+  color: #0fbbfb;
+}
+.layerBox .timeChoiceTab .timeChoiceTabHead > ul.timeChoiceBtn li.active {
+  color: #fff;
+  background-color: #28B8B8;
+}
+.layerBox .timeChoiceTab .timeChoiceTabHead > ul.mapImg li {
+  margin-right: 5px;
+}
+.layerBox .timeChoiceTab .timeChoiceTabHead > ul.mapImg li:nth-of-type(2) {
+  height: 0px;
+  width: 25px;
+  border: 2px solid #1BA46F;
+  margin-top: 12px;
+}
+.layerBox .timeChoiceTab .timeChoiceTabHead > ul.mapImg li:nth-of-type(3) {
+  height: 0px;
+  width: 25px;
+  border: 2px solid #FF9806;
+  margin-top: 12px;
+}
+.layerBox .timeChoiceTab .timeChoiceTabHead > ul.mapImg li:nth-of-type(4) {
+  height: 0px;
+  width: 25px;
+  border: 2px solid #EC425E;
+  margin-top: 12px;
+}
+.layerBox .timeChoiceTab .timeChoiceTabHead > ul.mapImg li:nth-of-type(5) {
+  height: 0px;
+  width: 25px;
+  border: 2px solid #DC1C59;
+  margin-top: 12px;
+}
+.layerBox .timeChoiceTab .timeChoiceTabHead > ul li {
+  float: left;
+}
+.layerBox .timeChoiceTab .timeChoiceBox > div {
+  display: none;
+}
+.layerBox .timeChoiceTab .timeChoiceBox > div.active {
+  display: block;
+}
+.layerBox #ECalendarDate {
+  width: 230px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 2px;
+  box-shadow: 0 0 5px #0eaff2;
+  color: #333;
+}
+.mapTpl .tplCon .tplTable {
+  width: 100%;
+  margin: 0 auto;
+}
+.mapTpl .tplCon .tplTable td {
+  padding-left: 15px;
+}
+.vm {
+  display: inline-block;
+  vertical-align: middle;
+}
+.vm label {
+  margin-top: 5px;
+}
+.vm label .checkCon {
+  top: -1px;
+  width: 70px;
+}
+.vmDistance {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 25%;
+}

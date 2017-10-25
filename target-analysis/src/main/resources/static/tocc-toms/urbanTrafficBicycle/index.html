@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="x-ua-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="email=no" name="format-detection"/>
+    <title>城市交通-自行车</title>
+    <link rel="stylesheet" type="text/css" href="../../resource/css/base.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/icon/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/css/common.css">
+    <link rel="stylesheet" type="text/css" href="res/css/style.css"/>
+</head>
+<body style="background: #0e2861;">
+
+<!--map容器-->
+<div id="mapContainer" class="mapContainer" style="width: 100%; height: 100%;position: absolute;z-index: 0;"></div>
+
+<!--<div class="searchBox">
+    <div class="searchInput">
+        <input type="text" class="placeholder" placeholder="搜线路、公交站点、自行车服务点等" />
+        <button>搜索</button>
+    </div>
+</div>-->
+
+<!--地图-图例-->
+<div class="mapLegend">
+    <ul>
+        <a href="../urbanTrafficPublicTransport/index.html">
+            <li class="red">
+                <img src="res/img/publicTransport.png" />
+                <div>公交</div>
+            </li>
+        </a>
+        <a href="../urbanTrafficTaxi/index.html">
+            <li class="green">
+                <img src="res/img/taxi.png" />
+                <div>出租</div>
+            </li>
+        </a>
+        <a href="../urbanTrafficBicycle/index.html">
+            <li class="purple lengActive">
+                <img src="res/img/bicycle.png" />
+                <div>自行车</div>
+            </li>
+        </a>
+    </ul>
+</div>
+
+<!--foot-tab-->
+<div class="mapFoot">
+    <div class="downArrow">
+        <img src="../../resource/image/common/downArrow.png" data-src="../../resource/image/common/downArrow.png" />
+    </div>
+    <div class="footDateil">
+        <div class="footLeft">
+            <div class="title">自行车指标面板</div>
+            <div class="table">
+                <table>
+                    <tr>
+                        <td class="blue">当天可借车辆数 </td>
+                        <td>
+                            <span class="write dataNumber1"></span>
+                            <span class="blue unit">辆</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="blue">当天可还车辆数</td>
+                        <td>
+                            <span class="write dataNumber2"></span>
+                            <span class="blue unit">辆</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="blue">当前站点总数</td>
+                        <td>
+                            <span class="write dataNumber3"></span>
+                            <span class="blue unit">个</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="blue">当前车位总数</td>
+                        <td>
+                            <span class="write dataNumber4"></span>
+                            <span class="blue unit">个</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="blue">日借车辆</td>
+                        <td>
+                            <span class="write dataNumber5"></span>
+                            <span class="blue unit">个</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footRight">
+            <div class="swiper-container mySwiper" id = "swiperBox1">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide main1" data-id = ".main1"></div>
+                    <div class="swiper-slide main2" data-id = ".main2"></div>
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="swiper-container mySwiper" id = "swiperBox2">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide main3" data-id = ".main3"></div>
+                    <div class="swiper-slide main4" data-id = ".main4"></div>
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="swiper-container mySwiper" id = "swiperBox3">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide main5" data-id = ".main5"></div>
+                    <div class="swiper-slide main6" data-id = ".main6"></div>
+
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--right-mapTool-->
+<div class="mapToolBox">
+    <ul class="mapTool">
+        <li class="wxTool">
+            <span class="icon icon-ic_weixing"></span>
+            <span>卫星</span>
+        </li>
+        <li class="toolLi">
+            <span class="icon icon-ic_tuceng"></span>
+            <span>图层</span>
+        </li>
+        <li class="toolLi">
+            <span class="icon icon-ic_gongju"></span>
+            <span>工具</span>
+        </li>
+    </ul>
+    <ul class="mapToolDateil">
+        <!--<ul class="dateil">
+            我是地图工具栏
+        </ul>-->
+        <li class="layerBox">
+            <ul class="layerTab">
+                <li class="active">可借可还</li>
+                <li>公交换乘距离</li>
+            </ul>
+            <ul class="layerInfo">
+                <li class="active">
+                    <ul >
+                        <li>
+                            <div class="vm">
+                                <input type="checkbox" data-type="1" id="trainLayer" class="regular-checkbox" />
+                                <label for="trainLayer">
+                                    <span class="checkCon">
+                                        可借车辆
+                                    </span>
+                                </label>
+                            </div>
+                            <div class="vmDistance">
+                                <div class="btn borrowBtnRed">0%</div>
+                                <div class="btn borrowBtnOrg">1-50%</div>
+                                <div class="btn borrowBtnGreen">51-100%</div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="">
+                    <ul >
+                        <li>
+                            <input type="checkbox" data-type="2" id="trainLayers" class="regular-checkbox" />
+                            <label for="trainLayers">
+                                     <span class="checkCon">
+                                        换乘距离（米）
+                                    </span>
+                            </label>
+                        </li>
+                        <li>
+                            <div class="btn transferBtnGreen">0-200</div>
+                            <div class="btn transferBtnBlue">201-500</div>
+                            <div class="btn transferBtnPurplishRed">501-1000</div>
+                            <div class="btn transferBtnPurplish">1001+</div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="layerBox">
+
+            <div class="BtnBox">
+                <button type="button" id = "measuringLine">测距</button>
+                <button type="button" id = "measuringSurface">测面</button>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<script src="../../libs/bmap/utils/events_utils.js"></script>
+<script data-main="../../main" src="../../libs/core/requirejs/requirejs.js"></script>
+<script>
+
+    window.ByEvent.addEvent("mainjsLoaded", function() {
+        require(['./mod/mainView.js'],function(mainView) {
+            new mainView().render();
+        });
+    });
+</script>
+</body>
+</html>

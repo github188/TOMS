@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--自行车-->
+<mapper namespace="com.linkcld.toms.common.dao.BusMapper">
+
+
+    <select id="getBusDataBase" resultType="java.util.Map" parameterType="java.util.Map">
+      select code,value from t_d_gjzbxx@bgis
+    </select>
+    <select id="getBusLine" resultType="java.util.Map" parameterType="java.util.Map">
+        select B.* from T_D_XSCL@GNSS A JOIN T_D_GJLX@GNSS B ON A.GJLXBM = B.BM WHERE A.CPH=#{plateNo}  AND ROWNUM &lt;=1
+    </select>
+    <select id="getBusCar" resultType="java.util.Map" parameterType="java.util.Map">
+        select  * from LBS_VEHICLE_ONLINE@GNSS WHERE 1=1
+        <if test="industry != null and industry != ''">
+            and INSDUTY_TYPE=#{industry}
+        </if>
+        <if test="areaCode != null and areaCode != ''">
+            and AREA_CODE like #{areaCode}||'%'
+        </if>
+    </select>
+
+    <select id="getCountFlowByDay" parameterType="java.util.Map" resultType="java.util.HashMap">
+         select POST_NUM
+         from T_C_BUS_DY_DAY
+         where TJSJ_D=#{dateType}
+         order by TJSJ_D
+    </select>
+    <select id="getCountFlowByMonth" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select POST_NUM,substr(TJSJ_M,5,2) TJSJ_M
+        from T_C_BUS_DY_MONTH
+        where TJSJ_M=#{dateType}
+        order by TJSJ_M
+    </select>
+    <select id="getCountByFlowYear" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select POST_NUM
+        from T_C_BUS_DY_YEAR
+        where TJSJ_Y=#{dateType}
+        order by TJSJ_Y
+    </select>
+    <!--公交客流量近七日-->
+    <select id="getFlowByWeek" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select POST_NUM,SUBSTR(TJSJ_D,7,2)TJSJ_D from
+        (select POST_NUM,TJSJ_D from (
+        select trunc(sum(POST_NUM)) POST_NUM,TJSJ_D   from (select GJKL POST_NUM, TJSJ_D
+        from T_C_BUS_YS_DAY
+        order by TJSJ_D) t group by TJSJ_D)
+        order by TJSJ_D desc )
+        where rownum &lt;=7 order by TJSJ_D asc
+    </select>
+    <!--公交客流量(当月)-->
+    <select id="getFlowByNowMonth" parameterType="java.util.Map" resultType="java.util.HashMap">
+         select * from (
+             select trunc(sum(POST_NUM)) POST_NUM,TJSJ_D   from (select GJKL POST_NUM,substr(TJSJ_D,7,2) TJSJ_D
+            from T_C_BUS_YS_DAY
+            where TJSJ_D like #{dateType}||'%'
+            order by TJSJ_D) t group by TJSJ_D)
+         order by TJSJ_D asc
+    </select>
+    <select id="getSpeedByDay" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select LINE_SPEED,
+        substr(TJSJ_D,7,2) TJSJ_D
+        from T_C_BUS_LINE_DAY
+        where TJSJ_D like #{dateType}||'%'
+        order by TJSJ_D
+    </select>
+    <select id="getSpeedByMonth" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select LINE_SPEED,
+        substr(TJSJ_M,5,2) TJSJ_M
+        from T_C_BUS_LINE_MONTH
+        where TJSJ_M LIKE #{dateType}||'%'
+        order by TJSJ_M
+    </select>
+    <select id="getShiftAndMileageByDay" parameterType="java.util.Map" resultType="java.util.HashMap">
+         select POST_NUM,DAILY_LC,
+         substr(TJSJ_D,7,2) TJSJ_D
+         from T_C_BUS_DY_DAY
+         where TJSJ_D like #{dateType}||'%'
+         order by TJSJ_D
+    </select>
+    <select id="getShiftAndMileageByMonth" parameterType="java.util.Map" resultType="java.util.HashMap">
+        select POST_NUM,DAILY_LC,
+        substr(TJSJ_M,5,2) TJSJ_M
+        from T_C_BUS_DY_MONTH
+        where TJSJ_M like #{dateType}||'%'
+        order by TJSJ_M
+    </select>
+    <select id="getStaticData"  resultType="java.util.HashMap">
+        SELECT BUS_LEN,
+        BUS_AVER_LEN,
+        SITE_AVER_LEN,
+        SITE_500_COVERAGE,
+        SITE_300_COVERAGE,
+        BUS_STANDARD
+        FROM T_C_BUS_STATIC
+    </select>
+    <!--公交车日运行速率-->
+    <select id="busSpeedByDay"  resultType="java.util.HashMap">
+        SELECT TJSJ_D dayTime,
+                NVL(SUM(LINE_SPEED)/count(LINE_SPEED),0) lineSpeed
+        FROM T_C_BUS_LINE_DAY
+        WHERE TJSJ_D = #{dateType}
+        GROUP BY TJSJ_D
+    </select>
+</mapper>

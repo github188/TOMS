@@ -1,0 +1,95 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "microsoft yahei";
+  font-size: 14px;
+}
+/*map--legend*/
+.mapLegend {
+  position: absolute;
+  right: 20px;
+  bottom: 350px;
+}
+.mapLegend ul li {
+  border-radius: 5px;
+  width: 55px;
+  height: 55px;
+  text-align: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.mapLegend ul li img {
+  margin-top: 6px;
+}
+.mapLegend ul li div {
+  margin-top: -3px;
+}
+.mapLegend ul li.blue {
+  border: 1px solid #2ac3da;
+  color: #2ac3da;
+}
+.mapLegend ul li.org {
+  border: 1px solid #cf8015;
+  color: #cf8015;
+}
+.mapLegend ul li.purple {
+  border: 1px solid #6f23be;
+  color: #6f23be;
+}
+.mapLegend ul li.lengActive {
+  background-color: #6f23be;
+  color: #fff;
+}
+/*mapFoot-*/
+.mapFoot .railwayTb {
+  border-right: 2px solid #0a1c43;
+  height: 210px;
+  background-color: #06122a;
+}
+.mapFoot .railwayTb table {
+  width: 100%;
+  margin: 0 auto;
+}
+.mapFoot .railwayTb table tr:first-child td {
+  background-color: #0a1b39;
+  color: #8692a4;
+}
+.mapFoot .railwayTb table tr td {
+  height: 40px;
+  text-align: center;
+}
+.mapFoot .railwayTb table tr td:first-child {
+  color: #8692a4;
+}
+.mapFoot .railwayTb table tr .blue {
+  color: #32c1ce;
+  font-size: 15px;
+}
+.mapFoot .footRight {
+  height: 250px;
+}
+.mapFoot .footRight > div {
+  float: left;
+  height: 230px;
+  border-right: 2px solid #112e6b;
+  padding-top: 20px;
+}
+.mapFoot .footRight > div#swiperBox1 {
+  width: 33%;
+}
+.mapFoot .footRight > div#swiperBox3 {
+  width: 33%;
+}
+.mapFoot .footRight > div#swiperBox3 .swiper-pagination .swiper-pagination-bullet {
+  width: 33.3%;
+}
+.mapFoot .footRight > div#swiperBox4 {
+  width: 33.7%;
+}
+.mapFoot .footRight > div#swiperBox4 .swiper-pagination .swiper-pagination-bullet {
+  width: 33.3%;
+}
+.mapFoot .footRight > div:last-child {
+  border-right: none;
+}

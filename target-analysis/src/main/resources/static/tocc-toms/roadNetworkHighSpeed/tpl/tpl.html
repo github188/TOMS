@@ -1,0 +1,109 @@
+<!-- 班车模板 -->
+
+<!--地图上的点的详情-->
+<script type="text/template" id="text-info">
+    <div class="mapDot" style="width: 180px;height: 80px;left: 20%;top: 30%;">
+        <i class="icon icon-arrow-left-copy"></i>
+        <div class="mapDotDateil">
+            <div class="dotTit">温州南</div>
+            <div class="dotDateil">
+                <ul class="tplUl">
+                    <li>离港：<span class="num">32,365</span>人次</li>
+                    <li>到港：<span class="num">8,629</span>人次</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+<!--详情点2-->
+<script type="text/template" id="echarts-info">
+    <div class="mapTpl" style="left: 40%;top: 10%;width: 400px;">
+        <div class="tplHead">
+            <div class="tit"><%-data.MC%>详情</div>
+            <div class="close" data-type="<%-data.layerName%>">✕</div>
+        </div>
+        <div class="tplCon">
+            <div class="conTit">
+                <div class="tit"><%-data.MC%><label class="changData" style="overflow:hidden;">近7日</label>车客流量走势图</div>
+                <div class="tabBut">
+                </div>
+            </div>
+            <div class="conEchart">
+                <div id="showData" style="height: 250px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="indexBottom"><img src="../common/res/img/base/sharp.png" /></div>
+</script>
+
+<!--收费站 详情-->
+<script type="text/template" id="sfzEcharts-info">
+    <div class="mapTpl" style="left: 40%;top: 10%;width: 600px;">
+        <div class="tplHead">
+            <div class="tit"><%-data.MC%>详情</div>
+            <div class="close" data-type="<%-data.layerName%>">✕</div>
+        </div>
+        <div class="tplCon">
+            <div class="conTit">
+                <div class="tit" title="<%-data.directionOne%>"><%-data.MC%><label class="changData">近7日</label>车客流量走势图</div>
+                <div class="tabBut">
+                    <span hide-data="<%-data.MC%>" title="近7日" class="btn btnActive sevenDay" >近7日</span>
+                    <span hide-data="<%-data.MC%>"  title="当天各时段" class="btn sameDay" >当天各时段</span>
+                </div>
+            </div>
+            <div class="conEchart">
+                <div id="sevenDay" style="height: 250px;"></div>
+                <div id="sameDay" style="height: 250px;display: none;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="indexBottom"><img src="../common/res/img/base/sharp.png" /></div>
+</script>
+
+<!-- 静态图层点击 详情数据 -->
+<script type="text/template" id="staticCompany-info">
+    <div class="mapTpl">
+        <div class="tplHead">
+            <div class="tit"><%-data.MC || "暂无数据"%></div>
+            <div class="close" data-type="<%-data.layerName%>">&#10005;</div>
+        </div>
+        <div class="tplCon">
+            <table class="tplTable" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <span class="lightBlue">名称：</span>
+                        <span><%-data.MC || "暂无数据"%></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="lightBlue">地址：</span>
+                        <span><%-data.DZ || "暂无数据"%></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="indexBottom"><img src="../common/res/img/base/sharp.png" /></div>
+</script>
+
+<!-- 情报板 点击 详情数据 -->
+<script type="text/template" id="qbb-info">
+    <div class="mapTpl">
+        <div class="tplHead">
+            <div class="tit"><%-data.SBMC || "暂无数据"%></div>
+            <div class="close"  data-type="<%-data.layerName%>">&#10005;</div>
+        </div>
+        <div class="tplCon">
+            <table class="tplTable" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <!--<span class="lightBlue">名称：</span>-->
+                        <span class="qbbDescribe">暂无数据</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="indexBottom"><img src="../common/res/img/base/sharp.png" /></div>
+</script>

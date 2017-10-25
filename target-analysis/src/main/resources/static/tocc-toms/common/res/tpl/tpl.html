@@ -1,0 +1,91 @@
+<!-- 模板 -->
+
+<!-- 静态企业 点击 详情数据 -->
+<script type="text/template" id="staticCompany-info">
+        <div class="mapTpl">
+            <div class="tplHead">
+                <div class="tit"><%-data.MC || "暂无数据"%></div>
+                <div class="close" data-type="<%-data.layerName%>">&#10005;</div>
+            </div>
+            <div class="tplCon">
+                <table class="tplTable" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <span class="lightBlue">名称：</span>
+                            <span><%-data.MC || "暂无数据"%></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="lightBlue">地址：</span>
+                            <span><%-data.DZ || "暂无数据"%></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="indexBottom"><img src="../common/res/img/base/sharp.png" /></div>
+</script>
+
+<!-- 实时车辆 点击 详情数据 -->
+<script type="text/template" id="car-info">
+    <div class="mapTpl">
+        <div class="tplHead">
+            <div class="tit"><%-data.plateNumber || "暂无数据"%></div>
+            <div class="close" data-type="<%-data.layerName%>">&#10005;</div>
+        </div>
+        <div class="tplCon">
+            <table class="tplTable" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <span class="lightBlue">车牌号：</span>
+                        <span><%-data.plateNumber || "暂无数据"%></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="lightBlue">速度：</span>
+                        <span><%-data.speed || "0"%>km/h</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="lightBlue">时间：</span>
+                        <span><%-data.time || "暂无数据"%></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="indexBottom"><img src="../common/res/img/base/sharp.png" /></div>
+</script>
+
+<!-- 实时车辆 点击 详情数据 （echarts  图)-->
+<script type="text/template" id="echartsDetail-info">
+    <div class="mapTpl" style="left: 40%;top: 10%;width: 400px;">
+        <div class="tplHead">
+            <div class="tit">入嘉收费站详情</div>
+            <div class="close">✕</div>
+        </div>
+        <div class="tplCon">
+            <div class="conTit">
+                <div class="tit">永嘉收费站近7日车客流量走势图</div>
+                <div class="tabBut">
+                    <span class="btn btnActive sevenDay">近七天</span>
+                    <span class="btn sameDay">当天各时段</span>
+                </div>
+            </div>
+            <div class="conEchart">
+                <div id="sevenDay" style="height: 250px;"></div>
+                <div id="sameDay" style="height: 250px;display: none;"></div>
+            </div>
+            <div class="conFoot">
+                <div class="row">
+                    <div class="box">入口：233人次</div>
+                    <div class="box">出口：233人次</div>
+                </div>
+                <div class="row">更新时间：2017-8-22 15:14:57</div>
+            </div>
+        </div>
+    </div>
+</script>

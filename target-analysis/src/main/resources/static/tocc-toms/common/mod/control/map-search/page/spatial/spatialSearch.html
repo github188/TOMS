@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../../../libs/bmap/ui/wyui.min.2.0.css" />
+    <link rel="stylesheet" href="../../../../libs/core/jquery/mCustomerScroll/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/css/mapSearch.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../libs/core/fonts/FontAwesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../control/map-search/resource/css/infowindow.css" />
+</head>
+<body>
+
+<!--<div class="hidden content-panel" style="
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;">
+
+    <div id="queryPanel" style="
+      position: absolute;
+      top: 7px;
+      bottom: 56px;
+      left: 10px;
+      right: 0px;
+    ">
+    </div>
+    <div id="paginator" style="
+      position: absolute;
+      bottom: 15px;
+      left: 0px;
+      right: 0px;
+      height: 50px;
+    ">
+    </div>
+</div>-->
+
+<!--公交路线结果展示页面-->
+<div class="ui-scroll" style="
+  position: absolute;
+  top: 7px;
+  bottom: 56px;
+  left: 10px;
+  right: 0px;
+">
+    <div class="ui-scroll-container" style="margin-right: 0px;">
+
+    </div>
+</div>
+
+<div id="pageInfo" style="
+position: absolute;
+  bottom: 15px;
+  left: 0px;
+  right: 0px;
+  height: 50px;
+  z-index:1;
+"></div>
+</body>
+<script src="../../../../libs/bmap/utils/events_utils.js"></script>
+<script data-main="../../../../main" src="../../../../libs/core/requirejs/requirejs.js"></script>
+<script>
+    var bMainView;
+    window.ByEvent.addEvent("mainjsLoaded", function() {
+        require(['control/map-search/app/spatial/MainView'],function(mainView) {
+            var mainView = new mainView().render();
+        });
+    });
+</script>
+</html>

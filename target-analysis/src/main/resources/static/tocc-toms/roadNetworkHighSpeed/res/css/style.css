@@ -1,0 +1,82 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "microsoft yahei";
+  font-size: 14px;
+}
+/*map--legend*/
+.mapLegend {
+  position: absolute;
+  right: 20px;
+  bottom: 350px;
+}
+.mapLegend ul li {
+  border-radius: 5px;
+  width: 55px;
+  height: 55px;
+  text-align: center;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.mapLegend ul li img {
+  margin-top: 6px;
+}
+.mapLegend ul li div {
+  margin-top: -3px;
+}
+.mapLegend ul li.pink {
+  border: 1px solid #da2c71;
+  color: #da2c71;
+}
+.mapLegend ul li.green {
+  border: 1px solid #1dd95b;
+  color: #1dd95b;
+}
+.mapLegend ul li.lengActive {
+  background-color: #da2c71;
+  color: #fff;
+}
+/*mapFoot-*/
+.mapFoot .table table {
+  margin: 0 auto;
+  width: 100%;
+}
+.mapFoot .table table tr td {
+  height: 40px !important;
+  line-height: 40px !important;
+  text-align: center;
+}
+.mapFoot .table table tr .blue {
+  color: #32c1ce;
+  font-size: 15px;
+}
+.mapFoot .table table tr:first-child td {
+  background-color: #0a1b39;
+  color: #8692a4;
+}
+.mapFoot .table table tr td:first-child {
+  color: #8692a4;
+}
+.footRight > div {
+  float: left;
+  height: 224px;
+  padding-top: 20px;
+  border-right: 2px solid #112e6b;
+}
+.footRight > div#swiperBox1 {
+  width: 29.6%;
+}
+.footRight > div#swiperBox2 {
+  width: 40%;
+}
+.footRight > div#swiperBox3 {
+  width: 30%;
+}
+.layerBox .layerInfo li ul {
+  overflow: hidden;
+}
+.layerBox .layerInfo li ul li {
+  width: 33%;
+  float: left;
+}

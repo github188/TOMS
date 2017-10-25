@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--自行车-->
+<mapper namespace="com.linkcld.toms.common.dao.HighWayMapper">
+    <select id="getCountFlowByYear" resultType="java.util.Map" parameterType="java.util.Map">
+      select nvl(sum(DDCLZL),0) DDCLZL,nvl(sum(CFCLZL),0) CFCLZL,nvl(sum(CLZZ),0) CLZZ from T_C_HIGHWAY_STATION_FLOW_YEAR
+        where TJSJ_Y =#{dateType}
+    </select>
+    <select id="getCountFlowByMonth" resultType="java.util.Map" parameterType="java.util.Map">
+        select nvl(sum(DDCLZL),0) DDCLZL,nvl(sum(CFCLZL),0) CFCLZL,nvl(sum(CLZZ),0) CLZZ from T_C_HIGHWAY_STATION_FLOW_MONTH
+        where TJSJ_M =#{dateType}
+    </select>
+    <select id="getCountFlowByDay" resultType="java.util.Map" parameterType="java.util.Map">
+        select nvl(sum(DDCLZL),0) DDCLZL,nvl(sum(CFCLZL),0) CFCLZL,nvl(sum(CLZZ),0) CLZZ from T_C_HIGHWAY_STATION_FLOW_DAY
+        where TJSJ_D =#{dateType}
+    </select>
+
+    <!--查询货车指定月份流量占比-->
+    <select id="getOutFlowMapByTrucks" resultType="java.util.Map" parameterType="java.util.Map">
+         SELECT nvl(round(CH/(CH+CK),4),0) as PERCENTAGE_OF_TRUCKS,
+              CH,
+              CK
+            FROM
+              (SELECT SUM(CHCLL)AS CH,
+                SUM(CKCLL)       AS CK
+              FROM T_C_HIGHWAY_STATION_FLOW_MONTH
+              WHERE TJSJ_M=#{dateType}
+              )
+    </select>
+
+    <!--查询ETC指定月份的流量占比-->
+    <select id="getInFlowMapByETC" resultType="java.util.Map" parameterType="java.util.Map">
+
+        SELECT nvl(round(jll/cfl,4),0) as PERCENTAGE_OF_ETC,
+              jll,
+              cfl
+            FROM
+              (SELECT SUM(JETCKLL)AS jll,
+                SUM(CFCLZL)       AS cfl
+              FROM T_C_HIGHWAY_STATION_FLOW_MONTH
+              WHERE TJSJ_M=#{dateType}
+              )
+    </select>
+
+   <!-- 查询当月每日车流量(入口,出口,总流量)-->
+    <select id="getFlowByDay" resultType="java.util.Map" parameterType="java.util.Map">
+       SELECT SUM(CLZZ) totalClzz,
+      SUM(DDCLZL) totalDdclzl,
+      SUM(CFCLZL) totalCfclzl,
+      substr(TJSJ_D,7,2) TJSJ_D
+      FROM T_C_HIGHWAY_STATION_FLOW_DAY
+      WHERE TJSJ_D LIKE #{dateType}||'%'
+      GROUP BY TJSJ_D
+      ORDER BY TJSJ_D
+    </select>
+
+    <!--查询每个站点当月日平均流量(入口,出口,总量)-->
+    <select id="getFlowByStation" resultType="java.util.Map" parameterType="java.util.Map">
+       select a.totalFlow TOTALFLOW,a.outFlow OUTFLOW,a.inFlow INFLOW,a.zdmc ZDMC from
+        (SELECT ROUND(AVG(clzz),2) totalFlow,
+        ROUND(AVG(DDCLZL),2) outFlow,
+        ROUND(AVG(CFCLZL),2) inFlow,
+        replace(zdmc,'收费站','') zdmc
+        FROM T_C_HIGHWAY_STATION_FLOW_DAY
+        WHERE TJSJ_D LIKE #{dateType}||'%' and zdmc is not null
+        GROUP BY zdmc
+        order by totalFlow DESC) a where rownum &lt;=10
+    </select>
+
+    <!--查询当年top5站点数据的数据-->
+    <select id="getTopFiveFlowByYear" resultType="java.util.Map" parameterType="java.util.Map">
+        select a.totalClzz,a.totalddclzl,a.totalCfLzl,a.zdmc from(
+        SELECT SUM(CLZZ) totalClzz,
+        SUM(DDCLZL) totalddclzl,
+        SUM(CFCLZL) totalCflzl,
+        replace(zdmc,'收费站','') zdmc
+        FROM T_C_HIGHWAY_STATION_FLOW_YEAR
+        where TJSJ_Y=#{dateType} and zdmc is not null
+        GROUP BY zdmc
+        ORDER BY SUM(CLZZ) DESC)a where rownum &lt;=5
+    </select>
+    <!--查询当年每月车流量-->
+    <select id="getFlowByMonth" resultType="java.util.Map" parameterType="java.util.Map">
+            SELECT SUM(clzz) CLZZ,SUM(DDCLZL) DDCLZL,SUM(CFCLZL) CFCLZL,
+              TJSJ_M as TJSJM
+            FROM T_C_HIGHWAY_STATION_FLOW_MONTH
+            WHERE TJSJ_M LIKE #{dateType}||'%'
+            GROUP BY TJSJ_M
+            ORDER BY TJSJ_M
+    </select>
+    <!--查询高速情报板信息-->
+    <select id="getBordInformation" resultType="java.util.Map" parameterType="java.util.Map">
+        select
+          *
+        from  GLJ_QBBXX
+        where DEVICEID=#{informationId}
+        order by UPDATETIME desc
+    </select>
+
+    <!--查看收费站数据-->
+    <select id="getTollStationData" resultType="java.util.Map" parameterType="java.util.Map">
+       SELECT SUM(DDCLZL) DDCLZL,
+        SUM(CFCLZL) CFCLZL,
+        zdmc
+        FROM T_C_HIGHWAY_STATION_FLOW_DAY
+        where TJSJ_D =#{dateType}
+        GROUP BY zdmc order by sum(clzz) DESC
+    </select>
+    <!--查看近7日的数据-->
+    <select id="getTollStationFlowInSeven" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT a.CLZZ CLZZ,
+        a.CFCLZL CFCLZL,
+        a.DDCLZL DDCLZL,
+        substr(a.TJSJ_D,5,4) TJSJ_D,
+        a.zdmc zdmc
+        FROM
+        (SELECT ID,CLZZ,
+        CFCLZL,
+        DDCLZL,
+        TJSJ_D,
+        zdmc
+        FROM T_C_HIGHWAY_STATION_FLOW_DAY
+        WHERE ZDMC=#{ZDMC}
+        ORDER BY TJSJ_D DESC
+        )a
+        WHERE rownum &lt;=7 order by TJSJ_D ASC
+    </select>
+    <!--查看当日各时段数据-->
+    <select id="getTollStationDataByHour" resultType="java.util.Map" parameterType="java.util.Map">
+       SELECT CLZZ,
+        CFCLZL,
+        DDCLZL,
+        substr(TJSJ_H,9,2) TJSJ_H,
+        ZDMC
+        FROM T_C_HIGHWAY_STATION_FLOW_HOUR
+        WHERE ZDMC=#{ZDMC} and TJSJ_H like #{dateType}||'%'
+        ORDER BY TJSJ_H DESC
+    </select>
+    <!--如果没有存在当日信息,查询最新的信息-->
+    <select id="getNewestDataByHour" resultType="java.util.Map" parameterType="java.util.Map">
+       SELECT CLZZ,
+        CFCLZL,
+        DDCLZL,
+        TJSJ_H,
+        ZDMC
+        FROM T_C_HIGHWAY_STATION_FLOW_HOUR
+        where ZDMC=#{ZDMC} and TJSJ_H like  (select b.TJSJ_H from
+       (select a.CLZZ CLZZ,a.CFCLZL CFCLZL,a.DDCLZL DDCLZL,substr(a.TJSJ_H,1,8) TJSJ_H from
+        (SELECT CLZZ,
+        CFCLZL,
+        DDCLZL,
+        TJSJ_H,
+        ZDMC
+        FROM T_C_HIGHWAY_STATION_FLOW_HOUR
+        where ZDMC=#{ZDMC}
+        ORDER BY TJSJ_H DESC) a where rownum=1) b )||'%' order by TJSJ_H DESC;
+    </select>
+
+
+    <!--查看交调站近7日小型车/中型车/重型车/总流量走势图；-->
+    <select id="getStationFlowInSeven" resultType="java.util.Map" parameterType="java.util.Map">
+        select a.LIGHT_VEHICLE LIGHT_VEHICLE,a.MID_VEHICLE MID_VEHICLE,a.HEAVY_VE HEAVY_VE,a.TOTAL TOTAL,a.STAT_DATE STAT_DATE,a.DEVICE_IP DEVICE_IP from
+        (SELECT SUM(LIGHT_VEHICLE) AS LIGHT_VEHICLE,
+        SUM(MID_VEHICLE)        AS MID_VEHICLE,
+        SUM(HEAVY_VE)           AS HEAVY_VE,
+        SUM(LIGHT_VEHICLE+MID_VEHICLE+HEAVY_VE) TOTAL,
+        substr(STAT_DATE,5,4),
+        DEVICE_IP
+        FROM FU_REPORT_DVR_TRAFFIC
+        WHERE 1 = 1
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            DEVICE_IP=#{item}
+        </foreach>
+        GROUP BY STAT_DATE
+        order by STAT_DATE DESC) a where rownum &lt;=7 order by STAT_DATE ASC
+    </select>
+
+    <select id="getStationSXFlowInSeven" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT
+        a.jdczrs_sx JDCZRS_SX,
+        a.jdczrs_xx JDCZRS_XX,
+        a.lxmc LXMC,
+        substr(a.time,5,4) TIME
+        FROM
+        (
+        SELECT
+        jdczrs_sx,
+        jdczrs_xx,
+        lxmc,
+        time
+        FROM
+        sjt_rb@LNK_KQ
+        WHERE
+        gczbh = #{gczbh}
+        ORDER BY time DESC
+        ) a
+        WHERE
+        ROWNUM &lt;=7 order by TIME
+    </select>
+</mapper>

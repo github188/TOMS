@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--自行车-->
+<mapper namespace="com.linkcld.toms.common.dao.TaxiMapper">
+
+
+    <select id="getOnlineByTaxi" resultType="java.util.Map" parameterType="java.util.Map">
+      select  * from  LBS_VEHICLE_ONLINE@GNSS WHERE 1=1
+        <if test="industry != null and industry != ''">
+            and INSDUTY_TYPE=#{industry}
+        </if>
+        <if test="areaCode != null and areaCode != ''">
+            and AREA_CODE like #{areaCode}||'%'
+        </if>
+    </select>
+
+    <select id="getOnlineByTaxi2ByDay" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT
+        GPS_NUM, --入网车辆,
+        TASK_AMOUNT, --单车日均营收,
+        TASK_TB,
+        TASK_HB,
+        LC_HB, --单车日均里程,
+        TASK_NUM, --单车日均趟数,
+        substr(TJSJ_D,7,2) TJSJ_D
+        FROM T_C_TAXI_TASK_DAY
+        where TJSJ_D like #{dateType}||'%'
+        order by TJSJ_D
+    </select>
+    <select id="getOnlineByTaxi2ByMonth" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT
+        GPS_NUM, --入网车辆,
+        TASK_AMOUNT, --单车月均营收,
+        TASK_TB,
+        TASK_HB,
+        LC_HB, --单车月均里程,
+        TASK_NUM, --单车月均趟数,
+        substr(TJSJ_M,5,2) TJSJ_M
+        FROM T_C_TAXI_TASK_MONTH
+        where TJSJ_M like #{dateType}||'%'
+        order by TJSJ_M
+    </select>
+
+    <select id="getOnlineByTaxi2ByYear" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT
+        GPS_NUM, --入网车辆,
+        TASK_AMOUNT, --单车月均营收,
+        TASK_TB,
+        TASK_HB,
+        LC_HB, --单车月均里程,
+        TASK_NUM, --单车月均趟数,
+         TJSJ_Y
+        FROM T_C_TAXI_TASK_YEAR
+        where TJSJ_Y like #{dateType}||'%'
+        order by TJSJ_Y
+    </select>
+    <!--出租车日实载率-->
+    <select id="TaxiUseRateByDay" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT TJSJ_D dayTime,
+                NVL(SUM(SZL)/count(SZL),0) szl
+        FROM T_C_TAXI_TASK_DAY
+        WHERE TJSJ_D = #{dateType}
+        GROUP BY TJSJ_D
+    </select>
+</mapper>

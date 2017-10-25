@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../../../libs/bmap/ui/wyui.min.2.0.css" />
+    <link rel="stylesheet" href="../../../../libs/core/jquery/mCustomerScroll/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/css/mapSearch.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../libs/core/fonts/FontAwesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../control/map-search/resource/css/infowindow.css" />
+</head>
+<body>
+
+<!--公交路线结果展示页面-->
+<div class="ui-scroll" style="
+  position: absolute;
+  top: 7px;
+  bottom: 56px;
+  left: 10px;
+  right: 0px;
+">
+    <div class="ui-scroll-container" style="margin-right: 0px;">
+
+    </div>
+</div>
+
+<div id="pageInfo" style="
+position: absolute;
+  bottom: 15px;
+  left: 0px;
+  right: 0px;
+  height: 50px;
+  z-index:1;
+"></div>
+
+<!--公交站父div-->
+<div id="result-bus-station-buses-template" style="display: none;">
+    <div class="result-buses" point="{{point}}">
+        {{title}}
+        {{byway}}
+    </div>
+</div>
+<!--公交车-->
+<div id="result-bus-station-items-template" style="display: none;">
+    <div class="buses-items" fx="{{fx}}">
+        <label class="buses-items-label">途径公交路线：</label>
+        {{byway}}
+    </div>
+
+</div>
+<!--公交站标题模版-->
+<div id="result-bus-station-title-template" style="display: none;">
+    <div class="buses-title">
+        <span>{{NO}}.</span>
+        <span class="buses-title-text">{{stationName}}</span>
+        <span class="buses-title-char">{{upDown}}</span>
+    </div>
+</div>
+<!--途经公交路线-->
+<div id="result-bus-station-byway-template" style="display: none;">
+    <div class="buses-items-tag" startStation="{{startStation}}">{{routes}}</div>
+</div>
+<!-- 公交站路线-->
+<div id="result-bus-station-details-template" style="display: none;">
+    <div class="tag-details" style="display: block;">
+        <div class="tag-details-close" >
+            <img src="../../resource/images/close.png" class="iconfont">
+        </div>
+        <div class="tag-details-title">{{startStation}} —— {{endStation}}</div>
+        <div class="tag-details-times">
+            <span class="detail-ico detail-ico-first"></span>
+            <span class="times-text">{{startTime}}</span>
+            <span class="detail-ico detail-ico-end"></span>
+            <span class="times-text">{{endTime}}</span>
+        </div>
+        <div class="tag-details-sub">
+            <span>全程票价：{{qcpj}}</span>
+            <span class="sub-line">|</span>
+            <span>基础票价：{{jcpj}}</span>
+        </div>
+    </div>
+</div>
+
+<!--公交站点mark标签文本内容-->
+<div id="result-bus-station-mark-head-template" style="display: none;">
+    <div class="detailInfo">{{content}}</div>
+</div>
+<div id="result-bus-station-mark-content-template" style="display: none;">
+    <div class='row'>
+        <span  style='display: inline-block;width: 115px;font-weight:bold;text-align: right'>
+
+          </span>
+        <span style='margin-left: 10px;'></span>
+    </div>
+</div>
+<!--公交站点mark标签文本内容-->
+<div id="result-bus-station-infowindow-content" style="display: none;">
+    <div class="inf-content" style="width:350px;">
+        <label class="inf-con-label">途径公交路线：</label>
+        {{content}}
+    </div>
+</div>
+<!--公交站点mark标签文本内容子模版-->
+<div id="result-bus-station-infowindow-content-item" style="display: none;">
+    <div class="inf-con-tag">{{stationName}}</div>
+</div>
+
+</body>
+<script src="../../../../libs/bmap/utils/events_utils.js"></script>
+<script data-main="../../../../main" src="../../../../libs/core/requirejs/requirejs.js"></script>
+<script>
+    var bMainView;
+    window.ByEvent.addEvent("mainjsLoaded", function() {
+        require(['control/map-search/app/station/MainView'],function(mainView) {
+            var routesView = new mainView().render();
+        });
+    });
+</script>
+</html>

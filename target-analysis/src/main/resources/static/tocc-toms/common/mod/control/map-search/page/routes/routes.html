@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../../../libs/bmap/ui/wyui.min.2.0.css" />
+    <link rel="stylesheet" href="../../../../libs/core/jquery/mCustomerScroll/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/css/mapSearch.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../libs/core/fonts/FontAwesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../control/map-search/resource/css/infowindow.css" />
+
+</head>
+<body>
+
+<!--公交路线结果展示页面-->
+<div class="ui-scroll" style="
+  position: absolute;
+  top: 7px;
+  bottom: 56px;
+  left: 10px;
+  right: 0px;
+">
+    <div class="ui-scroll-container" style="margin-right: 0px;">
+
+    </div>
+</div>
+
+<div id="pageInfo" style="
+position: absolute;
+  bottom: 15px;
+  left: 0px;
+  right: 0px;
+  height: 50px;
+  z-index:1;
+"></div>
+
+
+
+<!--template-->
+<!--公交站详情模版-->
+<div id="result-bus-station-item-template" style="display: none;">
+    <div class="result-items">
+        <div class="result-items-card" line="{{line}}" routesCode="{{routesCode}}">
+            <span class="items-card-title" {{style}}>{{routesName}}</span>
+										<span class="items-card-times">
+											<span class="card-times-detail">
+												<span class="detail-ico detail-ico-first"></span>
+												<span>{{stationBeginTime}}</span>
+											</span>
+											<span class="card-times-detail">
+												<span class="detail-ico detail-ico-end"></span>
+												<span>{{stationEndTime}}</span>
+											</span>
+										</span>
+            <span class="items-card-con">{{startStation}}——{{endStation}}</span>
+										<span class="items-card-subcon">
+											<span class="subcon-detail">发班间隔：{{stationInterval}}分钟</span>
+											<span class="subcon-detail-line">|</span>
+											<span class="subcon-detail">途径里程：{{stationMileage}}km</span>
+										</span>
+        </div>
+        {{stationList}}
+        {{onlineList}}
+    </div>
+</div>
+<!--途经站点模版-->
+<div id="result-bus-station-item-site" style="display: none;">
+    <div class="result-items-has" active="0" anddown="{{andDown}}">
+        <div class="items-station-title">
+            <div class="title-icon"></div>
+            <span>途径站点</span>
+        </div>
+        <ul class="result-bus-station-item-site-list">
+            {{stationList}}
+        </ul>
+    </div>
+</div>
+
+<!--途经站点模版下子模版-->
+<div id="result-bus-station-item-site-item" style="display: none;">
+    <li class="items-station-list" point="{{point}}" code="{{code}}">{{item}}</li>
+</div>
+
+<!--线上车辆模版-->
+<div id="result-bus-station-item-online" style="display: none;">
+    <div class="result-items-has" active="0">
+        <div class="items-online-title">
+            <div class="title-icon" andDown="{{andDown}}" routesCode="{{routesCode}}"></div>
+            <span>线上车辆</span>
+        </div>
+        <ul class="result-bus-station-item-online-list">
+
+        </ul>
+    </div>
+</div>
+
+<!--途经站点模版下子模版-->
+<div id="result-bus-station-item-online-item" style="display: none;">
+    <li class="items-online-list">
+        <span class="online-num">{{number}}.</span>
+        <span class="online-lic" point="{{point}}" mc="{{mc}}" speed="{{speed}}">{{name}}</span>
+        <img src="../../resource/images/monitor.png" alt="" class="online-monitor" />
+    </li>
+</div>
+
+<div id="result-bus-station-infowindow-content" style="display: none;">
+    <div class="inf-content" style="width:350px;">
+        <label class="inf-con-label">途径公交站点：</label>
+        {{content}}
+    </div>
+</div>
+
+<div id="result-bus-station-infowindow-content-item" style="display: none;">
+    <div class="inf-con-tag">{{stationName}}</div>
+</div>
+
+
+
+</body>
+<script src="../../../../libs/bmap/utils/events_utils.js"></script>
+<script data-main="../../../../main" src="../../../../libs/core/requirejs/requirejs.js"></script>
+<script>
+    var bMainView;
+    window.ByEvent.addEvent("mainjsLoaded", function() {
+        require(['control/map-search/app/routes/MainView'],function(mainView) {
+            var routesView = new mainView().render();
+        });
+    });
+</script>
+</html>

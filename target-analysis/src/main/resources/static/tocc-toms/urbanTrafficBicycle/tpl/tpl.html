@@ -1,0 +1,40 @@
+<!-- 自行车专题模板 -->
+
+<!-- 自行车 点击 详情数据 -->
+<script type="text/template" id="bike-info">
+        <div class="mapTpl">
+            <div class="tplHead">
+                <div class="tit"><%-data.name || "暂无数据"%></div>
+                <div class="close">&#10005;</div>
+            </div>
+            <div class="tplCon">
+                <table class="tplTable" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>经度：<%-data.x || "暂无数据"%></td>
+                        <td>纬度：<%-data.y || "暂无数据"%></td>
+                    </tr>
+                    <tr>
+                        <td>车辆总数：<%-data.capacity || "暂无数据"%></td>
+                        <td>可借车辆：<%-data.availbike || "暂无数据"%></td>
+                    </tr>
+                    <tr>
+                        <td>可还车辆 : <%-data.unavailbike || "暂无数据"%></td>
+                        <td>可借车辆率：<%-data.availbikeRate || "暂无数据"%>%</td>
+                    </tr>
+                    <tr>
+                        <td>可还车辆率 : <%-data.unavailbikeRate || "暂无数据"%>%</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">所在地址 : <%-data.address || "暂无数据"%></td>
+                    </tr>
+                    <tr>
+                        <td>公交站距离 : <%-data.distance || "0"%>米</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">时间 : <%-data.createtime || "暂无数据"%></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="indexBottom"><img src="../common/res/img/base/sharp.png" /></div>
+</script>

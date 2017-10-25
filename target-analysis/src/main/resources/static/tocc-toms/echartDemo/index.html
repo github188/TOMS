@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="x-ua-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="email=no" name="format-detection"/>
+    <title>echartDemo</title>
+    <link rel="stylesheet" type="text/css" href="../../resource/css/base.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/css/common.css">
+    <link rel="stylesheet" type="text/css" href="res/css/style.css"/>
+    <style>
+        .echart{
+            width: 500px;
+            height: 500px;
+            margin:0 auto;
+        }
+    </style>
+</head>
+<body style="background: #0c1f49;color: #fff;">
+
+    <!--给echart加载主题-->
+
+    <div class="echart" id="main"></div>
+
+
+  <!--<script src="../../libs/core/echart/3.7.1/macarons.js"></script>-->
+  <script src="../../libs/bmap/utils/events_utils.js"></script>
+  <script data-main="../../main" src="../../libs/core/requirejs/requirejs.js"></script>
+  <script>  
+        window.ByEvent.addEvent("mainjsLoaded", function() {
+            require(['./mod/mainView.js'],function(mainView) {
+                new mainView().render();
+            });
+        });
+  </script>
+</body>
+</html>

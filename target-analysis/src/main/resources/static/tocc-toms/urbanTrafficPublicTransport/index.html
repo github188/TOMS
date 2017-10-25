@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="x-ua-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="email=no" name="format-detection"/>
+    <title>城市交通-公交</title>
+    <link rel="stylesheet" type="text/css" href="../../resource/css/base.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/icon/icon.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/css/widget.css">
+    <link rel="stylesheet" type="text/css" href="res/css/style.css"/>
+</head>
+<body style="background: #0e2861;">
+
+<!--map容器-->
+<div id="mapContainer" class="mapContainer" style="width: 100%; height: 100%;position: absolute;z-index: 0;"></div>
+
+<!--<div class="searchBox">
+    <div class="searchInput">
+        <input type="text" class="placeholder" placeholder="搜线路、公交站点、自行车服务点等"/>
+        <button>搜索</button>
+    </div>
+</div>-->
+
+<!--地图-图例-->
+<div class="mapLegend">
+    <ul>
+        <a href="../urbanTrafficPublicTransport/index.html">
+            <li class="red lengActive">
+                <img src="res/img/publicTransport.png"/>
+
+                <div>公交</div>
+            </li>
+        </a>
+        <a href="../urbanTrafficTaxi/index.html">
+            <li class="green">
+                <img src="res/img/taxi.png"/>
+                <div>出租</div>
+            </li>
+        </a>
+        <a href="../urbanTrafficBicycle/index.html">
+            <li class="purple">
+                <img src="res/img/bicycle.png"/>
+                <div>自行车</div>
+            </li>
+        </a>
+    </ul>
+</div>
+
+<!--foot-tab-->
+<div class="mapFoot">
+    <div class="downArrow">
+        <img src="../../resource/image/common/downArrow.png" data-src="../../resource/image/common/downArrow.png" />
+    </div>
+    <div class="footDateil">
+        <div class="footLeft">
+            <div class="title">公交指标面板</div>
+            <div class="table">
+                <table>
+                    <tr>
+                        <td class="org">车辆总数</td>
+                        <td>
+                            <span class="org dataNumber1"></span>
+                            <span class="org unit">辆</span>
+                        </td>
+                        <td class="org">运行班次</td>
+                        <td>
+                            <span class="org dataNumber2"></span>
+                            <span class="org unit">班</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="blue">线路总数</td>
+                        <td>
+                            <span class="blue dataNumber3"></span>
+                            <span class="blue unit">条</span>
+                        </td>
+                        <td class="blue">站点总数</td>
+                        <td>
+                            <span class="blue dataNumber4"></span>
+                            <span class="blue unit">个</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="blue ">线路总长度</td>
+                        <td>
+                            <span class="blue dataNumber5"></span>
+                            <span class="blue unit">km</span>
+                        </td>
+                        <td class="blue">线路平均长度</td>
+                        <td>
+                            <span class="blue dataNumber6"></span>
+                            <span class="blue unit">km</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="blue">平均站距</td>
+                        <td>
+                            <span class="blue dataNumber7"></span>
+                            <span class="blue unit">m</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="tbTip">
+                            站点500米覆盖率 <span class="dataNumber8"></span> （标准不低于90%）
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="footRight">
+            <div class="swiper-container mySwiper" id="swiperBox1">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide main1" data-id=".main1"></div>
+                    <div class="swiper-slide main2" data-id=".main2"></div>
+                    <div class="swiper-slide main3" data-id=".main3"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="swiper-container mySwiper" id="swiperBox2">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide main4" data-id=".main4"></div>
+                    <div class="swiper-slide main5" data-id=".main5"></div>
+                    <div class="swiper-slide main6" data-id=".main6"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="swiper-container mySwiper" id="swiperBox3">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide main7" data-id=".main7"></div>
+                    <div class="swiper-slide main8" data-id=".main8"></div>
+                    
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--right-mapTool-->
+<div class="mapToolBox">
+    <ul class="mapTool">
+        <li class="wxTool">
+            <span class="icon icon-ic_weixing"></span>
+            <span>卫星</span>
+        </li>
+        <li class="toolLi">
+            <span class="icon icon-ic_tuceng"></span>
+            <span>图层</span>
+        </li>
+        <li class="toolLi">
+            <span class="icon icon-ic_gongju"></span>
+            <span>工具</span>
+        </li>
+    </ul>
+    <ul class="mapToolDateil">
+        <!--<ul class="dateil">
+            我是地图工具栏
+        </ul>-->
+        <li class="layerBox">
+            <ul class="layerTab">
+                <li class="active">车辆图层</li>
+                <li>站点图层</li>
+            </ul>
+            <ul class="layerInfo">
+                <li class="active">
+                    <ul>
+                        <li>
+                            <input type="checkbox" data-type="080" id="trainLayer" class="regular-checkbox" />
+                            <label for="trainLayer">
+                                <span class="checkCon">公交实时数据</span>
+                            </label>
+                        </li>
+                        <li>
+                            <div class="btn btnRed"> 在线数量：<span class="online">0</span></div>
+                            <div class="btn btnGray">离线数量：<span class="offline">0</span></div>
+                        </li>
+                    </ul>
+                </li>
+                <li class="">
+                    <ul>
+                        <li>
+                            <input type="checkbox" data-type="SP_GJZD+300" id="trainLayers" class="regular-checkbox" />
+                            <label for="trainLayers">
+                                <span class="checkCon">300米覆盖</span>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="checkbox" data-type="SP_GJZD+500" id="trainLayerss" class="regular-checkbox" />
+                            <label for="trainLayerss">
+                                <span class="checkCon">500米覆盖</span>
+                            </label>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="layerBox">
+            <div class="BtnBox">
+                <button type="button" id="measuringLine">测距</button>
+                <button type="button" id="measuringSurface">测面</button>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<script src="../../libs/bmap/utils/events_utils.js"></script>
+<script data-main="../../main" src="../../libs/core/requirejs/requirejs.js"></script>
+<script>
+
+    window.ByEvent.addEvent("mainjsLoaded", function () {
+        require(['./mod/mainView.js'], function (mainView) {
+            new mainView().render();
+        });
+    });
+</script>
+</body>
+</html>

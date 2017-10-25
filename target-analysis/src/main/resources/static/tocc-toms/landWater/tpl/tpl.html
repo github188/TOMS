@@ -1,0 +1,85 @@
+<!-- 班车模板 -->
+
+<!--详情点2-->
+<script type="text/template" id="echarts-info">
+    <div class="mapTpl" style="left: 40%;top: 10%;width: 550px;">
+        <div class="tplHead">
+            <div class="tit"><%-data.MC%>详情</div>
+            <div class="close"  data-type="<%-data.layerName%>">✕</div>
+        </div>
+        <div class="tplCon">
+            <div class="conTit">
+                <div class="tit"><span class="changData">近7日</span>车客流量走势图</div>
+                <div class="tabBut">
+                    <span hide-data="<%-data.MC%>" title="近七天" class="btn btnActive sevenDay">近七天</span>
+                    <span hide-data="<%-data.MC%>" title="当天各时段" class="btn sameDay">当天各时段</span>
+                </div>
+            </div>
+            <div class="conEchart">
+                <div id="sevenDay" style="height: 250px;"></div>
+                <div id="sameDay" style="height: 250px;display: none;"></div>
+            </div>
+            <!--div id="conFoot" class="conFoot">
+                <div class="row">
+                    <div class="box">出发班次：<span class="number">0</span>次</div>
+                    <div class="box">发送量：<span class="number">0</span>人次</div>
+                </div>
+                <div class="row">
+                    <div class="box">周转量：<span class="number">0</span>万人公里</div>
+                    <div class="box">更新时间：<span class="number">2017-8-22 15:14:57</span></div>
+                </div !-->
+        </div>
+    </div>
+    <div class="indexBottom"><img src="../common/res/img/base/sharp.png" /></div>
+</script>
+
+<!--船舶 详情---->
+<script type="text/template" id="cb-info">
+    <div class="mapTpl" style="left: 60%;top: 10%;width: 400px;">
+        <div class="tplHead">
+            <div class="tit"><%-data.MC%>详情</div>
+            <div class="close"  data-type="<%-data.layerName%>">✕</div>
+        </div>
+        <div class="tplCon">
+            <table class="tplTable" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <span class="lightBlue">经度：</span>
+                        <span><%-data.X || '暂无数据'%></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="lightBlue">纬度：</span>
+                        <span><%-data.Y || '暂无数据'%></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="lightBlue">名称：</span>
+                        <span><%-data.MC || '暂无数据'%></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="lightBlue">地址：</span>
+                        <span><%-data.DZ || '暂无数据'%></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="lightBlue">负责人：</span>
+                        <span><%-data.FZR || '暂无数据'%></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="lightBlue">联系电话：</span>
+                        <span><%-data.LXDH || '暂无数据'%></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="indexBottom"><img src="../common/res/img/base/sharp.png" /></div>
+</script>

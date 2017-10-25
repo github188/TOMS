@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--自行车-->
+<mapper namespace="com.linkcld.toms.common.dao.TrainMapper">
+    <select id="getCountByDay" resultType="java.util.Map" parameterType="java.util.Map">
+        select SITE_NAME,TJSJ_D,CHECK_OUT_NUM,CHECK_IN_NUM,YW_NUM,to_char(EXCHANGE_TIME,'YYYY-MM-DD HH24:MI:SS') "updateTime",YW_NUM
+        from T_C_TRAIN_SITE_DAY where 1=1
+        <if test="siteName != null and siteName != ''">
+            and SITE_NAME=#{siteName}
+        </if>
+        <if test="dateType != null and dateType != ''">
+            and TJSJ_D=#{dateType}
+        </if>
+    </select>
+
+    <select id="getCountByMonth" resultType="java.util.Map" parameterType="java.util.Map">
+        select SITE_NAME,TJSJ_M,CHECK_OUT_NUM,CHECK_IN_NUM,YW_NUM,to_char(EXCHANGE_TIME,'YYYY-MM-DD HH24:MI:SS') "updateTime",YW_NUM
+        from T_C_TRAIN_SITE_MONTH where 1=1
+        <if test="siteName != null and siteName != ''">
+            and SITE_NAME=#{siteName}
+        </if>
+        <if test="dateType != null and dateType != ''">
+            and TJSJ_M=#{dateType}
+        </if>
+    </select>
+
+    <select id="getCountByYear" resultType="java.util.Map" parameterType="java.util.Map">
+        select SITE_NAME,TJSJ_Y,CHECK_OUT_NUM,CHECK_IN_NUM,YW_NUM,to_char(EXCHANGE_TIME,'YYYY-MM-DD HH24:MI:SS') "updateTime",YW_NUM
+        from T_C_TRAIN_SITE_YEAR where 1=1
+        <if test="siteName != null and siteName != ''">
+            and SITE_NAME=#{siteName}
+        </if>
+        <if test="dateType != null and dateType != ''">
+            and TJSJ_Y=#{dateType}
+        </if>
+    </select>
+
+    <select id="getCountByDayNew" resultType="java.util.Map" parameterType="java.util.Map">
+    /*select SITE_NAME,TJSJ_D,CHECK_OUT_NUM,CHECK_IN_NUM,YW_NUM,to_char(EXCHANGE_TIME,'YYYY-MM-DD HH24:MI:SS') "updateTime",YW_NUM
+    from T_C_TRAIN_SITE_DAY t where exists (select * from (
+             select max(ID) as maxid  from　T_C_TRAIN_SITE_DAY group by site_name) a where t.id = a.maxid)*/
+    SELECT *
+     FROM(
+       SELECT SITE_NAME,TJSJ_D,CHECK_OUT_NUM,CHECK_IN_NUM,
+       TO_CHAR(EXCHANGE_TIME,'YYYY-MM-DD HH24:MI:SS') EXCHANGE_TIME,YW_NUM,CHECK_ALL_NUM,
+       ROW_NUMBER() OVER(PARTITION BY site_name ORDER BY TJSJ_D DESC) rank
+       FROM T_C_TRAIN_SITE_DAY
+     ) t
+    WHERE t.rank = 1
+
+    </select>
+    <select id="getCountByDayNew1" resultType="java.util.Map" parameterType="java.util.Map">
+        /*select SITE_NAME,TJSJ_D,CHECK_OUT_NUM,CHECK_IN_NUM,YW_NUM,to_char(EXCHANGE_TIME,'YYYY-MM-DD HH24:MI:SS') "updateTime",YW_NUM
+        from T_C_TRAIN_SITE_DAY t where exists (select * from (
+        select max(ID) as maxid  from　T_C_TRAIN_SITE_DAY group by site_name) a where t.id = a.maxid)*/
+        SELECT *
+        FROM(
+        SELECT SITE_NAME siteName,TJSJ_D,CHECK_OUT_NUM cf,CHECK_IN_NUM dd,
+        TO_CHAR(EXCHANGE_TIME,'YYYY-MM-DD HH24:MI:SS') EXCHANGE_TIME,YW_NUM,CHECK_ALL_NUM total,
+        ROW_NUMBER() OVER(PARTITION BY site_name ORDER BY TJSJ_D DESC) rank
+        FROM T_C_TRAIN_SITE_DAY
+        ) t
+        WHERE t.rank = 1
+
+    </select>
+
+    <!--最近时间的出发、到达、总流量-->
+    <select id="getFlowRateByDay" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT
+            NVL(SUM (CHECK_ALL_NUM),0) dayTotal,
+            NVL(SUM (CHECK_OUT_NUM),0) dayCf,
+            NVL(SUM (CHECK_IN_NUM),0) dayDd
+        FROM T_C_TRAIN_SITE_DAY
+        WHERE TJSJ_D = (SELECT MAX(TJSJ_D) FROM T_C_TRAIN_SITE_DAY)
+        GROUP BY TJSJ_D
+    </select>
+
+    <!--站点最新数据-->
+    <select id="getSiteData" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT TJSJ_D,
+              CHECK_OUT_NUM,
+              CHECK_IN_NUM,
+              YW_NUM,
+              TO_CHAR(EXCHANGE_TIME,'YYYY-MM-DD HH24:MI:SS') EXCHANGE_TIME
+        FROM T_C_TRAIN_SITE_DAY
+        WHERE SITE_NAME=#{siteName}
+        AND TJSJ_D = (SELECT MAX(TJSJ_D) FROM T_C_TRAIN_SITE_DAY WHERE SITE_NAME=#{siteName})
+    </select>
+
+    <!--最新数据的时间-->
+    <select id="newDataDate" resultType="java.lang.String" parameterType="java.util.Map">
+        select TO_CHAR(TRUNC(TO_DATE(MAX(TJSJ_H),'yyyyMMddHH24'),'dd'),'yyyyMMdd') dateStr from T_C_TRAIN_SITE_HOUR where SITE_NAME=#{siteName}
+    </select>
+
+    <!--近7日车站客流量走势-->
+    <select id="get7DayFlowRateAnalysis" resultType="java.util.Map" parameterType="java.util.Map">
+       select substr(t.dayTime,5,4) dayTime,t.total,t.cf,t.dd from (SELECT TJSJ_D dayTime,
+                CHECK_ALL_NUM total,
+                CHECK_OUT_NUM cf,
+                CHECK_IN_NUM dd
+        FROM T_C_TRAIN_SITE_DAY
+        WHERE  SITE_NAME =#{siteName}
+        order by tjsj_d desc) t where rownum &lt;=7 order by t.dayTime asc
+    </select>
+
+    <!--车站当天各小时客流量走势-->
+    <select id="get24HourFlowRateAnalysis" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT t.tjsj_h hourTime,
+              t.check_all_num total,
+              t.CHECK_OUT_NUM cf,
+              t.CHECK_IN_NUM dd
+        FROM T_C_TRAIN_SITE_HOUR t
+        WHERE t.SITE_NAME=#{siteName}
+              AND t.tjsj_h  >= TO_CHAR(TRUNC(
+                                              (
+                                              SELECT TO_DATE(MAX(TJSJ_H),'yyyyMMddHH24')
+                                              FROM T_C_TRAIN_SITE_HOUR
+                                              WHERE SITE_NAME=#{siteName}
+                                              ), 'DD'
+                                            ), 'YYYYMMDDHH24'
+                                      )
+        ORDER BY t.TJSJ_H
+    </select>
+
+    <!--年月日_总量_出发人次_到达人次-->
+    <select id="getAllOutInByYearMonthDay" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * FROM (
+            SELECT * FROM
+                (
+                SELECT
+                    SUM (check_all_num) yearTotal,
+                    SUM (check_out_num) yearCf,
+                    SUM (CHECK_IN_NUM) yearDd
+                FROM T_C_TRAIN_SITE_YEAR
+                WHERE TJSJ_Y = #{dateTypeYear}
+                GROUP BY tjsj_y
+                ) y
+            INNER JOIN
+                (
+                SELECT
+                    SUM (check_all_num) monthTotal,
+                    SUM (check_out_num) monthCf,
+                    SUM (CHECK_IN_NUM) monthDd
+                FROM T_C_TRAIN_SITE_MONTH
+                WHERE TJSJ_M = #{dateTypeMonth}
+                GROUP BY tjsj_m
+                ) m
+            ON y.yearTotal&lt;&gt;m.monthTotal) ym
+        INNER JOIN
+            (
+              SELECT sum(CHECK_ALL_NUM) dayTotal,sum(CHECK_OUT_NUM) dayCf,sum(CHECK_IN_NUM) dayDd
+                 FROM(
+                   SELECT SITE_NAME,TJSJ_D,CHECK_OUT_NUM,CHECK_IN_NUM,
+                   TO_CHAR(EXCHANGE_TIME,'YYYY-MM-DD HH24:MI:SS') EXCHANGE_TIME,YW_NUM,CHECK_ALL_NUM,
+                   ROW_NUMBER() OVER(PARTITION BY site_name ORDER BY TJSJ_D DESC) rank
+                   FROM T_C_TRAIN_SITE_DAY
+                   ) t
+                WHERE t.rank = 1
+            ) d
+        ON ym.yearTotal&lt;&gt;d.dayTotal
+    </select>
+
+    <!--车型流量分布、车型流量占比-->
+    <select id="getTrainTypeFlowRateByMonth" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT SUBSTR(TRAINNO,0,1)||'字头' cx,
+                SUM (TOTAL_NUM) total,
+                SUM (OUT_NUM) cf,
+                SUM (IN_NUM) dd,
+                round(SUM (TOTAL_NUM)/(SELECT SUM (TOTAL_NUM)
+                                        FROM T_C_TRAIN_TRAFFIC_MONTH
+                                        WHERE TJSJ_M = #{dateType}
+                                      ),4)*100 cxllzb
+        FROM T_C_TRAIN_TRAFFIC_MONTH
+        WHERE TJSJ_M = #{dateType}
+        GROUP BY SUBSTR(TRAINNO,0,1)
+    </select>
+
+    <!--今日站点流量-->
+    <select id="getDaySiteFlowRateByDay" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT SITE_NAME siteName,
+                CHECK_ALL_NUM total,
+                CHECK_OUT_NUM cf,
+                CHECK_IN_NUM dd,
+                DECODE(a.allNum, 0, 0, round(CHECK_ALL_NUM/a.allNum * 100,2)) zdllfb
+        FROM T_C_TRAIN_SITE_DAY,(SELECT SUM(CHECK_ALL_NUM) allNum
+                                  FROM T_C_TRAIN_SITE_DAY
+                                  WHERE TJSJ_D = (SELECT MAX(TJSJ_D) FROM T_C_TRAIN_SITE_DAY)) a
+        WHERE TJSJ_D = (SELECT MAX(TJSJ_D) FROM T_C_TRAIN_SITE_DAY)
+    </select>
+
+    <!--每月客流量-->
+    <select id="getMonthFlowRateByMonth" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT SUBSTR(TJSJ_M,5,2) monthTime,
+                SUM(CHECK_ALL_NUM) total,
+                SUM(CHECK_OUT_NUM) cf,
+                SUM(CHECK_IN_NUM) dd
+        FROM T_C_TRAIN_SITE_MONTH
+        WHERE TJSJ_M like #{dateTypeYear} || '%'
+        GROUP BY TJSJ_M
+        ORDER BY TJSJ_M
+    </select>
+
+    <!--节假日客流量-->
+    <select id="getHolidayFlowRate" resultType="java.util.Map" parameterType="java.util.Map">
+
+    </select>
+
+    <!--本月每日客流量-->
+    <select id="getMonthEveryDayFlowRateByDay" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT SUBSTR(TJSJ_D,7,2) dayTime,
+                SUM(CHECK_ALL_NUM) total,
+                SUM(CHECK_OUT_NUM) cf,
+                SUM(CHECK_IN_NUM) dd
+        FROM T_C_TRAIN_SITE_DAY
+        WHERE TJSJ_D LIKE #{dateType} || '%'
+              AND SITE_NAME = #{siteName}
+        GROUP BY TJSJ_D
+        ORDER BY TJSJ_D
+    </select>
+
+    <!--出发站点TOP5-->
+    <select id="getCfSiteTop5ByMonth" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * FROM
+            (
+            SELECT SITE_NAME siteName,
+                    CHECK_OUT_NUM cf,
+                    OUT_TB tb,
+                    OUT_HB hb
+            FROM T_C_TRAIN_SITE_MONTH
+            WHERE TJSJ_M = #{dateType}
+            ORDER BY CHECK_OUT_NUM DESC
+            )
+        WHERE ROWNUM &lt;=5
+    </select>
+
+    <!--到达站点TOP5-->
+    <select id="getDdSiteTop5ByMonth" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * FROM
+            (
+            SELECT SITE_NAME siteName,CHECK_IN_NUM dd,IN_TB tb,IN_HB hb
+            FROM T_C_TRAIN_SITE_MONTH
+            WHERE TJSJ_M = #{dateType}
+            ORDER BY CHECK_IN_NUM DESC
+            )
+        WHERE ROWNUM &lt;=5
+    </select>
+
+    <!--车次流量TOP5-->
+    <select id="getTrainFlowRateTop5ByMonth" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * FROM
+            (
+            SELECT TRAINNO trainNo,TOTAL_NUM total,OUT_NUM cf,IN_NUM dd
+            FROM T_C_TRAIN_TRAFFIC_MONTH
+            WHERE TJSJ_M = #{dateType}
+            ORDER BY TOTAL_NUM DESC
+            )
+        WHERE ROWNUM &lt;=5
+    </select>
+
+</mapper>

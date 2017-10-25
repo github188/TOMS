@@ -1,0 +1,120 @@
+<!--地图上的点的详情-->
+<script type="text/template" id="text-info">
+  <div>
+      这是测试<%-test%>
+  </div>
+      
+</script>
+
+
+<script type="text/template" id="map-search-content">
+    <!--map search-->
+    <div class="map-search" style="z-index:1" id="search-base">
+        <% if(type=='bus'){%>
+            <div class="search-panel">
+                <span class="search-panel-ico">
+                    <i class="iconfont">&#xf004c;</i>
+                </span>
+                <input type="text" class="search-panel-inp" placeholder="搜公交站、公交线路"/>
+            </div>
+        <%}else{%>
+            <div class="search-panel">
+                <span class="search-panel-ico">
+                    <i class="iconfont">&#xf004c;</i>
+                </span>
+                <input type="text" class="search-panel-inp" placeholder="搜自行车站点、客运场站、货运场站等"/>
+            </div>
+        <%}%>
+
+        <!-- map search icon-->
+        <div class="search-rec">
+            <ul class="rec-classes">
+                <% if(type=='bus'){%>
+                <li class="rec-enters">
+                    <div class="rec-enters-ico enters-ico-1" style="cursor:pointer"></div>
+                    <div class="rec-enters-text">公交站</div>
+                </li>
+                <li class="rec-enters">
+                    <div class="rec-enters-ico enters-ico-2" style="cursor:pointer"></div>
+                    <div class="rec-enters-text">公交线路</div>
+                </li>
+                <% }else if(type=='bicycle'){%>
+                <li class="rec-enters">
+                    <div class="rec-enters-ico enters-ico-3" style="cursor:pointer"></div>
+                    <div class="rec-enters-text">自行车站点</div>
+                </li>
+                <%}%>
+                <% if(type != 'bus'){%>
+                    <li class="rec-enters">
+                        <div class="rec-enters-ico enters-ico-4 kyz-enters-ico-4" style="cursor:pointer"></div>
+                        <div class="rec-enters-text">客运场站</div>
+                    </li>
+                    <li class="rec-enters">
+                        <div class="rec-enters-ico enters-ico-11 hyz-enters-ico-11" style="cursor:pointer"></div>
+                        <div class="rec-enters-text">货运场站</div>
+                    </li>
+
+                    <li class="rec-enters">
+                        <div class="rec-enters-ico enters-ico-10" style="cursor:pointer"></div>
+                        <div class="rec-enters-text">维修企业</div>
+                    </li>
+                    <li class="rec-enters">
+                        <div class="rec-enters-ico enters-ico-11 hyqy-enters-ico-11" style="cursor:pointer"></div>
+                        <div class="rec-enters-text">货运企业</div>
+                    </li>
+                    <li class="rec-enters">
+                        <div class="rec-enters-ico enters-ico-4 kyqy-enters-ico-4" style="cursor:pointer"></div>
+                        <div class="rec-enters-text">客运企业</div>
+                    </li>
+                    <li class="rec-enters">
+                        <div class="rec-enters-ico enters-ico-9" style="cursor:pointer"></div>
+                        <div class="rec-enters-text">驾培企业</div>
+                    </li>
+                <%}%>
+                <!--<li class="rec-enters">
+                    <div class="rec-enters-ico enters-ico-6" style="cursor:pointer"></div>
+                    <div class="rec-enters-text">加油站</div>
+                </li>
+                <li class="rec-enters">
+                    <div class="rec-enters-ico enters-ico-7" style="cursor:pointer"></div>
+                    <div class="rec-enters-text">服务区</div>
+                </li>
+                <li class="rec-enters">
+                    <div class="rec-enters-ico enters-ico-8" style="cursor:pointer"></div>
+                    <div class="rec-enters-text">收费站</div>
+                </li>-->
+            </ul>
+            <ul class="rec-history">
+
+            </ul>
+            <div class="rec-clearhis" style="margin-left:200px;">清除历史记录</div>
+        </div>
+
+        <!-- map search remind-->
+        <!--搜索提示面板-->
+        <div class="search-remind">
+            <!-- 需补充历史浏览下拉框设置最大高度-->
+            <ul class="search-remind-ul">
+
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- map result-->
+    <div class="search-result" class="result-tabs-nav">
+        <div id="tab" class="t9tuo fixed" style="position: absolute;top: 0px;left:0px;right: 0px;bottom: 0px;">
+            <ul>
+
+            </ul>
+            <div class="wy-ui-content">
+
+            </div>
+        </div>
+
+        <div class="result-panel-bottom" active="0">
+            <div class="panel-bottom-ico"></div>
+        </div>
+    </div>
+
+</script>

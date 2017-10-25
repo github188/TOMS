@@ -1,0 +1,220 @@
+html,body{
+    width: 100%;
+    height: 100%;
+    font-family: "microsoft yahei";
+    font-size: 14px;
+  }
+
+/*map--legend*/
+.mapLegend{
+  position: absolute;
+  right: 20px;
+  bottom:350px;
+  ul{
+    li{
+      border-radius: 5px;
+      width: 55px;
+      height: 55px;
+      text-align: center;
+      margin-bottom: 10px;
+      cursor: pointer;
+      img{
+        margin-top: 6px;
+      }
+      div{
+        margin-top: -3px;
+      }
+      &.red{
+        border:1px solid #e60569;
+        color: #e60569;
+      }
+      &.green{
+        border:1px solid #2ac37a;
+        color: #2ac37a;
+      }
+      &.purple{
+        border:1px solid #a523fc;
+        color: #a523fc;
+      }
+      &.lengActive{
+        background-color: #e60569;
+        color: #fff;
+      }
+    }
+  }
+}
+
+/*mapFoot-*/
+.mapFoot{
+  .footDateil{
+    .table{
+      table{
+        width: 90%;
+        margin: 0 auto;
+        tr{
+          td{
+            height: 40px !important;
+            line-height: 40px !important;;
+          }
+          td.tbTip{
+            color: #96cefd;
+          }
+          .org{
+            color: #ff9806;
+          }
+          .blue{
+            color: #0fbbfb;
+          }
+        }
+      }
+    }
+    .footRight{
+      &>div{
+       float: left;
+       height: 224px;
+       padding-top: 20px;
+       border-right: 2px solid #112e6b;
+        &#swiperBox1{
+          width: 35.6%;
+        }
+        &#swiperBox2{
+          width: 28.4%;
+        }
+        &#swiperBox3{
+          width: 35.6%;
+          .swiper-pagination-bullet{
+            width: 50%
+          }
+        }
+        .swiper-pagination-bullet{
+          width: 33.3%;
+          
+        }
+      }
+    }
+  }
+}
+
+.layerBox{
+  .layerTab{
+    overflow: hidden;
+    background: -webkit-gradient(linear,0% 41%, 0% 100%, from(#0D2474), to(#1738C2));
+    border-bottom: 1px solid transparent;
+    &>li{
+      text-align: center;
+      width: 50%;
+      line-height: 30px;
+      cursor: pointer;
+      float: left;
+      &.active{
+        border-bottom: 2px solid #eee
+      }
+    }
+
+  }
+  .layerInfo{
+    padding: 10px;
+    &>li{
+      color:#0fbbfb;
+      display: none;
+      &.active{
+        display: block;
+      }
+      li{
+        label{
+          cursor: pointer;
+        }
+
+        input{
+          vertical-align:middle;
+        }
+
+
+      }
+    }
+  }
+  .timeChoiceTab{
+    color:#0fbbfb;
+    padding: 10px;
+    .timeChoiceTabHead{
+      overflow: hidden;
+      padding-bottom: 15px;
+      &>ul{
+        &.timeChoiceBtn{
+          margin-right: 40px;
+          border: 1px solid #28B8B8;
+          li{
+            text-align: center;
+            cursor: pointer;
+            width: 45px;
+            // height: 25px;
+            // line-height: 25px;
+            color:#0fbbfb;
+            &.active{
+              color: #fff;
+              background-color: #28B8B8
+            }
+          }
+
+        }
+        &.mapImg{
+          li{
+            margin-right: 5px;
+            &:nth-of-type(2){
+              height: 0px;
+              width: 25px;
+              border: 2px solid #1BA46F;
+              margin-top: 12px;
+            }
+            &:nth-of-type(3){
+              height: 0px;
+              width: 25px;
+              border: 2px solid #FF9806;
+              margin-top: 12px;
+            }
+            &:nth-of-type(4){
+              height: 0px;
+              width: 25px;
+              border: 2px solid #EC425E;
+              margin-top: 12px;
+            }
+            &:nth-of-type(5){
+              height: 0px;
+              width: 25px;
+              border: 2px solid #DC1C59;
+              margin-top: 12px;
+            }
+          }
+        }
+        height: 25px;
+        line-height: 25px;
+        overflow: hidden;
+        float: left;
+        li{
+          float: left;
+        }
+      }
+
+    }
+    .timeChoiceBox{
+      &>div{
+        display: none;
+        &.active{
+          display: block;
+        }
+      }
+    }
+  }
+  #ECalendarDate{
+    width: 230px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 0 0 5px #0eaff2;
+    color: #333;
+  }
+
+}
+
+
+

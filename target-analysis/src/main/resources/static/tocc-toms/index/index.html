@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="x-ua-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="email=no" name="format-detection"/>
+    <title>Title</title>
+    
+    <link rel="stylesheet" type="text/css" href="../../resource/css/base.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/css/common.css">
+    <link rel="stylesheet" type="text/css" href="../../resource/icon/icon.css">
+    <link rel="stylesheet" type="text/css" href="res/css/style.css"/>
+    <style>
+		/*.indexBottom{*/
+			/*height: 23px;*/
+			/*width: 30px;*/
+			/*position: absolute; top: 367px; left: 162px;*/
+			/*background-image: url('../common/res/img/base/sharp.png');*/
+		/*}*/
+		/*.indexBox{*/
+			/*background: #686868;*/
+			/*height: 100%;*/
+			/*width: 100%;*/
+			/*z-index: 999;*/
+		/*}*/
+		/*.bbox{
+			background: #07163C;
+			height: 100%;
+			width: 100%;
+			z-index: 999;
+			opacity: 0.1;
+		}*/
+	</style>
+</head>
+<body>
+
+	<div class="indexBox">
+			<!--map容器-->
+			<div id="mapContainer" class="mapContainer" style="width: 100%; height: 100%;position: absolute;z-index: 0;"></div>
+			<div class="indexTitBox">
+				<!--<div>客户端访问量</div>-->
+				<!--<div>54,456,896<span>人次</span></div>-->
+			</div>
+
+			<!--boxLeft-->
+			<ul class="boxLeft">
+				<li>
+					<div class="box trainBox">
+						<div class="title">铁路客运</div>
+						<div class="con">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td>
+										<img src="res/img/railway.png" alt="icon" />
+									</td>
+									<td>
+										<div class="numberTit"></div>
+										<div class="numberSubTit">发送（人次）</div>
+									</td>
+									<td>
+										<div class="numberTit"></div>
+										<div class="numberSubTit">到达（人次）</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</li>
+				<!--<li>-->
+					<!--<div class="box airplaneBox">-->
+						<!--<div class="title">民航客运运量</div>-->
+						<!--<div class="con">-->
+							<!--<table cellspacing="0" cellpadding="0">-->
+								<!--<tr>-->
+									<!--<td>-->
+										<!--<img src="res/img/aeroplane.png" alt="icon" />-->
+									<!--</td>-->
+									<!--<td>-->
+										<!--<div class="numberTit"></div>-->
+										<!--<div class="numberSubTit">发送（人次）</div>-->
+									<!--</td>-->
+									<!--<td>-->
+										<!--<div class="numberTit"></div>-->
+										<!--<div class="numberSubTit">到达（人次）</div>-->
+									<!--</td>-->
+								<!--</tr>-->
+							<!--</table>-->
+						<!--</div>-->
+					<!--</div>-->
+				<!--</li>-->
+				<li>
+					<div class="box airplaneBox">
+						<div class="title">航站楼</div>
+						<div class="con">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td>
+										<img src="res/img/aeroplane.png" alt="icon" />
+									</td>
+									<td>
+										<div class="numberTit"></div>
+										<div class="numberSubTit">日客流量（人次）</div>
+									</td>
+									<td>
+										<div class="numberTit"></div>
+										<div class="numberSubTit">日发班次（班）</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="box coachBox">
+						<div class="title">班车客运</div>
+						<div class="con">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td>
+										<img src="res/img/busLeft.png" alt="icon" />
+									</td>
+									<td>
+										<div class="numberTit"></div>
+										<div class="numberSubTit">日客流量（人次）</div>
+									</td>
+									<td>
+										<div class="numberTit"></div>
+										<div class="numberSubTit">日发班次（班）</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="box expresswayBox">
+						<div class="title">高速客运</div>
+						<div class="con">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td>
+										<img src="res/img/expressway.png" alt="icon" />
+									</td>
+									<td>
+										<div class="numberTit"></div>
+										<div class="numberSubTit">入口流量（辆）</div>
+									</td>
+									<td>
+										<div class="numberTit"></div>
+										<div class="numberSubTit">出口流量（辆）</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<!--rightBox-->
+			<ul class="boxRight">
+				<li>
+					<div class="box cityBusBox">
+						<div class="title ">城市公交</div>
+						<div class="con">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<!--<td>-->
+									<!--<div class="numberTit"></div>-->
+									<!--<div class="numberSubTit">客流量（人次）</div>-->
+									<!--</td>-->
+									<td>
+										<div class="numberTit"></div>
+										<div class="numberSubTit">车辆数（辆）</div>
+									</td>
+									<td>
+										<div class="numberTit"></div>
+										<div class="numberSubTit">运行班次（班）</div>
+									</td>
+									<td>
+										<img src="res/img/cityBus.png" alt="icon" />
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="box taxiBox">
+						<div class="title">城市出租</div>
+						<div class="con">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td>
+										<div class="numberTit"></div>
+										<div class="numberSubTit">车辆数（辆）</div>
+									</td>
+									<td>
+										<div class="numberTit"></div>
+										<div class="numberSubTit">上线率</div>
+									</td>
+									<td>
+										<div class="numberTit"></div>
+										<div class="numberSubTit">实载率</div>
+									</td>
+									<td>
+										<img src="res/img/taxi.png" alt="icon" />
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</li>
+				<li>
+					<div class="box bicycleBox">
+						<div class="title">公共自行车</div>
+						<div class="con">
+							<table cellspacing="0" cellpadding="0">
+								<tr>
+									<td>
+										<div class="numberTit"></div>
+										<div class="numberSubTit">站点数（个）</div>
+									</td>
+									<td>
+										<div class="numberTit"></div>
+										<div class="numberSubTit">车位总数（个）</div>
+									</td>
+									<td>
+										<div class="numberTit"></div>
+										<div class="numberSubTit">可借用率</div>
+									</td>
+									<td>
+										<img src="res/img/bicycle.png" alt="icon" />
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</li>
+			</ul>
+
+
+
+			<!--right-mapTool-->
+			<div class="mapToolBox">
+				<ul class="mapTool">
+					<li class="wxTool">
+						<span class="icon icon-ic_weixing"></span>
+						<span>卫星</span>
+					</li>
+					<li class="toolLi">
+						<span class="icon icon-ic_tuceng"></span>
+						<span>图层</span>
+					</li>
+					<li class="toolLi">
+						<span class="icon icon-ic_gongju"></span>
+						<span>工具</span>
+					</li>
+					<!--<li class="toolLi">
+						<span class="icon icon-lukuang"></span>
+						<span>路况</span>
+					</li>-->
+				</ul>
+				<ul class="mapToolDateil">
+					<!--<ul class="dateil">
+						我是地图工具栏
+					</ul>-->
+					<li class="layerBox">
+						<ul class="layerTab">
+							<li class="active">城市交通</li>
+							<li>城际交通</li>
+						</ul>
+						<ul class="layerInfo">
+							<li class="active">
+								<ul >
+									<li>
+										<input type="checkbox" data-type="080" id="cityBusInput" class="regular-checkbox" />
+										<label for="cityBusInput">
+											<span class="checkCon">
+												城市公交车<img src="../../resource/image/cluster/080.png" />
+											</span>
+										</label>
+									</li>
+									<li>
+										<input type="checkbox" data-type="090" id="taxiInput" class="regular-checkbox" />
+										<label for="taxiInput">
+											<span class="checkCon">
+												城市出租车<img src="../../resource/image/cluster/090.png" />
+											</span>
+										</label>
+									</li>
+									<li>
+										<input type="checkbox" data-type="SP_ZXCTKD" id="bicycleInput" class="regular-checkbox"/>
+										<label for="bicycleInput">
+											<span class="checkCon">
+												公共自行车<img src="../common/res/img/layerImg/ZXCTKD.png" />
+											</span>
+										</label></li>
+								</ul>
+							</li>
+							<li class="">
+								<ul >
+									<li>
+										<input type="checkbox" data-type="SP_HCZ" id="trainLayer" class="regular-checkbox" />
+										<label for="trainLayer">
+											<span class="checkCon">
+												铁路图层<img src="../common/res/img/layerImg/HCZ.png" />
+											</span>
+										</label>
+									</li>
+									<li>
+										<input type="checkbox" data-type="011" id="coachLayer" class="regular-checkbox" />
+										<label for="coachLayer">
+											<span class="checkCon">
+												班车图层<img src="../../resource/image/cluster/011.png" />
+											</span>
+										</label>
+									</li>
+									<li>
+										<input type="checkbox" data-type="SP_HZL" id="airplaneLayer" class="regular-checkbox" />
+										<label for="airplaneLayer">
+											<span class="checkCon">
+												航站楼&emsp;<img src="../common/res/img/layerImg/HZL.png" />
+											</span>
+										</label>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li class="layerBox">
+
+						<div class="BtnBox">
+							<button type="button" id = "measuringLine">测距</button>
+							<button type="button" id = "measuringSurface">测面</button>
+						</div>
+					</li>
+					<!--<li class="layerBox">
+						<div class="timeChoiceTab">
+							<div class="timeChoiceTabHead">
+								<ul class="timeChoiceBtn">
+									<li class="active">实时</li>
+									<li>历史</li>
+								</ul>
+								<ul class = "mapImg">
+									<li>畅通</li>
+									<li></li>
+									<li></li>
+									<li></li>
+									<li></li>
+									<li>拥堵</li>
+								</ul>
+							</div>
+							<div>
+								<div class="timeChoiceBox" >
+									<div class="updateTime active">
+										最后更新时间
+									</div>
+									<div style="position: relative" class="timeChoiceBox">
+										<input type="text" id = "ECalendarDate">
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+
+					</li>-->
+				</ul>
+			</div>
+
+
+	</div>
+		<script src="../../libs/bmap/utils/events_utils.js"></script>
+		<script data-main="../../main" src="../../libs/core/requirejs/requirejs.js"></script>
+		<script>
+			window.ByEvent.addEvent("mainjsLoaded", function() {
+				require(['./mod/mainView.js'],function(mainView) {
+					new mainView().render();
+				});
+			});
+		</script>
+
+</body>
+</html>

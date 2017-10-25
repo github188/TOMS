@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>综合交通运行监测系统</title>
+	<link rel="stylesheet" href="resource/css/base.css" />
+	<link rel="stylesheet" href="resource/icon/icon.css" />
+	<link rel="stylesheet" href="resource/css/common.css" />
+</head>
+<body>
+	<img src="resource/image/index/Space.png" class="bodyBgImg" />
+	<div class="header">
+		<img src="resource/image/index/bgheader.png" class="bgNavImg" />
+		<div class="headBox">
+			<div class="title">综合交通运行监测系统</div>
+			<div class="nav">
+				<ul class="navul">
+					<li class="navActive" data-url="tocc-toms/index/index.html" ><span>首页</span></li>
+					<li data-url="tocc-toms/urbanTrafficPublicTransport/index.html" ><span>城市交通</span></li>
+					<li data-url="tocc-toms/intercityBus/index.html" ><span>城际交通</span></li>
+					<li data-url="tocc-toms/roadNetworkHighSpeed/index.html"><span>交通路网</span></li>
+					<li data-url="tocc-toms/landWater/index.html"><span>水路交通</span></li>
+					<li data-url="tocc-toms/springFestival/index.html"><span>节假日专题</span></li>
+					<li data-url="">
+						<!--<span>预测预警</span>-->
+					</li>
+					<li data-url="">
+						<!--<span>出行服务</span>-->
+					</li>
+				</ul>
+			</div>
+			<div class="weather">
+				<div class="weaDataTime">
+					<div class="weaYear">2017年8月20日</div>
+					<div class="weaTime">15:30:03</div>
+				</div>
+				<!--<div class="weaIcon">
+					<img src="resource/image/index/weaIcon.png" alt="天气图标" />
+					<span>32°</span>
+				</div>
+				<div class="weaText">雷阵雨</div>-->
+			</div>
+			<!--<div class="operation">
+				<img src="resource/image/index/police.png" alt="报警" title="报警" />
+				<img src="resource/image/index/full.png" alt="全屏" title="全屏" />
+				<img src="resource/image/index/close.png" alt="关闭" title="关闭" />
+			</div>-->
+		</div>
+	</div>
+	<div class="map">
+		<iframe  id = "iframeBox" src="tocc-toms/index/index.html"></iframe>
+	</div>
+	
+	<script type="text/javascript" src="./libs/core/jquery/jquery.js" ></script>
+	<script>
+		$(".navul li").on("click",function(){
+			var url  = $(this).data("url");
+			$(this).addClass("navActive").siblings().removeClass("navActive");
+			$("#iframeBox").prop("src" , url)
+		})
+		getTime()
+		setInterval(function(){
+			getTime()
+		},1000);
+		//获取当前时间
+		function getTime (){
+			// 时间戳转化为字符时间
+			var newTime=new Date();
+			var yyyy=newTime.getFullYear();
+			var MM=newTime.getMonth()+1;
+			var dd=newTime.getDate();
+			var hh=newTime.getHours();
+			var mm=newTime.getMinutes();
+			var ss=newTime.getSeconds();
+			if(dd < 10) dd = '0'+dd;
+			if(hh < 10) hh = '0'+hh;
+			if(mm < 10) mm = '0'+mm;
+			if(ss < 10) ss = '0'+ss;
+			var weaYear = yyyy+"年"+MM+"月"+dd+"日";
+			var weaTime = hh+":"+mm+":"+ss;
+			$('.weaYear').text(weaYear);
+			$('.weaTime').text(weaTime);
+		}
+	</script>
+	
+</body>
+</html>

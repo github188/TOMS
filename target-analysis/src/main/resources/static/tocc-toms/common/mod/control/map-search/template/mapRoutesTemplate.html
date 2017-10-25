@@ -1,0 +1,25 @@
+<script type="text/template" id="map-routes-item">
+    <div class="result-items">
+        <div class="result-items-card" line="{{line}}" routesCode="{{routesCode}}">
+            <span class="items-card-title" {{style}}>{{routesName}}</span>
+            <span class="items-card-times">
+                <span class="card-times-detail">
+                <span class="detail-ico detail-ico-first"></span>
+                <span>{{stationBeginTime}}</span>
+                </span>
+                <span class="card-times-detail">
+                <span class="detail-ico detail-ico-end"></span>
+                <span>{{stationEndTime}}</span>
+                </span>
+                </span>
+            <span class="items-card-con">{{startStation}}——{{endStation}}</span>
+            <span class="items-card-subcon">
+                <span class="subcon-detail">全程票价：{{qcpj}}</span>
+                <span class="subcon-detail-line">|</span>
+                <span class="subcon-detail">基础票价：{{jcpj}}</span>
+                </span>
+        </div>
+        {{stationList}}
+        {{onlineList}}
+    </div>
+</script>

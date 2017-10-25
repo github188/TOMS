@@ -1,0 +1,21 @@
+<script type="text/template" id="map-line-car">
+    <div class="result-items-has" active="0">
+        <div class="items-online-title">
+            <div class="title-icon" andDown="{{andDown}}" routesCode="{{routesCode}}"
+            ></div>
+        <span>线上车辆</span>
+        </div>
+    <ul class="result-bus-station-item-online-list">
+            {{stationList}}
+        </ul>
+    </div>
+</script>
+
+
+<script type="text/template" id="map-line-car-item">
+    <li class="items-online-list">
+        <span class="online-num">{{number}}.</span>
+        <span class="online-lic" point="{{point}}" mc="{{mc}}" speed="{{speed}}">{{name}}</span>
+        <img src="../../resource/images/monitor_1.png" alt="" class="online-monitor" />
+    </li>
+    </script>

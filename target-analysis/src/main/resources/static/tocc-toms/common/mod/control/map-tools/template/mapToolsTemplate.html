@@ -1,0 +1,251 @@
+<script type="text/template" id="map-tools">
+
+    <!-- map tool-->
+    <div class="map-tools" style="z-index:10030">
+      <!--  <div class="analysis-enter">
+            <img src="../../../control/map-search/resource/images/indexAna.png" alt=""/>
+            <p>指标分析</p>
+        </div>-->
+        <div class="tools-panels" id="mapTool">
+            <ul>
+                <% if(type=='bus'){%>
+                <!--<li class="panels-r-list border-r bufferQueryTool">
+                    <div class="list-imgs list-imgs-1"></div>
+                    <p class="list-text">区域查询</p>
+                </li>-->
+                <li class="panels-r-list border-r measureTool">
+                    <div class="list-imgs list-imgs-2 "></div>
+                    <p class="list-text">测距</p>
+                </li>
+                <li class="panels-r-list measureAreaTool">
+                    <div class="list-imgs list-imgs-3"></div>
+                    <p class="list-text">测面</p>
+                </li>
+                <%}else if(type=='taxi'){%>
+                <li class="panels-r-list border-r measureTool">
+                    <div class="list-imgs list-imgs-2 "></div>
+                    <p class="list-text">测距</p>
+                </li>
+                <li class="panels-r-list measureAreaTool">
+                    <div class="list-imgs list-imgs-3"></div>
+                    <p class="list-text">测面</p>
+                </li>
+                <%}else if(type=='bicycle'){%>
+                <!--<li class="panels-r-list border-r bufferQueryTool" >
+                    <div class="list-imgs list-imgs-1"></div>
+                    <p class="list-text">区域查询</p>
+                </li>-->
+                <li class="panels-r-list border-r measureTool">
+                    <div class="list-imgs list-imgs-2 "></div>
+                    <p class="list-text">测距</p>
+                </li>
+                <li class="panels-r-list measureAreaTool">
+                    <div class="list-imgs list-imgs-3"></div>
+                    <p class="list-text">测面</p>
+                </li>
+                <%}%>
+            </ul>
+        </div>
+        <div class="tools-panels" id="layerControl">
+            <ul class="hasDrop" style="list-style: none;">
+                <% if(type=='bus'){%>
+                <!--<li class="panels-l-list border-r">
+                    <div class="list-imgs list-imgs-4"></div>
+                    <p class="list-text">线路图层</p>
+                    <i class="list-ico"></i>
+
+                    <div class="list-drop">
+                        <ul>
+                            <li class="list-drop-items ">
+
+                                <label style="cursor: pointer"><input name="gjxl" type="checkbox"
+                                                                      class="drop-checkbox gjxl_rlt"/>热力图</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>-->
+                <li class="panels-l-list border-r">
+                    <div class="list-imgs list-imgs-5" ></div>
+                    <p class="list-text">站点图层</p>
+                    <i class="list-ico"></i>
+
+                    <div class="list-drop">
+                        <ul>
+                           <!-- <li class="list-drop-items">
+                                <label style="cursor: pointer"><input type="checkbox"
+                                                                      class="drop-checkbox gjzd_rlt"/>热力图</label>
+                            </li>-->
+                            <li class="list-drop-items" >
+                                <label style="cursor: pointer"><input type="checkbox"
+                                                                      class="drop-checkbox gjzd_300"/>300米覆盖</label>
+                            </li>
+                            <li class="list-drop-items" >
+                                <label style="cursor: pointer"><input type="checkbox"
+                                                                      class="drop-checkbox gjzd_500"/>500米覆盖</label>
+                            </li>
+                             <li class="list-drop-items">
+                              <label style="cursor: pointer"><input type="checkbox"
+                                                                    class="drop-checkbox gjzd_gjzd"/>公交站点</label>
+                          </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="panels-l-list">
+                    <div class="list-imgs list-imgs-6"></div>
+                    <p class="list-text">车辆图层</p>
+                    <i class="list-ico list-ico-down"></i>
+
+                    <div class="list-drop">
+                        <ul>
+                            <li class="list-drop-items">
+                                <label style="cursor: pointer"><input type="checkbox" checked="checked"
+                                                                      class="drop-checkbox bus_cluster"/>聚合图层</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <%}else if(type=='taxi'){%>
+                <li class="panels-l-list border-r">
+                    <div class="list-imgs list-imgs-5"></div>
+                    <p class="list-text">出租车图层</p>
+                    <i class="list-ico"></i>
+
+                    <div class="list-drop">
+                        <ul>
+                            <li class="list-drop-items">
+                                <label style="cursor: pointer"><input type="checkbox"
+                                                                      class="drop-checkbox taxi_cluster"/>聚合图层</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <%}else if(type=='bicycle'){%>
+                <li class="panels-l-list border-r">
+                    <div class="list-imgs list-imgs-5"></div>
+                    <p class="list-text">自行车图层</p>
+                    <i class="list-ico"></i>
+
+                    <div class="list-drop">
+                        <ul>
+                            <li class="list-drop-items">
+                                <!--<label style="cursor: pointer"><input type="checkbox" checked="checked"
+                                                                      class="drop-checkbox bicycle_gjzd"/>公交换乘距离</label>
+                                <br>-->
+                                <label style="cursor: pointer"><input type="checkbox" checked="checked"
+                                                                      class="drop-checkbox bicycle_kejiekehuan"/>可借可还</label>
+                                <br/>
+                                <!--<label style="cursor: pointer"><input type="checkbox" checked="checked"
+                                                                      class="drop-checkbox bicycle_biczd"/>自行车站点</label>-->
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <%}else if(type=='wx'){%>
+                <li class="panels-l-list border-r">
+                    <div class="list-imgs list-imgs-5"></div>
+                    <p class="list-text">维修图层</p>
+                    <i class="list-ico"></i>
+
+                    <div class="list-drop">
+                        <ul>
+                            <li class="list-drop-items">
+                                <label style="cursor: pointer"><input type="checkbox" checked="checked"
+                                                                      class="drop-checkbox other_wx"/>维修</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <%}else if(type=='ph'){%>
+                <li class="panels-l-list border-r">
+                    <div class="list-imgs list-imgs-5"></div>
+                    <p class="list-text">其它图层</p>
+                    <i class="list-ico"></i>
+
+                    <div class="list-drop">
+                        <ul>
+                            <li class="list-drop-items">
+                                <label style="cursor: pointer">
+                                    <input type="checkbox" class="drop-checkbox other_whtc"/>
+                                    危货停车场</label>
+                            </li>
+                            <li class="list-drop-items">
+                                <label style="cursor: pointer">
+                                    <input type="checkbox" class="drop-checkbox other_jp"/>驾培</label>
+                            </li>
+                            <li class="list-drop-items">
+                                <label style="cursor: pointer">
+                                    <input type="checkbox" class="drop-checkbox other_kyz"/>客运站</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <%}else if(type=='jp'){%>
+                <li class="panels-l-list border-r">
+                    <div class="list-imgs list-imgs-5"></div>
+                    <p class="list-text">驾培图层</p>
+                    <i class="list-ico"></i>
+
+                    <div class="list-drop">
+                        <ul>
+                            <li class="list-drop-items">
+                                <label style="cursor: pointer"><input type="checkbox" checked="checked"
+                                                                      class="drop-checkbox other_jp"/>驾培</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <%}else if(type=='whtc'){%>
+                <li class="panels-l-list border-r">
+                    <div class="list-imgs list-imgs-5"></div>
+                    <p class="list-text">危货图层</p>
+                    <i class="list-ico"></i>
+
+                    <div class="list-drop">
+                        <ul>
+                            <li class="list-drop-items">
+                                <label style="cursor: pointer"><input type="checkbox" checked="checked"
+                                                                      class="drop-checkbox other_whtc"/>危货停车场</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <%}else if(type=='kyz'){%>
+                <li class="panels-l-list border-r">
+                    <div class="list-imgs list-imgs-5"></div>
+                    <p class="list-text">客运站图层</p>
+                    <i class="list-ico"></i>
+
+                    <div class="list-drop">
+                        <ul>
+                            <li class="list-drop-items">
+                                <label style="cursor: pointer"><input type="checkbox" checked="checked"
+                                                                      class="drop-checkbox other_kyz"/>客运站</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <%}else if(type=='czfw'){%>
+                <li class="panels-l-list border-r">
+                    <div class="list-imgs list-imgs-5"></div>
+                    <p class="list-text">场站服务图层</p>
+                    <i class="list-ico"></i>
+
+                    <div class="list-drop">
+                        <ul>
+                            <li class="list-drop-items">
+                                <label style="cursor: pointer"><input type="checkbox" checked="checked"
+                                                                      class="drop-checkbox other_kyz"/>客运站</label>
+                            </li>
+                            <li class="list-drop-items">
+                                <label style="cursor: pointer"><input type="checkbox" checked="checked"
+                                                                      class="drop-checkbox other_whtc"/>危货停车场</label>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <%}%>
+            </ul>
+        </div>
+    </div>
+</script>
+

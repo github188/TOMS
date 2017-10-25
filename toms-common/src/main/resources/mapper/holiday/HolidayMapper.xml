@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--节假日-->
+<mapper namespace="com.linkcld.toms.common.dao.HolidayMapper">
+    <!--客运站点流量分布-->
+    <select id="SiteFlowDistribution" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT SITE_NAME siteName,
+                FSL_NUM fsl
+        FROM T_C_BUS2_SITE_DAY
+        WHERE TJSJ_D = #{dateType}
+        ORDER BY FSL_NUM DESC
+    </select>
+    <!--高速收费站流量TOP5-->
+    <select id="highWayFlowTop5" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * FROM(
+            SELECT SUM(CLZZ) clzzTotal,
+                    REPLACE(ZDMC,'收费站','') zdmc
+            FROM T_C_HIGHWAY_STATION_FLOW_DAY
+            WHERE TJSJ_D = #{dateType}
+                  AND ZDMC IS NOT NULL
+            GROUP BY ZDMC
+            ORDER BY clzzTotal DESC)
+        WHERE ROWNUM &lt;=5
+    </select>
+    <!--铁路客运量-->
+    <select id="trainFlowRate" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * from (
+            SELECT TJSJ_D dayTime,
+                    SUM(CHECK_ALL_NUM) total
+            FROM T_C_TRAIN_SITE_DAY
+            WHERE TO_DATE(TJSJ_D,'yyyy-MM-dd') BETWEEN TO_DATE(#{dateType},'yyyy-MM-dd')-#{past} AND TO_DATE(#{dateType},'yyyy-MM-dd')+#{feture}-1
+            GROUP BY TJSJ_D
+            ORDER BY TJSJ_D) a
+        FULL JOIN(
+            SELECT TJSJ_D dayTime2,
+                    SUM(CHECK_ALL_NUM) total2
+            FROM T_C_TRAIN_SITE_DAY
+            WHERE TO_DATE(TJSJ_D,'yyyy-MM-dd') BETWEEN TO_DATE(#{dateTypeLastYear},'yyyy-MM-dd')-#{past} AND TO_DATE(#{dateTypeLastYear},'yyyy-MM-dd')+#{feture}-1
+            GROUP BY TJSJ_D
+            ORDER BY TJSJ_D) b
+        ON a.dayTime = b.dayTime2
+        ORDER BY b.dayTime2,a.dayTime
+    </select>
+    <!--民航客运量-->
+    <select id="fightFlowRate" resultType="java.util.Map" parameterType="java.util.Map">
+
+    </select>
+    <!--班车客运量-->
+    <select id="suttleBusFlowRate" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * FROM (
+            SELECT TJSJ_D dayTime,
+                    SUM(FSL_NUM) fslTotal
+            FROM T_C_BUS2_SITE_DAY
+            WHERE TO_DATE(TJSJ_D,'yyyy-MM-dd') BETWEEN TO_DATE(#{dateType},'yyyy-MM-dd')-#{past} AND TO_DATE(#{dateType},'yyyy-MM-dd')+#{feture}-1
+            GROUP BY TJSJ_D
+            ORDER BY TJSJ_D) a
+        FULL JOIN(
+            SELECT TJSJ_D dayTime2,
+                    SUM(FSL_NUM) fslTotal2
+            FROM T_C_BUS2_SITE_DAY
+            WHERE TO_DATE(TJSJ_D,'yyyy-MM-dd') BETWEEN TO_DATE(#{dateTypeLastYear},'yyyy-MM-dd')-#{past} AND TO_DATE(#{dateTypeLastYear},'yyyy-MM-dd')+#{feture}-1
+            GROUP BY TJSJ_D
+            ORDER BY TJSJ_D) b
+        ON a.dayTime = b.dayTime2
+        ORDER BY b.dayTime2,a.dayTime
+    </select>
+    <!--高速车流量-->
+    <select id="highWayFlowRate" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * FROM (
+            SELECT TJSJ_D dayTime,
+                    SUM(CLZZ) clzzTotal
+            FROM T_C_HIGHWAY_STATION_FLOW_DAY
+            WHERE TO_DATE(TJSJ_D,'yyyy-MM-dd') BETWEEN TO_DATE(#{dateType},'yyyy-MM-dd')-#{past} AND TO_DATE(#{dateType},'yyyy-MM-dd')+#{feture}-1
+            GROUP BY TJSJ_D
+            ORDER BY TJSJ_D) a
+        FULL JOIN(
+            SELECT TJSJ_D dayTime2,
+                    SUM(CLZZ) clzzTotal2
+            FROM T_C_HIGHWAY_STATION_FLOW_DAY
+            WHERE TO_DATE(TJSJ_D,'yyyy-MM-dd') BETWEEN TO_DATE(#{dateTypeLastYear},'yyyy-MM-dd')-#{past} AND TO_DATE(#{dateTypeLastYear},'yyyy-MM-dd')+#{feture}-1
+            GROUP BY TJSJ_D
+            ORDER BY TJSJ_D) b
+        ON a.dayTime = b.dayTime2
+        ORDER BY b.dayTime2,a.dayTime
+    </select>
+    <!--列车晚点数-->
+    <select id="trainLateNum" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * FROM (
+            SELECT TJSJ_D dayTime,
+                    SUM(YW_NUM) ywTotal
+            FROM T_C_TRAIN_TRAFFIC_DAY
+            WHERE TO_DATE(TJSJ_D,'yyyy-MM-dd') BETWEEN TO_DATE(#{dateType},'yyyy-MM-dd')-#{past} AND TO_DATE(#{dateType},'yyyy-MM-dd')+#{feture}-1
+            GROUP BY TJSJ_D
+            ORDER BY TJSJ_D) a
+        FULL JOIN(
+            SELECT TJSJ_D dayTime2,
+                    SUM(YW_NUM) ywTotal2
+            FROM T_C_TRAIN_TRAFFIC_DAY
+            WHERE TO_DATE(TJSJ_D,'yyyy-MM-dd') BETWEEN TO_DATE(#{dateTypeLastYear},'yyyy-MM-dd')-#{past} AND TO_DATE(#{dateTypeLastYear},'yyyy-MM-dd')+#{feture}-1
+            GROUP BY TJSJ_D
+            ORDER BY TJSJ_D) b
+        ON a.dayTime = b.dayTime2
+        ORDER BY b.dayTime2,a.dayTime
+    </select>
+    <!--公交运行速率-->
+    <select id="BusSpeed" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * FROM (
+            SELECT TJSJ_D dayTime,
+                    SUM(LINE_SPEED)/count(LINE_SPEED) lineSpeed
+            FROM T_C_BUS_LINE_DAY
+            WHERE TO_DATE(TJSJ_D,'yyyy-MM-dd') BETWEEN TO_DATE(#{dateType},'yyyy-MM-dd')-#{past} AND TO_DATE(#{dateType},'yyyy-MM-dd')+#{feture}-1
+            GROUP BY TJSJ_D
+            ORDER BY TJSJ_D) a
+        FULL JOIN(
+            SELECT TJSJ_D dayTime2,
+                    SUM(LINE_SPEED)/count(LINE_SPEED) lineSpeed2
+            FROM T_C_BUS_LINE_DAY
+            WHERE TO_DATE(TJSJ_D,'yyyy-MM-dd') BETWEEN TO_DATE(#{dateTypeLastYear},'yyyy-MM-dd')-#{past} AND TO_DATE(#{dateTypeLastYear},'yyyy-MM-dd')+#{feture}-1
+            GROUP BY TJSJ_D
+            ORDER BY TJSJ_D) b
+        ON a.dayTime = b.dayTime2
+        ORDER BY b.dayTime2,a.dayTime
+    </select>
+    <!--出租车实载率-->
+    <select id="taxiSzl" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT * FROM (
+            SELECT TJSJ_D dayTime,
+                    SUM(SZL)/count(SZL) szl
+            FROM T_C_TAXI_TASK_DAY
+            WHERE TO_DATE(TJSJ_D,'yyyy-MM-dd') BETWEEN TO_DATE(#{dateType},'yyyy-MM-dd')-#{past} AND TO_DATE(#{dateType},'yyyy-MM-dd')+#{feture}-1
+            GROUP BY TJSJ_D
+            ORDER BY TJSJ_D) a
+        FULL JOIN(
+            SELECT TJSJ_D dayTime2,
+                    SUM(SZL)/count(SZL) szl2
+            FROM T_C_TAXI_TASK_DAY
+            WHERE TO_DATE(TJSJ_D,'yyyy-MM-dd') BETWEEN TO_DATE(#{dateTypeLastYear},'yyyy-MM-dd')-#{past} AND TO_DATE(#{dateTypeLastYear},'yyyy-MM-dd')+#{feture}-1
+            GROUP BY TJSJ_D
+            ORDER BY TJSJ_D) b
+        ON a.dayTime = b.dayTime2
+        ORDER BY b.dayTime2,a.dayTime
+    </select>
+</mapper>

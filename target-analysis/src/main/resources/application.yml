@@ -1,0 +1,65 @@
+spring:
+  profiles:
+    active: test
+  thymeleaf:
+    cache: false
+    mode: HTML
+    encoding: UTF-8
+mybatis:
+  mapper-locations:
+  - classpath:mapper/**/*Mapper.xml
+  type-aliases-package: com.linkcld.toms
+  configuration:
+    map-underscore-to-camel-case: true
+pagehelper:
+  auto-dialect: true
+  close-conn: false
+  reasonable: true
+
+---
+
+sso:
+  server:
+#    host-url: http://172.16.100.253:48181/sso-sjzc
+#    login-url: http://172.16.100.253:48181/portal-server/login/login.jsp
+    host-url: http://10.100.32.59/sso-auth/
+    login-url: http://10.100.32.59/portal-server/login/login.jsp
+    token: BF833A1145CB44669FB387DEA62AC464
+  client:
+    host-url: http://localhost:9000
+    home-page: /portal/home
+    logout-url: /logout
+    login-url: /login
+    orm-url: http://172.16.100.253:48181/orm
+    system-code: SCJTYSAQYHGLXT
+
+---
+
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@172.16.100.253:1521/orcl
+    username: YXJC_YWK
+    password: YXJC_YWK
+
+---
+spring:
+  profiles: test
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@172.19.128.184:1522/KQYG
+    username: YXJC_YWK
+    password: YXJC_YWK
+
+---
+spring:
+  profiles: prod
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@172.19.128.184:1522/KQYG
+    username: bgis
+    password: bgis
+  thymeleaf:
+    cache: true
+
